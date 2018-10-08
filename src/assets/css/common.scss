@@ -1,0 +1,964 @@
+﻿/*********测试用*********/
+[v-cloak]{
+    display: none;
+}
+.bg-default{
+    background-color: #409EFF
+}
+.color-default{
+    color: #409EFF;
+}
+
+.menu-color{
+    background-color: #495060;
+}
+
+.color-title{
+    color:#303133;
+}
+.color-context{
+    color:#606266;
+}
+.color-desc{
+    color:#909399;
+}
+.color-ignore{
+    color:#C0C4CC;
+}
+
+
+.bg1 {
+    background: yellow;
+}
+
+.bg2 {
+    background: green;
+}
+
+.bg3 {
+    background: red;
+}
+
+.bg4 {
+    background: purple;
+}
+
+.bg5 {
+    background: pink;
+}
+
+
+
+.img-lazyload {
+    -webkit-animation: fadeIn 350ms linear 0ms 1 normal both;
+    animation: fadeIn 350ms linear 0ms 1 normal both;
+    opacity: 1;
+}
+
+
+
+/***使用transform 3d GPU渲染,一般应用于滚动的item父元素****/
+
+.useTransform {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    /***在transform或animal时会出现闪屏,则使用以下方式解决**/
+    -webkit-transform: translate3d(0, 0, 0);
+    /*****如果webkit内核,以下设置可以忽略***/
+    -webkit-transform-style: preserve-3d;
+    /***(貌似这个在ios里面不会影响下拉菜单)***/
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+
+
+/* table 布局*/
+.dis_table {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.dis_table_row {
+    display: table-row;
+
+}
+
+.dis_table_cell {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+/****字间距设置**************/
+
+.ws1 {
+    word-spacing: 1px;
+    letter-spacing: 1px;
+}
+
+.ws2 {
+    word-spacing: 2px;
+    letter-spacing: 2px;
+}
+
+.ws4 {
+    word-spacing: 4px;
+    letter-spacing: 4px;
+}
+
+
+
+
+
+
+.ft10 {
+    font-size: 10px;
+}
+
+.ft12 {
+    font-size: 12px;
+}
+
+.ft14 {
+    font-size: 14px;
+}
+
+.ft16 {
+    font-size: 16px;
+}
+
+.ft18 {
+    font-size: 18px;
+}
+
+.ft20 {
+    font-size: 20px;
+}
+
+.ft22 {
+    font-size: 20px;
+}
+
+.ft24 {
+    font-size: 24px;
+}
+
+.ft26 {
+    font-size: 26px;
+}
+
+.ft28 {
+    font-size: 28px;
+}
+
+.ft30 {
+    font-size: 30px;
+}
+
+.textleft {
+    text-align: left;
+}
+
+.textcenter {
+    text-align: center;
+}
+
+.textright {
+    text-align: right;
+}
+
+/**********线条设置****************/
+
+.border-none {
+    border: none;
+}
+
+.borderall {
+    border: 1px solid;
+}
+
+.border-right {
+    border-right: 1px solid;
+}
+
+.border-left {
+    border-left: 1px solid;
+}
+
+.border-top {
+    border-top: 1px solid;
+}
+
+.border-bottom {
+    border-bottom: 1px solid;
+}
+
+
+.border-color-yellow {
+    border-color: #FFCC80;
+}
+
+.border-color-blue {
+    border-color: #2AB1F0;
+}
+
+.border-color-red {
+    border-color: #EC3329;
+}
+
+.border-color-gray {
+    border-color: #ebeef5;
+}
+
+.border-color-black {
+    border-color: #E4E3E6;
+}
+
+.border-color-white {
+    border-color: #fff;
+}
+
+.border-color-green {
+    border-color:#67BB1E;
+}
+
+.brd2 {
+    border-radius: 2px;
+}
+
+.brd4 {
+    border-radius: 4px;
+}
+
+.brd5 {
+    border-radius: 5px;
+}
+
+.brd8 {
+    border-radius: 8px;
+}
+
+.brd10 {
+    border-radius: 10px;
+}
+
+.brd15 {
+    border-radius: 15px;
+}
+
+.brd20 {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+.brd25 {
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+}
+
+/***分割线***/
+
+.splitborder {
+    height: 1px;
+    width: 94%;
+    background: #eee;
+    /***#00CCFF***/
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/**三角形**/
+.down-triangle {
+    width: 0;
+    height: 0;
+    border-width: 10px 10px 0 10px;
+    border-style: solid;
+    border-color: #FFFF00 transparent;
+}
+
+.up-triangle {
+    width: 0;
+    height: 0;
+    border-width: 0px 10px 10px 10px;
+    border-style: solid;
+    border-color: #FFFF00 transparent;
+}
+
+.left-triangle {
+    width: 0;
+    height: 0;
+    border-width: 10px 10px 10px 0px;
+    border-style: solid;
+    border-color: transparent #FFFF00;
+}
+
+.right-triangle {
+    width: 0;
+    height: 0;
+    border-width: 10px 0px 10px 10px;
+    border-style: solid;
+    border-color: transparent #FFFF00;
+}
+
+/**左右箭头，旋转90度**/
+
+.returnleft {
+    width: 12px;
+    height: 12px;
+    border: none;
+    -webkit-transform: rotate(315deg);
+    border-left: 1px solid #D1D1D1;
+    border-top: 1px solid #D1D1D1
+}
+
+.interright {
+    width: 10px;
+    height: 10px;
+    border: none;
+    -webkit-transform: rotate(135deg);
+    border-left: 1px solid #D1D1D1;
+    border-top: 1px solid #D1D1D1
+}
+
+.interright14 {
+    width: 14px;
+    height: 14px;
+    border: none;
+    -webkit-transform: rotate(135deg);
+    border-left: 1px solid #D1D1D1;
+    border-top: 1px solid #D1D1D1
+}
+
+.upjantou {
+    width: 10px;
+    height: 10px;
+    border: none;
+    -webkit-transform: rotate(45deg);
+    border-left: 1px solid #D1D1D1;
+    border-top: 1px solid #D1D1D1
+}
+
+.downjiantou {
+    width: 10px;
+    height: 10px;
+    border: none;
+    -webkit-transform: rotate(225deg);
+    border-left: 1px solid #D1D1D1;
+    border-top: 1px solid #D1D1D1
+}
+
+/**可以点击的鼠标houver样式**/
+
+.mouseoverclass {
+}
+
+.mouseoverclass:ACTIVE,
+.mouseoverclass:HOVER {
+    background-color: #eee;
+}
+
+/**背景多彩颜色***/
+
+/***黑色透明背景色**/
+
+.bg-black-opacity {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.bg-black {
+    background-color: #000;
+}
+
+/***白色透明背景色**/
+
+.bg-white-opacity {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.bg-header {
+    background-color: #1C8FEC;
+}
+
+.bg-gray {
+    background-color: #E4E4E4;
+}
+
+.bg-body {
+    background-color: #f0f0f0;
+}
+
+.bg-bai {
+    background-color: #fff;
+}
+
+.bg-green {
+    background-color:#67BB1E;
+}
+
+.bg-orange {
+    background-color: #FF9900;
+}
+
+.bg-yellow {
+    background-color: #FFCC80;
+}
+
+.bg-fen {
+    background-color: #FFEEDA;
+}
+
+.bg-red {
+    background-color: #EC3329;
+}
+
+.bg-blue {
+    background-color: #2AB1F0;
+}
+
+.bg-nav {
+    background-color: rgba(43, 44, 46, 1);
+}
+
+.bg-nav span {
+    font-family: "楷体", "楷体_GB2312";
+}
+
+/****按钮灰化***********/
+
+.btn-disabled {
+    color: #ffffff;
+    border-color: #cdcdcd;
+    background-color: #cdcdcd;
+    cursor: default;
+}
+
+.btn-disabled:hover {
+    color: #ffffff;
+    background-color: #cdcdcd;
+}
+
+/**文字超出样式**/
+
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 文本限制多少行 */
+.text_clamp1 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.text_clamp2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.text_clamp3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.text_clamp4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+}
+
+.text_clamp5 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+}
+
+.text_clamp6 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+}
+
+.text_clamp7 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+    overflow: hidden;
+}
+
+/***删除线***/
+
+.line-middle {
+    text-decoration: line-through;
+}
+
+.line-under {
+    text-decoration: underline;
+}
+
+/****布局************/
+
+.wd10 {
+    width: 10%;
+}
+
+.wd15 {
+    width: 15%;
+}
+
+.wd20 {
+    width: 20%;
+}
+
+.wd25 {
+    width: 25%;
+}
+
+.wd30 {
+    width: 30%;
+}
+
+.wd33 {
+    width: 33.33%;
+}
+
+.wd35 {
+    width: 35%;
+}
+
+.wd55 {
+    width: 55%;
+}
+
+.wd40 {
+    width: 40%;
+}
+
+.wd45 {
+    width: 45%;
+}
+
+.wd50 {
+    width: 50%;
+}
+
+.wd60 {
+    width: 60%;
+}
+
+.wd65 {
+    width: 65%;
+}
+
+.wd70 {
+    width: 70%;
+}
+
+.wd75 {
+    width: 75%;
+}
+
+.wd80 {
+    width: 80%;
+}
+
+.wd90 {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.wd92 {
+    width: 92%;
+    margin-left: 4%;
+}
+
+.wd94 {
+    width: 94%;
+    margin-left: 3%;
+}
+
+.wd96 {
+    width: 96%;
+    margin-left: 2%;
+}
+
+.wd98 {
+    width: 98%;
+    margin-left: 1px;
+}
+
+.wd100 {
+    width: 100%;
+}
+
+.w10px {
+    width: 10px;
+}
+
+.w16px {
+    width: 16px;
+}
+
+.w30px {
+    width: 30px;
+}
+
+.w40px {
+    width: 40px;
+}
+
+.w50px {
+    width: 50px;
+}
+
+.h10px {
+    height: 10px;
+    line-height: 10px;
+}
+
+.h16px {
+    height: 16px;
+    line-height: 16px;
+}
+
+.h20px {
+    height: 20px;
+    line-height: 20px;
+}
+
+.h25px {
+    height: 25px;
+    line-height: 25px;
+}
+
+.h30px {
+    height: 30px;
+    line-height: 30px;
+}
+
+.h35px {
+    height: 35px;
+    line-height: 35px;
+}
+
+.h40px {
+    height: 40px;
+    line-height: 40px;
+}
+
+.h50px {
+    height: 50px;
+    line-height: 50px;
+}
+
+.h100 {
+    height: 100%;
+}
+
+.linenormal {
+    line-height: normal;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+/****居中****/
+
+.marginAuto {
+    margin: 0 auto;
+}
+
+ptb5{
+    padding: 10px 0px;
+}
+
+ptb10{
+    padding: 10px 0px;
+}
+
+ptb15{
+    padding: 10px 0px;
+}
+ptb20{
+    padding: 20px 0px;
+}
+mtb5{
+    margin: 5px 0px;
+}
+mtb10{
+    margin: 10px 0px;
+}
+mtb15{
+    margin: 15px 0px;
+}
+mtb20{
+    margin: 20px 0px;
+}
+.ml0 {
+    margin-left: 0px;
+}
+.ml2 {
+    margin-left: 2px;
+}
+.ml5 {
+    margin-left: 5px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.mr0 {
+    margin-right: 0px;
+}
+
+.mr2 {
+    margin-right: 2px;
+}
+
+.mr5 {
+    margin-right: 5px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+.mt7 {
+    margin-top: 7px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.mb2 {
+    margin-bottom: 2px;
+}
+
+.mb5 {
+    margin-bottom: 5px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.mb15 {
+    margin-bottom: 15px;
+}
+
+.pt5 {
+    padding-top: 5px;
+}
+
+.pb5 {
+    padding-bottom: 5px;
+}
+
+.pt10 {
+    padding-top: 10px;
+}
+
+.pt20 {
+    padding-top: 20px;
+}
+
+.pb10 {
+    padding-bottom: 10px;
+}
+
+.pt15 {
+    padding-top: 15px;
+}
+
+.pb15 {
+    padding-bottom: 15px;
+}
+
+.pb20 {
+    padding-bottom: 20px;
+}
+
+.pl10 {
+    padding-left: 10px;
+}
+
+.pr10 {
+    padding-right: 10px;
+}
+
+.pl20 {
+    padding-left: 20px;
+}
+
+.pr20 {
+    padding-right: 20px;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+.top0 {
+    top: 0px;
+}
+
+.left0 {
+    left: 0px;
+}
+
+.right0 {
+    right: 0px;
+}
+
+.bottom0 {
+    bottom: 0px;
+}
+
+.vertical-middle {
+    vertical-align: middle;
+}
+
+.vertical-top {
+    vertical-align: top;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+}
+
+.z997 {
+    z-index: 997;
+}
+
+.z998 {
+    z-index: 998;
+}
+
+.z999 {
+    z-index: 999;
+}
+
+.z1000 {
+    z-index: 1000;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0px 0px 6px #ccc;
+    -moz-box-shadow: 0px 0px 6px #ccc;
+    box-shadow: 0px 0px 6px #ccc;
+}
+
+.hide {
+    display: none;
+}
+
+.border-inset-left {
+    -webkit-box-shadow: inset -1px 0px 0px #eaeaea;
+    -moz-box-shadow: inset -1px 0px 0px #eaeaea;
+    box-shadow: inset -1px 0px 0px #eaeaea;
+}
+
+/* div模拟的富文本效果-
+  data-placeholder 模拟的默认文字
+  eg:
+  <div contenteditable="true" class="wd94 gload_rich" data-placeholder="备忘的内容"></div>
+ */
+.gload_rich, .gload_rich > div {
+    color: #666;
+    -webkit-user-select: auto;
+}
+
+.gload_rich:empty:before {
+    content: attr(data-placeholder);
+    color: #bbb;
+}
+
+.gload_rich:focus:before {
+    content: none;
+}
+
+/**
+    兼容IOS的输入，否则input中如果不添加type，无法输入
+*/
+.edit_sel {
+    -webkit-user-select: auto;
+}
+
+/**
+ “穿透”层的鼠标事件
+  不支持IE
+*/
+.noeven {
+    pointer-events: none
+}
+
+/**
+    适配当前UI 的 mui 的元素
+*/
+input[type='submit'] {
+    color: #fff;
+    border: 1px solid #EC3329;
+    background-color: #EC3329;
+}
+
+input[type='submit']:enabled:active {
+    border: 1px solid #D93729 !important;
+    background-color: #D93729 !important;;
+}
