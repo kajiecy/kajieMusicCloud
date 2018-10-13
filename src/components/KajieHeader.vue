@@ -1,15 +1,17 @@
 <template>
     <header
-            class="mint-header kajie-header"
+            class="kajie-header"
             :class="{ 'fixed-top': fixed }">
-        <div class="mint-header-button is-left">
-            <slot name="left"></slot>
-        </div>
-        <div class="mint-header-title" >
-            <slot name="title"></slot>
-        </div>
-        <div class="mint-header-button is-right">
-            <slot name="right"></slot>
+        <div class="dis_table wd100 kajie-header">
+            <div class="dis_table_cell kajie-header-button wd15">
+                <slot name="left"></slot>
+            </div>
+            <div class="dis_table_cell kajie-header-title" >
+                <slot name="title"></slot>
+            </div>
+            <div class="dis_table_cell kajie-header-button wd15">
+                <slot name="right"></slot>
+            </div>
         </div>
     </header>
 </template>
@@ -19,6 +21,7 @@
         name: "KajieHeader",
         props: {
             fixed: Boolean,
+            height:String,
         },
         data() {
             return {}
@@ -44,5 +47,10 @@
     }
     .kajie-header{
         width: 100%;
+        height: 130px;
+    }
+    .kajie-header-button{
+        flex: 0.2;
+        text-align: center;
     }
 </style>

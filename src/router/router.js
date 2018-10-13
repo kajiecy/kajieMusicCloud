@@ -11,6 +11,12 @@ export const otherRouter = {
     component: Main,
     children: [
         {path: 'home', name: 'home', component: () => import('@/views/Welcome.vue')},
+        {path: 'find', name: 'find', component: () => import('@/views/homepages/HomeFind.vue')},
+        {path: 'video', name: 'video', component: () => import('@/views/homepages/HomeVideo.vue')},
+        {path: 'myPage', name: 'myPage', component: () => import('@/views/homepages/HomeMyPage.vue')},
+        {path: 'firends', name: 'firends', component: () => import('@/views/homepages/HomeFirends.vue')},
+        {path: 'account', name: 'account', component: () => import('@/views/homepages/HomeAccount.vue')},
+        {path: 'testPage', name: 'testPage', component: () => import('@/views/TestPage.vue')},
     ]
 };
 

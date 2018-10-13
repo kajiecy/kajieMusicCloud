@@ -22,8 +22,6 @@
         components: {}
     };
 </script>
-<style src="@/assets/css/main.css"></style>
-<style src="@/assets/css/common.css"></style>
 <style>
-    @import "//at.alicdn.com/t/font_843329_nh84fwfnteb.css";
+    @import "//at.alicdn.com/t/font_843329_ye0n66wlrx.css";
 </style>

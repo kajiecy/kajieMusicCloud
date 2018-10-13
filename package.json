@@ -8,7 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "mint-ui": "^2.2.13",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
     "postcss-aspect-ratio-mini": "0.0.2",
     "postcss-cssnext": "^3.1.0",
     "postcss-px-to-viewport": "0.0.3",
@@ -16,7 +17,8 @@
     "postcss-write-svg": "^3.0.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vux": "^2.9.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.3",
@@ -25,11 +27,15 @@
     "autoprefixer": "^9.1.5",
     "babel-plugin-component": "^1.1.1",
     "cssnano": "^4.1.4",
+    "cssnano-preset-advanced": "^4.0.2",
     "node-sass": "^4.9.3",
     "postcss-import": "^12.0.0",
     "postcss-url": "^8.0.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-loader": "^14.2.2",
+    "vue-template-compiler": "^2.5.17",
+    "vux-loader": "^1.2.9",
+    "yaml-loader": "^0.5.0"
   },
   "eslintConfig": {
     "root": true,

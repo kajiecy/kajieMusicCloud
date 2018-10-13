@@ -1,6 +1,8 @@
 {
   "presets": [
-
   ],
-  "plugins": []
+  "plugins": [],
+  "ignore": [
+    "./src/mui/mui.min.js"
+  ]
 }
