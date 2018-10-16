@@ -3,6 +3,18 @@ $color-primary: #D93F37;
 .kajie-header {
   background-color: $color-primary;
 }
+.kajie-tabbar{
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  display: flex;
+  flex-flow:row nowrap;
+}
+.kajie-tabbar-item{
+  text-align: center;
+  flex: 1 1;
+  padding-bottom: 10px;
+}
 .kajie-tabbar-item.is-selected div{
-  background-color: #D93F37;
+  color: #D93F37;
 }

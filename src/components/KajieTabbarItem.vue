@@ -28,7 +28,7 @@
 </script>
 
 <style scoped>
-    .kajie-tabbar-item{
-
+    .kajie-tabbar-item-label{
+        font-size: 40px;
     }
 </style>

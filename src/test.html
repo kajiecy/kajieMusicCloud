@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        　　*{margin:0;padding:0; }
+        　　.box{position:relative;font-size:0;}
+        　　.box span{display:inline-block;width:150px;height:40px;line-height:40px;text-align:center;background:#eee;font-size:16px;}
+        　　.line{position:absolute;width:150px;height:3px;background:#059;left:0;bottom:0;}
+    </style>
+</head>
+
+<body>
+<div class="box" id="switch">
+    <span class="current">新闻资讯</span>
+    <span>公司动态</span>
+    <div class="line"></div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var $spans=$("#switch span");
+        $spans.click(function(){
+            $(this).addClass('current').siblings().removeClass('current');
+            var index=$spans.index(this);
+            //$("#content .detail").eq(index).show().siblings().hide();
+            //$("#fr .bar").eq(index).show().siblings().hide();
+        })
+
+        $spans.mouseover(function(){
+            var index=$spans.index(this);
+            var cName=$(this).attr("class");
+            if(cName!="current"){
+                if(index==0){
+                    $('.line').animate({'left':'0px'},300);
+                }else{
+                    $('.line').animate({'left':'150px'},300);
+                }
+            }
+        })
+        $spans.mouseout(function(){
+            var index=$spans.index(this);
+            var cName=$(this).attr("class");
+            if(cName!="current"){
+                if(index==0){
+                    $('.line').animate({'left':'150px'},300);
+                }else{
+                    $('.line').animate({'left':'0px'},300);
+                }
+            }
+        })
+    })
+</script>
+</body>
+
+</html>

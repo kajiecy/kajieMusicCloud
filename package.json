@@ -15,10 +15,10 @@
     "postcss-px-to-viewport": "0.0.3",
     "postcss-viewport-units": "^0.1.4",
     "postcss-write-svg": "^3.0.1",
+    "swiper": "^4.4.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1",
-    "vux": "^2.9.2"
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.3",
@@ -34,7 +34,6 @@
     "sass-loader": "^7.1.0",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.17",
-    "vux-loader": "^1.2.9",
     "yaml-loader": "^0.5.0"
   },
   "eslintConfig": {
