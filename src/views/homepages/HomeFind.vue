@@ -12,7 +12,11 @@
             <div class="swiper-header-tab wd80 marginAuto">
                 <div v-for="(item,index) in siderList" :key="index" :class="{'is-select':activeIndex===index}" @click="changeSider(index,$event)" class="swiper-header-tab-item textcenter">
                     {{item.name}}
-                    <div class="select-div"></div>
+                    <template v-if="index===0">
+                        <div class="select-div">
+                            <div class="select-div-inner"></div>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
@@ -20,7 +24,11 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div v-for="(item,index) in siderList" :key="index"  class="swiper-slide">
-                    {{item.name}}
+                    <div class="swiper-slide-content">
+                        <div v-for="i of 100" :key="i">
+                            {{item.name}}{{i}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,6 +46,7 @@
                 siderList:[
                     {name:'个性推荐'},
                     {name:'主播电台'},
+                    {name:'主播电台2'},
                 ],
                 swiperObj:null,
             }
@@ -50,6 +59,7 @@
             _vm.swiperObj = new Swiper ('.swiper-container', {
                 resistanceRatio : 0,
                 iOSEdgeSwipeDetection : true,
+                watchSlidesProgress : true,
                 // 如果需要分页器
                 pagination: {
                     el: '.swiper-pagination',
@@ -58,19 +68,43 @@
                     slideChange: function () {
                         _vm.activeIndex = this.activeIndex
                     },
+                    progress: function(progress){
+                        // _vm.swiperObj.slides[2].progress;
+                        _vm.$nextTick(()=>{
+                            document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*3)+"%";
+                            document.querySelector('.select-div').style.transform = "translateX("+(document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress)+"px)";
+                        });
+                    },
+                    touchStart: function() {
+                        document.querySelector('.select-div').style.transition = '';
+                        document.querySelector('.select-div-inner').style.transition = '';
+                    },
+                    setTransition: function(speed) {
+                        document.querySelector('.select-div').style.transition = speed + "ms";
+                        document.querySelector('.select-div-inner').style.transition = speed + "ms";
+                    },
                 }
-                // // 如果需要前进后退按钮
-                // navigation: {
-                //     nextEl: '.swiper-button-next',
-                //     prevEl: '.swiper-button-prev',
-                // },
-
             })
         },
-        watch: {},
+        watch: {
+            activeIndex(){
+                // setTimeout(function () {
+                    // console.log(document.querySelector('.is-select').offsetLeft)
+                    // console.log(document.querySelector('.select-div').offsetLeft)
+                    // alert(1)
+                    // document.querySelector('.select-div').style.transform = "translateX("+(document.querySelector('.is-select').offsetLeft-document.querySelector('.select-div').offsetLeft)+"px)";
+                // },100)
+
+                // this.$nextTick(function () {
+                //     document.querySelector('.select-div').style.transform = "translateX("+(document.querySelector('.is-select').offsetLeft-document.querySelector('.select-div').offsetLeft)+"px)";
+                //     document.querySelector('.select-div-inner').style.width=45+"%";
+                // })
+            }
+        },
         methods: {
-            changeSider(index,event){
-                console.log(event.target)
+            changeSider(index){
+                // console.log(event.target.offsetLeft)
+                // console.log(document.querySelector('.select-div').offsetLeft);
                 this.swiperObj.slideTo(index, 500, false);
             }
         },
@@ -90,7 +124,7 @@
     .swiper-container{
         height: calc(100% - 110px);
         position: relative;
-        top: 110px;
+        top: 118px;
     }
     .swiper-wrapper{
         height: 100%;
@@ -102,8 +136,8 @@
         padding-top: 20px;
 
         position: fixed;
-        top: 130px;
-        z-index: 998;
+        top: 129px;
+        z-index: 1000;
         width: 100%;
     }
     .swiper-header-tab{
@@ -118,12 +152,22 @@
     .is-select{
         /*color: #303133;*/
     }
-    .is-select .select-div{
-        width: 20%;
+    .select-div{
+        width: 100%;
+        /*transition:all 1s;*/
+    }
+    .select-div-inner{
+        width: 25%;
         height: 8px;
         background-color: white;
         margin: 5px auto 5px;
         border-radius: 20px;
+        /*transition:all 0.2s;*/
+    }
+    .swiper-slide-content{
+        height: 100%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling : touch
     }
     /*.vux-swiper-item{*/
         /*height: 100%;*/

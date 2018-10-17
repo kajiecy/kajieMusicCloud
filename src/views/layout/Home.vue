@@ -3,7 +3,7 @@
         <kajie-header :fixed="true">
             <div slot="left">
                 <!--<i class="iconfont icon-microphoneicon" style="font-size: 20px"></i>-->
-                <img class="left-img" src="@/assets/image/left-home.png" alt="">
+                <img class="left-img" src="http://p8kfci878.bkt.clouddn.com/left-home.png">
             </div>
             <div slot="title" class="heard-title">
                 <!--<mt-field placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>-->
@@ -12,7 +12,7 @@
             </div>
             <div slot="right">
                 <!--<i class="iconfont icon-yinle" style="font-size: 20px"></i>-->
-                <img class="right-img" src="@/assets/image/right-home.png" alt="">
+                <img class="right-img" src="http://p8kfci878.bkt.clouddn.com/right-home.png">
             </div>
         </kajie-header>
         <div class="wrapper">
@@ -61,7 +61,7 @@
 
         },
         mounted() {
-            this.selected = this.$route.name;
+            this.selected = this.$route.name
         },
         watch: {
             selected(nvalue){

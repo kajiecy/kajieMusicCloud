@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="referrer" content="never">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>kajie-music-cloud</title>
   </head>
@@ -14,4 +15,61 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script type="text/javascript">
+      // (function () {
+
+      //     // alert(1)
+      // })();
+
+      //禁用IOS的橡皮筋效果
+      (function () {
+          // function stopScrolling( touchEvent ) {
+          //     touchEvent.preventDefault();
+          // }
+          // document.addEventListener( 'touchstart' , stopScrolling , false );
+          // document.addEventListener( 'touchmove' , stopScrolling , false );
+
+          var ios = navigator.userAgent.indexOf('iphone');//判断是否为ios
+
+          if(ios == -1){
+              //ios下运行
+              var divEl = document.body//你需要滑动的dom元素
+              iosTrouchFn(divEl);
+          }
+
+          function iosTrouchFn(el) {
+              //el需要滑动的元素
+              el.addEventListener('touchmove',function(e){
+                  e.isSCROLL = true;
+              })
+              document.body.addEventListener('touchmove',function(e){
+                  if(!e.isSCROLL){
+                      e.preventDefault(); //阻止默认事件(上下滑动)
+                  }else{
+                      //需要滑动的区域
+                      var top = el.scrollTop; //对象最顶端和窗口最顶端之间的距离
+                      var scrollH = el.scrollHeight; //含滚动内容的元素大小
+                      var offsetH = el.offsetHeight; //网页可见区域高
+                      var cScroll = top + offsetH; //当前滚动的距离
+
+                      //被滑动到最上方和最下方的时候
+                      if(top == 0){
+                          top = 1; //0～1之间的小数会被当成0
+                      }else if(cScroll === scrollH){
+                          el.scrollTop = top - 0.1;
+                      }
+                  }
+              }, {passive: false}) //passive防止阻止默认事件不生效
+          }
+
+
+
+          //手机端调试工具
+          //var src = '//cdn.bootcss.com/eruda/1.2.4/eruda.min.js';
+          //// if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') !== 'true') return;
+          //document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+          //document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
+      })();
+
+  </script>
 </html>
