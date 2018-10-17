@@ -8,6 +8,7 @@ import '@/assets/css/my-mint.scss'
 import '@/assets/css/main.scss'
 import '@/assets/css/common.scss'
 import 'swiper/dist/css/swiper.css';
+import '@/util/inobounce.js';
 
 Vue.config.productionTip = true
 

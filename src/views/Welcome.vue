@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="scroll">
         <template v-for="(index) of 100">
             <div :key="index">{{message+index}}</div>
         </template>
@@ -40,5 +40,8 @@
     .div-img{
         display: inline-block;
         margin: 0 10px;
+    }
+    .scroll{
+        -webkit-overflow-scrolling : touch
     }
 </style>
