@@ -39,40 +39,41 @@
 <script>
     import Swiper from 'swiper';
     export default {
-        name: "HomeFind",
+        name: 'HomeFind',
         data() {
             return {
                 activeIndex:0,
                 siderList:[
                     {name:'个性推荐'},
                     {name:'主播电台'},
-                    {name:'主播电台2'},
+                    {name:'主播电台2'}
                 ],
-                swiperObj:null,
-            }
+                swiperObj:null
+            };
         },
         created() {
 
         },
         mounted() {
             let _vm = this;
-            _vm.swiperObj = new Swiper ('.swiper-container', {
+
+            _vm.swiperObj = new Swiper('.swiper-container', {
                 resistanceRatio : 0,
                 iOSEdgeSwipeDetection : true,
                 watchSlidesProgress : true,
                 // 如果需要分页器
                 pagination: {
-                    el: '.swiper-pagination',
+                    el: '.swiper-pagination'
                 },
                 on: {
                     slideChange: function () {
-                        _vm.activeIndex = this.activeIndex
+                        _vm.activeIndex = this.activeIndex;
                     },
                     progress: function(progress){
                         // _vm.swiperObj.slides[2].progress;
                         _vm.$nextTick(()=>{
-                            document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*3)+"%";
-                            document.querySelector('.select-div').style.transform = "translateX("+(document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress)+"px)";
+                            document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*3)+'%';
+                            document.querySelector('.select-div').style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';
                         });
                     },
                     touchStart: function() {
@@ -80,11 +81,11 @@
                         document.querySelector('.select-div-inner').style.transition = '';
                     },
                     setTransition: function(speed) {
-                        document.querySelector('.select-div').style.transition = speed + "ms";
-                        document.querySelector('.select-div-inner').style.transition = speed + "ms";
-                    },
+                        document.querySelector('.select-div').style.transition = speed + 'ms';
+                        document.querySelector('.select-div-inner').style.transition = speed + 'ms';
+                    }
                 }
-            })
+            });
         },
         watch: {
             activeIndex(){
@@ -114,7 +115,7 @@
         components: {
             Swiper
         }
-    }
+    };
 </script>
 
 <style scoped>

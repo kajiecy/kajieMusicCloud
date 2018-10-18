@@ -7,7 +7,7 @@
 <script>
     export default {
         data() {
-            return {}
+            return {};
         },
         created() {
 
@@ -19,7 +19,7 @@
         methods: {},
         computed: {},
         components: {}
-    }
+    };
 </script>
 
 <style scoped>

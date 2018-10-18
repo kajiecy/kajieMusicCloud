@@ -6,9 +6,9 @@
 
 <script>
     export default {
-        name: "HomeMyPage",
+        name: 'HomeMyPage',
         data() {
-            return {}
+            return {};
         },
         created() {
 
@@ -20,7 +20,7 @@
         methods: {},
         computed: {},
         components: {}
-    }
+    };
 </script>
 
 <style scoped>

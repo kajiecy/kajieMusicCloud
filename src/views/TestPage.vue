@@ -6,9 +6,9 @@
 
 <script>
     export default {
-        name: "TestPage.vue",
+        name: 'TestPage.vue',
         data() {
-            return {}
+            return {};
         },
         created() {
 
@@ -20,7 +20,7 @@
         methods: {},
         computed: {},
         components: {}
-    }
+    };
 </script>
 
 <style scoped>

@@ -9,10 +9,10 @@
 
 <script>
     export default {
-        name: "KajieTabbarItem",
+        name: 'KajieTabbarItem',
         props: ['id'],
         data() {
-            return {}
+            return {};
         },
         created() {
 
@@ -24,7 +24,7 @@
         methods: {},
         computed: {},
         components: {}
-    }
+    };
 </script>
 
 <style scoped>

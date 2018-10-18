@@ -1,1 +1,3 @@
-src/mui/mui.min.js
+src/util/inobounce.js
+src/notes/*
+src/App.vue

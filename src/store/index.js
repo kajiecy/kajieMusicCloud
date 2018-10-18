@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   },
   getters:{
        doneTodos: () => {
-         return '111'
+         return '111';
        }
     /**
      * vue中的计算属性

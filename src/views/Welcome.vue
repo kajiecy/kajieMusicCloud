@@ -17,11 +17,11 @@
 
 <script>
     export default {
-        name: "Welcome",
+        name: 'Welcome',
         data() {
             return {
                 message:'hello word'
-            }
+            };
         },
         created() {
 
@@ -33,7 +33,7 @@
         methods: {},
         computed: {},
         components: {}
-    }
+    };
 </script>
 
 <style scoped>

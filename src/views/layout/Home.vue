@@ -55,17 +55,17 @@
         data() {
             return {
                 selected: 'find'
-            }
+            };
         },
         created() {
 
         },
         mounted() {
-            this.selected = this.$route.name
+            this.selected = this.$route.name;
         },
         watch: {
             selected(nvalue){
-                this.$router.push({name:nvalue})
+                this.$router.push({'name':nvalue});
             }
         },
         methods: {},
@@ -73,12 +73,12 @@
         components: {
             KajieHeader,
             KajieTabbar,
-            KajieTabbarItem,
+            KajieTabbarItem
         },
         beforeRouteUpdate (to, from, next) {
             this.selected = to.name;
             next();
-        },
+        }
     };
 </script>
 <style>

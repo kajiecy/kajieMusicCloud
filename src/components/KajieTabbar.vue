@@ -25,17 +25,17 @@
 
 <script>
     export default {
-        name: "KajieTabbar",
+        name: 'KajieTabbar',
         props: {
             value: {
                 type:String,
                 default(){
                     return '';
-                },
+                }
             }
         },
         data() {
-            return {}
+            return {};
         },
         created() {
 
@@ -47,7 +47,7 @@
         methods: {},
         computed: {},
         components: {}
-    }
+    };
 </script>
 
 <style scoped>

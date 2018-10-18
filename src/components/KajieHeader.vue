@@ -18,13 +18,13 @@
 
 <script>
     export default {
-        name: "KajieHeader",
+        name: 'KajieHeader',
         props: {
             fixed: Boolean,
-            height:String,
+            height:String
         },
         data() {
-            return {}
+            return {};
         },
         created() {
 
@@ -36,7 +36,7 @@
         methods: {},
         computed: {},
         components: {}
-    }
+    };
 </script>
 
 <style scoped>

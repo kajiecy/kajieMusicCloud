@@ -9,14 +9,18 @@
     var enabled = false;
 
     var supportsPassiveOption = false;
+
     try {
         var opts = Object.defineProperty({}, 'passive', {
             get: function() {
                 supportsPassiveOption = true;
             }
         });
+
         window.addEventListener('test', null, opts);
-    } catch (e) {}
+    } catch (e) {
+
+    }
 
     var handleTouchmove = function(evt) {
         // Get the element that was scrolled upon
@@ -24,6 +28,7 @@
 
         // Allow zooming
         var zoom = window.innerWidth / window.document.documentElement.clientWidth;
+
         if (evt.touches.length > 1 || zoom !== 1) {
             return;
         }
@@ -57,8 +62,8 @@
 
                 // Determine if the user is trying to scroll past the top or bottom
                 // In this case, the window will bounce, so we have to prevent scrolling completely
-                var isAtTop = (startY <= curY && el.scrollTop === 0);
-                var isAtBottom = (startY >= curY && el.scrollHeight - el.scrollTop === height);
+                var isAtTop = startY <= curY && el.scrollTop === 0;
+                var isAtBottom = startY >= curY && el.scrollHeight - el.scrollTop === height;
 
                 // Stop a bounce bug when at the bottom or top of the scrollable element
                 if (isAtTop || isAtBottom) {
@@ -104,9 +109,11 @@
     // Test this by setting the property with JavaScript on an element that exists in the DOM
     // Then, see if the property is reflected in the computed style
     var testDiv = document.createElement('div');
+
     document.documentElement.appendChild(testDiv);
     testDiv.style.WebkitOverflowScrolling = 'touch';
     var scrollSupport = 'getComputedStyle' in window && window.getComputedStyle(testDiv)['-webkit-overflow-scrolling'] === 'touch';
+
     document.documentElement.removeChild(testDiv);
 
     if (scrollSupport) {
@@ -127,11 +134,12 @@
     if (typeof global.define === 'function') {
         // AMD Support
         (function(define) {
-            define('iNoBounce', [], function() { return iNoBounce; });
-        }(global.define));
-    }
-    else {
+            define('iNoBounce', [], function() {
+ return iNoBounce;
+});
+        })(global.define);
+    } else {
         // Browser support
         global.iNoBounce = iNoBounce;
     }
-}(this));
+})(this);
