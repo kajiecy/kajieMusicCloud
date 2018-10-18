@@ -168,7 +168,6 @@
         border: 0 solid white;
         margin: 0 3px;
         border-radius: 10px;
-        transition: all 0.5s;
     }
     .dummy1{
         height: 40px;

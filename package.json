@@ -8,17 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "less": "^3.8.1",
-    "less-loader": "^4.1.0",
-    "postcss-aspect-ratio-mini": "0.0.2",
-    "postcss-cssnext": "^3.1.0",
-    "postcss-px-to-viewport": "0.0.3",
-    "postcss-viewport-units": "^0.1.4",
-    "postcss-write-svg": "^3.0.1",
-    "swiper": "^4.4.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "swiper": "^4.4.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.3",
@@ -34,7 +27,14 @@
     "sass-loader": "^7.1.0",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.17",
-    "yaml-loader": "^0.5.0"
+    "yaml-loader": "^0.5.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "postcss-aspect-ratio-mini": "0.0.2",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-px-to-viewport": "0.0.3",
+    "postcss-viewport-units": "^0.1.4",
+    "postcss-write-svg": "^3.0.1"
   },
   "eslintConfig": {
     "root": true,
