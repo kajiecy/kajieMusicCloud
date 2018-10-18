@@ -32,23 +32,23 @@
 }
 
 .bg1 {
-  background: yellow;
+  background-color: #67C23A;
 }
 
 .bg2 {
-  background: green;
+  background-color: #E6A23C;
 }
 
 .bg3 {
-  background: red;
+  background-color: #F56C6C;
 }
 
 .bg4 {
-  background: purple;
+  background-color: #909399;
 }
 
 .bg5 {
-  background: pink;
+  background-color: pink;
 }
 
 .img-lazyload {
@@ -984,11 +984,17 @@ input[type='submit']:enabled:active {
   height: 100%;
 }
 
-[w-120-120] {
-  width: 120px;
-  background-color: red;
+[index-banner-img]{
+  width: 1089px;
+  height: 425px;
+  border-radius: 20px;
 }
 
-[w-120-120] {
-  aspect-ratio: '16:9';
+[w-140-140] {
+  width: 140px;
+  height: 140px;
+}
+
+[w-140-140] {
+  aspect-ratio: '1:1';
 }

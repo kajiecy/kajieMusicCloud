@@ -9,7 +9,7 @@
             <div slot="title" class="heard-title">
                 <!--<mt-field placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>-->
                 <i class="iconfont icon-sousuo1"></i>
-                <span>你瞒我瞒 - 陈伯宇{{isPlay}}</span>
+                <span>你瞒我瞒 - 陈伯宇</span>
             </div>
             <div slot="right">
                 <!--<i class="iconfont icon-yinle" style="font-size: 20px"></i>-->
@@ -166,7 +166,7 @@
         width: 8px;
         background-color: #ffffff;
         border: 0 solid white;
-        margin: 0 3px;
+        margin: 0 5px;
         border-radius: 10px;
     }
     .dummy1{

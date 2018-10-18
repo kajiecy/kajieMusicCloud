@@ -11,7 +11,8 @@
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "swiper": "^4.4.1"
+    "swiper": "^4.4.1",
+    "mint-ui": "^2.2.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.3",
@@ -179,7 +180,6 @@
         }
       ],
       "no-with": 2,
-
       "array-bracket-spacing": [
         2,
         "never"
@@ -291,7 +291,6 @@
         2,
         "after"
       ],
-
       "padded-blocks": 0,
       "prefer-const": 0,
       "prefer-spread": 0,
@@ -300,7 +299,6 @@
         1,
         "single"
       ],
-
       "quote-props": [
         0,
         "always"
@@ -319,7 +317,6 @@
           "after": true
         }
       ],
-
       "sort-vars": 0,
       "space-after-keywords": [
         0,
