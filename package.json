@@ -195,7 +195,7 @@
       "callback-return": 1,
       "camelcase": 2,
       "comma-dangle": [
-        2,
+        0,
         "never"
       ],
       "comma-spacing": 0,

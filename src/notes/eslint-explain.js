@@ -149,7 +149,7 @@ eslintObj = {
         'callback-return': 1,//避免多次调用回调什么的
         'camelcase': 2,//强制驼峰法命名
         'comma-dangle': [//对象字面量项尾不能有逗号
-            2,
+            0,
             'never'
         ],
         'comma-spacing': 0,//逗号前后的空格

@@ -23,11 +23,14 @@
 
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div v-for="(item,index) in siderList" :key="index"  class="swiper-slide">
+                <div class="swiper-slide">
+                    <div class="swiper-slide-content textcenter">
+                        <img class="float-test" src="http://p8kfci878.bkt.clouddn.com/left-home.png">
+                    </div>
+                </div>
+                <div class="swiper-slide">
                     <div class="swiper-slide-content">
-                        <div v-for="i of 100" :key="i">
-                            {{item.name}}{{i}}
-                        </div>
+                        <img class="" src="http://p8kfci878.bkt.clouddn.com/right-home.png">
                     </div>
                 </div>
             </div>
@@ -45,8 +48,7 @@
                 activeIndex:0,
                 siderList:[
                     {name:'个性推荐'},
-                    {name:'主播电台'},
-                    {name:'主播电台2'}
+                    {name:'主播电台'}
                 ],
                 swiperObj:null
             };
@@ -162,13 +164,17 @@
         height: 8px;
         background-color: white;
         margin: 5px auto 5px;
-        border-radius: 20px;
+        border-radius: 100px;
         /*transition:all 0.2s;*/
     }
     .swiper-slide-content{
         height: 100%;
         overflow-y: scroll;
         -webkit-overflow-scrolling : touch
+    }
+    .float-test{
+        position: relative;
+        left: 20px;
     }
     /*.vux-swiper-item{*/
         /*height: 100%;*/

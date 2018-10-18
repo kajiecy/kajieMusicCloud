@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import {routers} from './router';
-import store from './../store';
 
 
 Vue.use(Router);
@@ -54,8 +53,6 @@ router.beforeEach((to, from, next) => {
     //点击
     // console.log("全局守卫触发",to)
     // console.log("matched is ",to.matched);
-    store.commit('updateBreadcrumbArr',to.matched);
-
     next();
 });
 router.afterEach(() => {
