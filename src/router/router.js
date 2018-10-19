@@ -5,7 +5,7 @@ import Main from '@/views/layout/Home.vue';
 export const otherRouter = {
     path: '/',
     name: 'otherRouter',
-    redirect: '/home',
+    redirect: '/find',
     component: Main,
     children: [
         {path: 'home', name: 'home', component: () => import('@/views/Welcome.vue')},
@@ -35,7 +35,6 @@ export const appRouter = [
             }
         ]
     }
-
 ];
 export const undefindRouter = {
     path: '/404',

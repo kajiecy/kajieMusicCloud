@@ -13,20 +13,18 @@
             </div>
             <div slot="right">
                 <!--<i class="iconfont icon-yinle" style="font-size: 20px"></i>-->
-                <!--<img class="right-img" src="http://p8kfci878.bkt.clouddn.com/right-home.png">-->
-                <div class="right-icon textcenter" @click="isPlay=!isPlay">
-                    <div class="dummydiv dummy1" :class='isPlay?"dummy1-play":""'></div>
-                    <div class="dummydiv dummy2" :class='isPlay?"dummy2-play":""'></div>
-                    <div class="dummydiv dummy3" :class='isPlay?"dummy3-play":""'></div>
-                    <div class="dummydiv dummy4" :class='isPlay?"dummy4-play":""'></div>
+                <!--<img class="right-img" src="http://p8kfci878.bkt.clouddn.com/right-home.png"> -->
+                <div class="right-icon textcenter" @click="playIconClick()">
+                    <div class="dummydiv dummy1" :class='$store.getters.getPlayerStatus?"dummy1-play":""'></div>
+                    <div class="dummydiv dummy2" :class='$store.getters.getPlayerStatus?"dummy2-play":""'></div>
+                    <div class="dummydiv dummy3" :class='$store.getters.getPlayerStatus?"dummy3-play":""'></div>
+                    <div class="dummydiv dummy4" :class='$store.getters.getPlayerStatus?"dummy4-play":""'></div>
                 </div>
-
             </div>
         </kajie-header>
         <div class="wrapper">
             <router-view />
         </div>
-
         <kajie-tabbar class="home-tabbar"  v-model="selected">
             <kajie-tabbar-item class="home-tabbar" id="find">
                 <i class="iconfont iconfont-tabbar icon-wangyiyunyinlezizhi-copy"></i>
@@ -49,7 +47,6 @@
                 账号
             </kajie-tabbar-item>
         </kajie-tabbar>
-
     </div>
 </template>
 
@@ -63,7 +60,6 @@
         data() {
             return {
                 selected: 'find',
-                isPlay:false,
             };
         },
         created() {
@@ -77,7 +73,11 @@
                 this.$router.push({'name':nvalue});
             }
         },
-        methods: {},
+        methods: {
+            playIconClick(){
+                this.$store.commit('changePlayerStatus',!this.$store.getters.getPlayerStatus);
+            }
+        },
         computed: {},
         components: {
             KajieHeader,

@@ -984,7 +984,7 @@ input[type='submit']:enabled:active {
   height: 100%;
 }
 
-[index-banner-img]{
+[index-banner-img] {
   width: 1089px;
   height: 425px;
   border-radius: 20px;
@@ -992,9 +992,17 @@ input[type='submit']:enabled:active {
 
 [w-140-140] {
   width: 140px;
-  height: 140px;
 }
 
 [w-140-140] {
   aspect-ratio: '1:1';
+}
+
+#example {
+  height: 1px;
+  background-color: #E4E7ED;
+}
+
+.hairlines {
+  border-bottom: 0.5px solid #E4E7ED;
 }
