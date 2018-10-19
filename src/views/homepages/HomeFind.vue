@@ -28,8 +28,11 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="swiper-slide-content">
-                        <img class="" src="http://p8kfci878.bkt.clouddn.com/right-home.png">
+                    <div class="swiper-slide-content textcenter" id="radio-slide">
+                        <div>
+                            <i class="iconfont icon-banshou" ></i><br>
+                            建设中
+                        </div>
                     </div>
                 </div>
             </div>
@@ -153,5 +156,17 @@
         height: 100%;
         overflow-y: scroll;
         -webkit-overflow-scrolling : touch
+    }
+    #radio-slide{
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        font-size: 60px;
+    }
+    #radio-slide i{
+        font-size: 180px;
+    }
+    .swiper-container{
+        margin-top: 5px;
     }
 </style>
