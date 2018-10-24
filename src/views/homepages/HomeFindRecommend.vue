@@ -74,7 +74,6 @@
                 <div class="recommend-body">
                     <div class="recommend-body-item" v-for="(item,key) in recommendSongList" :key="key">
                         <div class="recommend-p">
-
                         </div>
                         <div class="recommend-body-item-coverimg">
                             <img :src="item.coverImg" width="100%" height="100%">
@@ -116,7 +115,6 @@
                 swiperInfo: null,
                 topStatus: '',//下拉刷新页面的状态
                 translate: 0,//下拉距离
-
                 recommendSongList: [
                     {coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:420},
                     {coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:220},
@@ -301,6 +299,9 @@
     }
     .recommend-body-item-title{
         padding-top: 10px;
+    }
+    .swiper-container{
+        /*background-color: #2AB1F0;*/
     }
     /*.vux-swiper-item{*/
     /*height: 100%;*/

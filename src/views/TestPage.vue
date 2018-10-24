@@ -1,73 +1,95 @@
 <template>
-    <div class="page-loadmore">
-        <h1 class="page-title">Pull down</h1>
-        <p class="page-loadmore-desc">在列表顶端, 按住 - 下拉 - 释放可以获取更多数据</p>
-        <p class="page-loadmore-desc">此例请使用手机查看</p>
-        <p class="page-loadmore-desc">translate : {{ translate }}</p>
-        <div class="loading-background"
-             :style="{ transform: 'scale3d(' + moveTranslate + ',' + moveTranslate + ',1)' }">
-            translateScale : {{ moveTranslate }}
+    <div class="page-popup">
+        <h1 class="page-title">Popup</h1>
+        <div class="page-popup-wrapper">
+            <mt-button @click.native="popupVisible1 = true" size="large" ref="button">中部弹出 popup</mt-button>
+            <mt-button @click.native="popupVisible2 = true" size="large">上侧弹出 popup</mt-button>
+            <mt-button @click.native="popupVisible3 = true" size="large">右侧弹出 popup</mt-button>
+            <mt-button @click.native="popupVisible4 = true" size="large">下侧弹出 popup</mt-button>
         </div>
-        <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-            <mt-loadmore :top-method="loadTop" @translate-change="translateChange" @top-status-change="handleTopChange"
-                         ref="loadmore">
-                <ul class="page-loadmore-list">
-                    <li v-for="item in list" class="page-loadmore-listitem">{{ item }}</li>
-                </ul>
-                <div slot="top" class="mint-loadmore-top">
-                    <span v-show="topStatus !== 'loading'" :class="{ 'is-rotate': topStatus === 'drop' }">↓</span>
-                    <span v-show="topStatus === 'loading'"></span>
-                </div>
-            </mt-loadmore>
-        </div>
+        <mt-popup v-model="popupVisible1" popup-transition="popup-fade" class="mint-popup-1" :style="{ top: buttonBottom + 10 + 'px' }">
+            <h1>popup</h1>
+            <p>/ ˈpɑpˌʌp /</p>
+            <p>n. 弹出式; [棒]内野飞球; 自动起跳式装置</p>
+            <p>adj. 弹起的; 有自动起跳装置的</p>
+        </mt-popup>
+        <mt-popup v-model="popupVisible2" position="top" class="mint-popup-2" :modal="false">
+            <p>更新成功</p>
+        </mt-popup>
+        <mt-popup v-model="popupVisible3" position="right" class="mint-popup-3" :modal="false">
+            <mt-button @click.native="popupVisible3 = false" size="large" type="primary">关闭 popup</mt-button>
+        </mt-popup>
+        <mt-popup v-model="popupVisible4" position="bottom" class="mint-popup-4">
+            <mt-picker :slots="dateSlots" @change="onDateChange" :visible-item-count="5" :show-toolbar="false"></mt-picker>
+        </mt-popup>
     </div>
 </template>
 
-<style>
-
-</style>
-
 <script type="text/babel">
+    import KajieInput from '@/components/KajieInput.vue';
     export default {
         data() {
             return {
-                list: [],
-                topStatus: '',
-                wrapperHeight: 0,
-                translate: 0,
-                moveTranslate: 0
+                popupVisible1: false,
+                popupVisible2: false,
+                popupVisible3: false,
+                popupVisible4: false,
+                buttonBottom: 0,
+                dateSlots: [
+                    {
+                        flex: 1,
+                        values: ['2016-01', '2016-02', '2016-03', '2016-04', '2016-05', '2016-06'],
+                        className: 'slot1',
+                        textAlign: 'right'
+                    }, {
+                        divider: true,
+                        content: '-',
+                        className: 'slot2'
+                    }, {
+                        flex: 1,
+                        values: ['2016-01', '2016-02', '2016-03', '2016-04', '2016-05', '2016-06'],
+                        className: 'slot3',
+                        textAlign: 'left'
+                    }
+                ]
             };
         },
 
         methods: {
-            handleTopChange(status) {
-                this.moveTranslate = 1;
-                this.topStatus = status;
-            },
-            translateChange(translate) {
-                const translateNum = +translate;
-                this.translate = translateNum.toFixed(2);
-                this.moveTranslate = (1 + translateNum / 70).toFixed(2);
-            },
-            loadTop() {
-                setTimeout(() => {
-                    let firstValue = this.list[0];
-                    for (let i = 1; i <= 10; i++) {
-                        this.list.unshift(firstValue - i);
-                    }
-                    this.$refs.loadmore.onTopLoaded();
-                }, 1500);
+            onDateChange(picker, values) {
+                if (values[0] > values[1]) {
+                    picker.setSlotValue(1, values[0]);
+                }
+                this.dateStart = values[0];
+                this.dateEnd = values[1];
             }
         },
-
-        created() {
-            for (let i = 1; i <= 20; i++) {
-                this.list.push(i);
+        watch: {
+            popupVisible2(val) {
+                if (val) {
+                    setTimeout(() => {
+                        this.popupVisible2 = false;
+                    }, 2000);
+                }
             }
+        },
+        created() {
+
         },
 
         mounted() {
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
+            this.buttonBottom = this.$refs.button.$el.getBoundingClientRect().bottom;
+        },
+        components:{
+            KajieInput
         }
     };
 </script>
+<style scoped>
+    .laboratory-place{
+        width: 80%;
+        margin: 10px auto;
+    }
+
+
+</style>

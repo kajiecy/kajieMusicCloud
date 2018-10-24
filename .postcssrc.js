@@ -20,7 +20,8 @@ module.exports = {
         'cssnano': {
             preset: 'advanced',
             autoprefixer: false,
-            'postcss-zindex': false
+            'postcss-zindex': false,
+            'postcss-zindex-order':false
         }
     }
 };

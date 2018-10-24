@@ -33,4 +33,7 @@
     .swiper-pagination-bullet-active{
         background-color: #D33930;
     }
+    /*.swiper-header-tab-out{*/
+        /*z-index: 10 !important;*/
+    /*}*/
 </style>

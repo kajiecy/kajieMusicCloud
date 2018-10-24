@@ -1,12 +1,12 @@
 <template>
     <div class="div-parent">
-        <kajie-header :fixed="true">
+        <kajie-header ref="kajieHeader" :fixed="true">
             <div slot="left">
                 <i class="iconfont icon-maikefeng left-icon"></i>
                 <!--<img class="left-img" src="http://p8kfci878.bkt.clouddn.com/left-home.png">-->
 
             </div>
-            <div slot="title" class="heard-title">
+            <div slot="title" class="heard-title" @click="searchMusic()">
                 <!--<mt-field placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>-->
                 <i class="iconfont icon-sousuo1"></i>
                 <span>你瞒我瞒 - 陈伯宇</span>
@@ -76,6 +76,9 @@
         methods: {
             playIconClick(){
                 this.$store.commit('changePlayerStatus',!this.$store.getters.getPlayerStatus);
+            },
+            searchMusic(){
+                this.$refs.kajieHeader.headerStatus=true
             }
         },
         computed: {},
@@ -95,9 +98,9 @@
         font-size: 48px;
         line-height: 90px;
         height: 90px;
-        border-radius: 45px;
-        background-color: #E0635C;
-        border: 1px solid #DC524B;
+        /*border-radius: 45px;*/
+        /*background-color: #E0635C;*/
+        /*border: 1px solid #DC524B;*/
         color: #EEAFA9;
     }
     .icon-sousuo1{
@@ -143,6 +146,7 @@
         color: #676767;
         border-top: 0.5px solid #EEEDED;
         background-color: #F6F5F5;
+        z-index: 1;
     }
     .iconfont-tabbar{
         display: block;

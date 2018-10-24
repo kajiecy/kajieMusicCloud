@@ -8,7 +8,7 @@
             <!--</swiper-item>-->
         <!--</swiper>-->
     <div class="home-main-view ">
-        <div class="swiper-header-tab-out ">
+        <div class="swiper-header-tab-out">
             <div class="swiper-header-tab wd80 marginAuto">
                 <div v-for="(item,index) in siderList" :key="index" :class="{'is-select':activeIndex===index}" @click="changeSider(index,$event)" class="swiper-header-tab-item textcenter">
                     {{item.name}}
@@ -30,8 +30,8 @@
                 <div class="swiper-slide">
                     <div class="swiper-slide-content textcenter" id="radio-slide">
                         <div>
-                            <i class="iconfont icon-banshou" ></i><br>
-                            建设中
+                            <i class="iconfont icon-banshou"></i><br>
+                            敬请期待
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     progress: function(progress){
                         // _vm.swiperMain.slides[2].progress;
                         _vm.$nextTick(()=>{
-                            document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*3)+'%';
+                            document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
                             document.querySelector('.select-div').style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';
                         });
                     },
@@ -108,11 +108,12 @@
 <style scoped>
     .home-main-view{
         height: 100%;
+        z-index: 1;
     }
     .swiper-main{
         height: calc(100% - 110px);
         position: relative;
-        top: 110px;
+        top: 105px;
     }
     .wrapper-main{
         height: 100%;
@@ -120,13 +121,12 @@
     }
     .swiper-header-tab-out{
         background-color: #D93F37;
-        padding-bottom: 10px;
-        padding-top: 20px;
-
+        padding-bottom: 20px;
+        padding-top: 10px;
         position: fixed;
-        top: 129px;
-        z-index: 1000;
+        top: 130px;
         width: 100%;
+        z-index: 2;
     }
     .swiper-header-tab{
         display: flex;
