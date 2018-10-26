@@ -186,12 +186,9 @@
         /*header:130px;footer:170px;tab:110px*/
         min-height: calc(100vh - 110px - 130px - 170px);
     }
-
     .myloaddiv {
 
     }
-
-
     .swiper-info {
         /*background-color: #67BB1E;*/
         width: 100%;

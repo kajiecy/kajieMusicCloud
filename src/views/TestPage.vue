@@ -1,94 +1,79 @@
 <template>
-    <div class="page-popup">
-        <h1 class="page-title">Popup</h1>
-        <div class="page-popup-wrapper">
-            <mt-button @click.native="popupVisible1 = true" size="large" ref="button">中部弹出 popup</mt-button>
-            <mt-button @click.native="popupVisible2 = true" size="large">上侧弹出 popup</mt-button>
-            <mt-button @click.native="popupVisible3 = true" size="large">右侧弹出 popup</mt-button>
-            <mt-button @click.native="popupVisible4 = true" size="large">下侧弹出 popup</mt-button>
-        </div>
-        <mt-popup v-model="popupVisible1" popup-transition="popup-fade" class="mint-popup-1" :style="{ top: buttonBottom + 10 + 'px' }">
-            <h1>popup</h1>
-            <p>/ ˈpɑpˌʌp /</p>
-            <p>n. 弹出式; [棒]内野飞球; 自动起跳式装置</p>
-            <p>adj. 弹起的; 有自动起跳装置的</p>
-        </mt-popup>
-        <mt-popup v-model="popupVisible2" position="top" class="mint-popup-2" :modal="false">
-            <p>更新成功</p>
-        </mt-popup>
-        <mt-popup v-model="popupVisible3" position="right" class="mint-popup-3" :modal="false">
-            <mt-button @click.native="popupVisible3 = false" size="large" type="primary">关闭 popup</mt-button>
-        </mt-popup>
-        <mt-popup v-model="popupVisible4" position="bottom" class="mint-popup-4">
-            <mt-picker :slots="dateSlots" @change="onDateChange" :visible-item-count="5" :show-toolbar="false"></mt-picker>
-        </mt-popup>
+    <div class="vue-body">
+        <svg width="200" height="200" class="svg-first">
+            <rect x="10" y="10" width="100px" height="80px" stroke="red" fill="#ccc" stroke-width="1"/>
+            <circle cx="153" cy="50" r="40" stroke="#59A869" fill="#1C83FA" stroke-width="1" />
+        </svg>
+        <svg width="200" height="200">
+            <g transform="translate(-0, 0)"
+               stroke-width="60"
+               stroke="red"
+               stroke-linejoin="round">
+                <path d="M0,0 Q170,-50 260, -190 Q310, -250 410,-250"
+                      fill="#1C83FA" />
+            </g>
+        </svg>
+        <svg width="200" height="200">
+            <defs>
+                <g id="shapeGroup">
+                    <rect x="10" y="10" width="100" height="80" stroke="red" fill="#ccc" />
+                    <circle cx="120" cy="80" r="40" stroke="#00f" fill="none" stroke-width="8" />
+                </g>
+            </defs>
+            <use xlink:href="#shapeGroup" transform="translate(20,0) scale(0.5)" />
+            <use xlink:href="#shapeGroup" transform="translate(80,0) scale(0.25)" />
+        </svg>
+        <svg width="200" height="200">
+            <defs>
+                <pattern id="GravelPattern" patternUnits="userSpaceOnUse" x="0" y="0" width="100" height="67" viewBox="0 0 100 67">
+                    <image x="0" y="0" width="100" height="67" xlink:href:"http://qiniu.kajie88.com/28913648.jpg"></image>
+                </pattern>
+                <linearGradient id="Gradient">
+                    <stop offset="0%" stop-color="#000"></stop>
+                    <stop offset="100%" stop-color="#f00"></stop>
+                </linearGradient>
+            </defs>
+            <rect x="10" y="10" width="100" height="80" stroke="red" fill="url(#Gradient)" />
+            <circle cx="120" cy="80" r="40" stroke="#00f" fill="url(#GravelPattern)" stroke-width="8" />
+        </svg>
+        <svg width="200" height="200">
+            <text x="10" y="80" font-family="Droid Sans" stroke="#00f" fill="#00f" font-size="18px">
+                hello SVG
+            </text>
+        </svg>
     </div>
 </template>
 
 <script type="text/babel">
-    import KajieInput from '@/components/KajieInput.vue';
     export default {
         data() {
             return {
-                popupVisible1: false,
-                popupVisible2: false,
-                popupVisible3: false,
-                popupVisible4: false,
-                buttonBottom: 0,
-                dateSlots: [
-                    {
-                        flex: 1,
-                        values: ['2016-01', '2016-02', '2016-03', '2016-04', '2016-05', '2016-06'],
-                        className: 'slot1',
-                        textAlign: 'right'
-                    }, {
-                        divider: true,
-                        content: '-',
-                        className: 'slot2'
-                    }, {
-                        flex: 1,
-                        values: ['2016-01', '2016-02', '2016-03', '2016-04', '2016-05', '2016-06'],
-                        className: 'slot3',
-                        textAlign: 'left'
-                    }
-                ]
+
             };
         },
 
         methods: {
-            onDateChange(picker, values) {
-                if (values[0] > values[1]) {
-                    picker.setSlotValue(1, values[0]);
-                }
-                this.dateStart = values[0];
-                this.dateEnd = values[1];
-            }
+
         },
         watch: {
-            popupVisible2(val) {
-                if (val) {
-                    setTimeout(() => {
-                        this.popupVisible2 = false;
-                    }, 2000);
-                }
-            }
+
         },
         created() {
 
         },
 
         mounted() {
-            this.buttonBottom = this.$refs.button.$el.getBoundingClientRect().bottom;
         },
         components:{
-            KajieInput
         }
     };
 </script>
 <style scoped>
-    .laboratory-place{
-        width: 80%;
-        margin: 10px auto;
+    .vue-body{
+    }
+    .svg-first{
+        /*margin: 0 auto;*/
+        /*text-align: center;*/
     }
 
 
