@@ -2,7 +2,7 @@
     <div class="input-out" :class='initStatus===false?"textcenter":"textleft"'>
         <i class="iconfont icon-sousuo1"></i>
         <!--<span>你瞒我瞒 - 陈伯宇</span>-->
-        <input ref="innerInput" class="self-input" type="text" placeholder="你瞒我瞒 - 陈伯宇">
+        <input ref="innerInput" class="self-input" type="text" :placeholder="$store.getters.getInputRecommend">
     </div>
 </template>
 

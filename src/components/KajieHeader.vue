@@ -3,14 +3,14 @@
             class="kajie-header"
             :class="{ 'fixed-top': fixed }">
         <div class="dis_table wd100 kajie-header">
-            <div class="dis_table_cell kajie-header-button" :class='headerStatus===false?"wd15":"wd5"'>
-                <template v-if="headerStatus===false">
+            <div class="dis_table_cell kajie-header-button" :class='$store.getters.getHeaderStatus===false?"wd15":"wd5"'>
+                <template v-if="$store.getters.getHeaderStatus===false">
                     <slot name="left"></slot>
                 </template>
             </div>
-            <div class="dis_table_cell kajie-header-title" :class='headerStatus===false?"wd70":"wd80"'>
-                <div class="title-inner" :class='headerStatus===false?"":"pl20"'>
-                    <template v-if="headerStatus===false">
+            <div class="dis_table_cell kajie-header-title" :class='$store.getters.getHeaderStatus===false?"wd70":"wd80"'>
+                <div class="title-inner" :class='$store.getters.getHeaderStatus===false?"":"pl20"'>
+                    <template v-if="$store.getters.getHeaderStatus===false">
                         <slot name="title"></slot>
                     </template>
                     <template v-else>
@@ -19,11 +19,11 @@
                 </div>
             </div>
             <div class="dis_table_cell kajie-header-button wd15">
-                <template v-if="headerStatus===false">
+                <template v-if="$store.getters.getHeaderStatus===false">
                     <slot name="right"></slot>
                 </template>
                 <template v-else>
-                    <div class="cancelBtn" @click="headerStatus=false">
+                    <div class="cancelBtn" @click="$store.commit('setHeaderStatus',false)">
                         取消
                     </div>
                 </template>
@@ -31,7 +31,7 @@
         </div>
         <!--search-masking-->
         <div class="search-masking222" style=""></div>
-        <div class="search-masking" v-show="headerStatus===true" style="">
+        <div class="search-masking" v-show="$store.getters.getHeaderStatus===true" style="">
             <div class="">
                 <div class="search-masking-title hairlines">
                     <div class="search-masking-title-title">
@@ -87,7 +87,7 @@
         },
         data() {
             return {
-                headerStatus: false,
+                // headerStatus: false,
             };
         },
         created() {

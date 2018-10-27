@@ -9,7 +9,7 @@
             <div slot="title" class="heard-title" @click="searchMusic()">
                 <!--<mt-field placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>-->
                 <i class="iconfont icon-sousuo1"></i>
-                <span>你瞒我瞒 - 陈伯宇</span>
+                <span>{{$store.getters.getInputRecommend}}{{$store.getters.getPlayerStatus}}</span>
             </div>
             <div slot="right">
                 <!--<i class="iconfont icon-yinle" style="font-size: 20px"></i>-->
@@ -75,10 +75,10 @@
         },
         methods: {
             playIconClick(){
-                this.$store.commit('changePlayerStatus',!this.$store.getters.getPlayerStatus);
+                this.$store.commit('setPlayerStatus',!this.$store.getters.getPlayerStatus);
             },
             searchMusic(){
-                this.$refs.kajieHeader.headerStatus=true
+                this.$store.commit('setHeaderStatus',true)
             }
         },
         computed: {},
