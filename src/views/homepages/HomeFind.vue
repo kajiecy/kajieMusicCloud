@@ -28,11 +28,10 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="swiper-slide-content textcenter" id="radio-slide">
-                        <div>
-                            <i class="iconfont icon-banshou"></i><br>
-                            敬请期待
-                        </div>
+                    <div class="swiper-slide-content">
+                            <!--<i class="iconfont icon-banshou"></i><br>-->
+                            <!--敬请期待-->
+                            <home-find-station></home-find-station>
                     </div>
                 </div>
             </div>
@@ -44,6 +43,7 @@
 <script>
     import Swiper from 'swiper';
     import HomeFindRecommend from './HomeFindRecommend.vue';
+    import HomeFindStation from './HomeFindStation.vue';
     export default {
         name: 'HomeFind',
         data() {
@@ -100,7 +100,8 @@
         },
         components: {
             Swiper,
-            HomeFindRecommend
+            HomeFindRecommend,
+            HomeFindStation,
         }
     };
 </script>
@@ -167,6 +168,6 @@
         font-size: 180px;
     }
     .swiper-container{
-        margin-top: 5px;
+        margin-top: 0px;
     }
 </style>

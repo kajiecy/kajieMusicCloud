@@ -1,107 +1,74 @@
 <template>
     <div class="info-back">
-        <mt-loadmore
-                ref="loadmore"
-                class="myloaddiv"
-                :topDistance="60"
-                :maxDistance="90"
-                :top-method="loadTop"
-                @translate-change="translateChange"
-                @top-status-change="handleTopChange"
-        >
-            <div slot="top" class="mint-loadmore-top loadmore-loading textcenter" v-show="translate>3">
-                {{topStatus}}{{translate}}
-            </div>
-            <div class="info-back textcenter">
-                <div class="swiper-container swiper-info">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="index-banner-img">
-                                <img width="100%" height="100%" src="http://qiniu.kajie88.com/index-banner.jpg">
-                                <div class="banner-right-tip bg1">广告</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="index-banner-img">
-                                <img width="100%" height="100%" src="http://qiniu.kajie88.com/index-banner2.jpg">
-                                <div class="banner-right-tip bg2">VIP专享</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="index-banner-img">
-                                <img width="100%" height="100%" src="http://qiniu.kajie88.com/index-banner3.jpg">
-                                <div class="banner-right-tip bg3">新歌首发</div>
-                            </div>
+        <div class="info-back textcenter">
+            <div class="swiper-container swiper-station">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="(item,index) in bannerList" :key="index">
+                        <div class="index-banner-img">
+                            <img width="100%" height="100%" :src="item.imgUrl">
+                            <div class="banner-right-tip bg1">{{item.tag}}</div>
                         </div>
                     </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
                 </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="fillheight"></div>
-            <div class="element-div textcenter">
-                <div>
-                    <div class="element-circle">
-                        <i class="iconfont icon-diantai1"></i>
-                    </div>
-                    私人FM
+        </div>
+        <div class="fillheight"></div>
+        <div class="element-div textcenter">
+            <div>
+                <div class="element-circle">
+                    <i class="iconfont icon-sycolor-"></i>
                 </div>
-                <div>
-                    <div class="element-circle">
-                        <i class="iconfont icon-rili1"></i>
-                    </div>
-                    每日推荐
-                </div>
-                <div>
-                    <div class="element-circle">
-                        <i class="iconfont icon-gedanshoulu"></i>
-                    </div>
-                    歌单
-                </div>
-                <div>
-                    <div class="element-circle">
-                        <i class="iconfont icon-paihangbang"></i>
-                    </div>
-                    排行榜
-                </div>
+                电台分类
             </div>
-            <div id="example"></div>
-            <div class="recommend-list">
+            <div>
+                <div class="element-circle">
+                    <i class="iconfont icon-paixingbang"></i>
+                </div>
+                电台排行
+            </div>
+            <div>
+                <div class="element-circle">
+                    <i class="iconfont icon-huangguan"></i>
+                </div>
+                付费精品
+            </div>
+            <div>
+                <div class="element-circle">
+                    <i class="iconfont icon-weiruanxiaobing"></i>
+                </div>
+                小冰电台
+            </div>
+        </div>
+        <div id="example"></div>
+        <div class="recommend-list">
+            <div class="recommend-title-column">
                 <div class="recommend-title">
-                    推荐歌单
+                    今日优选
                     <i class="iconfont icon-you"></i>
                 </div>
-                <div class="recommend-body">
-                    <div class="recommend-body-item" v-for="(item,key) in recommendSongList" :key="key">
-                        <div class="recommend-p">
-                        </div>
-                        <div class="recommend-body-item-coverimg">
-                            <img :src="item.coverImg" width="100%" height="100%">
-                        </div>
-                        <div class="recommend-body-item-title text_clamp2">
-                            {{item.title}}
-                        </div>
-                    </div>
+                <div class="recommend-control">
+                    <i class="iconfont icon-16pxhuanyihuan"></i>
+                    换一换
                 </div>
             </div>
 
-            <div class="recommend-list">
-                <div class="recommend-title">
-                    最新歌单
-                    <i class="iconfont icon-you"></i>
-                </div>
-                <div class="recommend-body">
-                    <div class="recommend-body-item" v-for="(item,key) in newSongList" :key="key">
-                        <div class="recommend-body-item-coverimg">
-                            <img :src="item.coverImg" width="100%" height="100%">
-                        </div>
-                        <div class="recommend-body-item-title text_clamp2">
-                            {{item.title}}
-                        </div>
+            <div class="recommend-body">
+                <div class="recommend-body-item ignore-border dis_table" v-for="(item,key) in recommendSongList" :key="key">
+                    <div class="dis_table_cell cell-img">
+                        <img :src="item.coverImg" width="100%" height="100%">
+                    </div>
+                    <div class="dis_table_cell cell-desc">
+                        <div class="recommend-list-title">{{item.title}}</div>
+                        <div class="recommend-list-play-count">节目:{{item.playCount}}</div>
+                        <div class="recommend-list-describe">{{item.describe}}</div>
                     </div>
                 </div>
             </div>
-        </mt-loadmore>
+        </div>
+
+
     </div>
 </template>
 
@@ -113,24 +80,19 @@
         data() {
             return {
                 swiperInfo: null,
-                topStatus: '',//下拉刷新页面的状态
-                translate: 0,//下拉距离
-                recommendSongList: [
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:420},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:220},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:100},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:120},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:183},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:121},
+                bannerList:[
+                    {imgUrl:'http://qiniu.kajie88.com/station01.jpg',tag:'电台频道'},
+                    {imgUrl:'http://qiniu.kajie88.com/station02.jpg',tag:'电台频道'},
+                    {imgUrl:'http://qiniu.kajie88.com/station03.jpg',tag:'电台频道'},
+                    {imgUrl:'http://qiniu.kajie88.com/station04.jpg',tag:'电台频道'},
+                    {imgUrl:'http://qiniu.kajie88.com/station05.jpg',tag:'电台频道'},
                 ],
-                newSongList: [
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:5},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:1},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:23},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:4},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:67},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:11},
-                ]
+                recommendSongList: [
+                    {coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '边走边爱',describe:"边走边爱的描述~~~~",playCount:420},
+                    {coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '小船说',describe:"小船说的描述~~~~",playCount:220},
+                    {coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '午夜电台',describe:"午夜电台的描述~~~~",playCount:100},
+                ],
+
             }
         },
         created() {
@@ -138,7 +100,7 @@
         },
         mounted() {
             let _vm = this;
-            _vm.swiperInfo = new Swiper('.swiper-info', {
+            _vm.swiperInfo = new Swiper('.swiper-station', {
                 iOSEdgeSwipeDetection: true,
                 spaceBetween: 5,
                 centeredSlides: true,
@@ -154,27 +116,7 @@
         },
         watch: {},
         methods: {
-            /**
-             *   top-status-change 每当 状态改变 时触发
-             *   已知状态 pull 默认状态，drop 释放后执行 top-method， loading drop状态后待没有执行onTopLoaded()方法时的状态。
-             */
-            handleTopChange(status) {
-                this.moveTranslate = 1;
-                this.topStatus = status;
-            },
-            // @translate-change 当我执行 滑动操作时 总会触发此事件
-            translateChange(translate) {
-                const translateNum = +translate;
-                this.translate = translateNum.toFixed(2);
-            },
-            // :top-method 当我下拉足够的 距离时触发此方法 请求新信息 默认70
-            loadTop() {
-                setTimeout(() => {
-                    console.log("模拟一次request请求，延迟1s")
-                    this.translate = 0;
-                    this.$refs.loadmore.onTopLoaded();
-                }, 500);
-            }
+
         },
         computed: {},
         components: {}
@@ -266,7 +208,11 @@
         width: 1090px;
         margin: 0 auto 80px;
     }
-
+    .recommend-title-column{
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+    }
     .recommend-title {
         display: flex;
         align-items: center;
@@ -278,34 +224,48 @@
     }
 
     .recommend-body {
-        display: flex;
-        flex-wrap: wrap;
+
+    }
+    .recommend-body .cell-desc{
+        text-align: left;
+        padding-left: 20px;
+    }
+    .recommend-body .cell-desc .recommend-list-title{
+        font-weight: bold;
+        font-size: 40px;
+        margin: 0 0 25px 0;
+    }
+    .recommend-body .cell-desc .recommend-list-play-count,.recommend-body .cell-desc .recommend-list-describe{
+        color: #676767;
+        margin: 5px 0;
     }
 
+    .ignore-border{
+        /*border: 1px solid #495060;*/
+    }
     .recommend-body-item {
-        display: inline-block;
-        width: 343.3px;
-        margin: 10px 10px;
+        width: 1090px;
+        margin: 10px auto;
+        /*border: 1px solid #495060;*/
     }
-
-    .recommend-body-item-coverimg {
-        width: 343.3px;
-        height: 343.3px;
-        border-radius: 15px;
+    .cell-img{
+        width: 300px;
+        height: 300px;
+        border-radius: 20px;
         overflow: hidden;
     }
-    .recommend-body-item-title{
-        padding-top: 10px;
-    }
+
     .swiper-container{
         /*background-color: #2AB1F0;*/
     }
-    /*.vux-swiper-item{*/
-    /*height: 100%;*/
-    /*}*/
-    /*.swiper-container {*/
-    /*width: 500px;*/
-    /*height: 300px;*/
-    /*margin: 20px auto;*/
-    /*}*/
+    .icon-weiruanxiaobing{
+        font-size: 90px;
+    }
+    .recommend-control{
+        color: #676767;
+    }
+    .icon-16pxhuanyihuan{
+        font-size: 30px;
+    }
+
 </style>

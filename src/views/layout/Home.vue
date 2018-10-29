@@ -9,7 +9,7 @@
             <div slot="title" class="heard-title" @click="searchMusic()">
                 <!--<mt-field placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>-->
                 <i class="iconfont icon-sousuo1"></i>
-                <span>{{$store.getters.getInputRecommend}}{{$store.getters.getPlayerStatus}}</span>
+                <span>{{$store.getters.getInputRecommend}}</span>
             </div>
             <div slot="right">
                 <!--<i class="iconfont icon-yinle" style="font-size: 20px"></i>-->
@@ -47,6 +47,7 @@
                 账号
             </kajie-tabbar-item>
         </kajie-tabbar>
+        <div class="zIndexControl1"></div>
     </div>
 </template>
 
@@ -141,12 +142,15 @@
         position: relative;
         right: -20px;
     }
+    .zIndexControl1{
+        z-index: 1;
+    }
     .home-tabbar{
         height: 170px;
         color: #676767;
         border-top: 0.5px solid #EEEDED;
         background-color: #F6F5F5;
-        z-index: 1;
+        z-index: 2;
     }
     .iconfont-tabbar{
         display: block;
