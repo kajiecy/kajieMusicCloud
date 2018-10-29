@@ -9,7 +9,7 @@
                 </template>
             </div>
             <div class="dis_table_cell kajie-header-title" :class='$store.getters.getHeaderStatus===false?"wd70":"wd80"'>
-                <div class="title-inner" :class='$store.getters.getHeaderStatus===false?"":"pl20"'>
+                <div class="" :class='titleInnerClass'>
                     <template v-if="$store.getters.getHeaderStatus===false">
                         <slot name="title"></slot>
                     </template>
@@ -29,7 +29,9 @@
                 </template>
             </div>
         </div>
-        <!--search-masking-->
+        <!--search-masking
+        发现列表 点击search的input框的蒙版
+        -->
         <div class="search-masking222" style=""></div>
         <div class="search-masking" v-show="$store.getters.getHeaderStatus===true" style="">
             <div class="">
@@ -103,7 +105,18 @@
 
             }
         },
-        computed: {},
+        computed: {
+            titleInnerClass(){
+                let className = '';
+                if(this.$route.name==='find'){
+                    className += 'title-inner ';
+                }
+                if(this.$store.getters.getHeaderStatus===true){
+                    className += 'pl20';
+                }
+                return className;
+            }
+        },
         components: {
             KajieInput
         }

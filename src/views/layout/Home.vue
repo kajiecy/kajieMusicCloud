@@ -2,15 +2,28 @@
     <div class="div-parent">
         <kajie-header ref="kajieHeader" :fixed="true">
             <div slot="left">
-                <i class="iconfont icon-maikefeng left-icon"></i>
-                <!--<img class="left-img" src="http://p8kfci878.bkt.clouddn.com/left-home.png">-->
+                <template v-if="$route.name==='find'">
+                    <i class="iconfont icon-maikefeng left-icon"></i>
+                </template>
+                <template v-else-if="$route.name==='myPage'">
+                    <i class="iconfont icon-yun left-icon"></i>
+                </template>
 
+                <!--<img class="left-img" src="http://p8kfci878.bkt.clouddn.com/left-home.png">-->
             </div>
-            <div slot="title" class="heard-title" @click="searchMusic()">
-                <!--<mt-field placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>-->
-                <i class="iconfont icon-sousuo1"></i>
-                <span>{{$store.getters.getInputRecommend}}</span>
-            </div>
+            <template v-if="$route.name==='find'">
+                <div slot="title" class="heard-title" @click="searchMusic()">
+                    <!--<mt-field placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>-->
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>{{$store.getters.getInputRecommend}}</span>
+                </div>
+            </template>
+            <template v-else-if="$route.name==='myPage'">
+                <div slot="title" class="heard-title-text">
+                    我的音乐
+                </div>
+            </template>
+
             <div slot="right">
                 <!--<i class="iconfont icon-yinle" style="font-size: 20px"></i>-->
                 <!--<img class="right-img" src="http://p8kfci878.bkt.clouddn.com/right-home.png"> -->
@@ -71,6 +84,7 @@
         },
         watch: {
             selected(nvalue){
+                this.$store.commit("setHeaderStatus",false);
                 this.$router.push({'name':nvalue});
             }
         },
@@ -176,6 +190,10 @@
         border: 0 solid white;
         margin: 0 5px;
         border-radius: 10px;
+    }
+    .heard-title-text{
+        color: white;
+        font-size: 45px;
     }
     .dummy1{
         height: 40px;

@@ -20,7 +20,7 @@
         mounted() {
             //组件加载好之后 将样式 从center 改为 left 并使 input 窗获得焦点
             this.initStatus = true;
-            console.log(this.$refs)
+            // console.log(this.$refs)
             this.$refs.innerInput.focus();
         },
         watch: {},
