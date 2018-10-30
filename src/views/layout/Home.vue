@@ -1,6 +1,6 @@
 <template>
     <div class="div-parent">
-        <kajie-header ref="kajieHeader" :fixed="true">
+        <kajie-header ref="kajieHeader">
             <div slot="left">
                 <template v-if="$route.name==='find'">
                     <i class="iconfont icon-maikefeng left-icon"></i>
@@ -39,23 +39,23 @@
             <router-view />
         </div>
         <kajie-tabbar class="home-tabbar"  v-model="selected">
-            <kajie-tabbar-item class="home-tabbar" id="find">
+            <kajie-tabbar-item class="home-tabbar" id="find" @click="changeHomeSelect('find')">
                 <i class="iconfont iconfont-tabbar icon-wangyiyunyinlezizhi-copy"></i>
                 发现
             </kajie-tabbar-item>
-            <kajie-tabbar-item class="home-tabbar" id="video">
+            <kajie-tabbar-item class="home-tabbar" id="video" @click="changeHomeSelect('video')">
                 <i class="iconfont iconfont-tabbar icon-shipin4"></i>
                 视频
             </kajie-tabbar-item>
-            <kajie-tabbar-item class="home-tabbar" id="myPage">
+            <kajie-tabbar-item class="home-tabbar" id="myPage" @click="changeHomeSelect('myPage')">
                 <i class="iconfont iconfont-tabbar icon-yinle2"></i>
                 我的
             </kajie-tabbar-item>
-            <kajie-tabbar-item class="home-tabbar" id="firends">
+            <kajie-tabbar-item class="home-tabbar" id="firends" @click="changeHomeSelect('firends')">
                 <i class="iconfont iconfont-tabbar icon-pengyou1"></i>
                 朋友
             </kajie-tabbar-item>
-            <kajie-tabbar-item class="home-tabbar" id="account">
+            <kajie-tabbar-item class="home-tabbar" id="account" @click="changeHomeSelect('account')">
                 <i class="iconfont iconfont-tabbar icon-zhanghao1"></i>
                 账号
             </kajie-tabbar-item>
@@ -84,8 +84,9 @@
         },
         watch: {
             selected(nvalue){
-                this.$store.commit("setHeaderStatus",false);
-                this.$router.push({'name':nvalue});
+                // alert("selected 改变"+nvalue);
+                // this.$store.commit("setHeaderStatus",false);
+                // this.$router.push({'name':nvalue});
             }
         },
         methods: {
@@ -94,7 +95,10 @@
             },
             searchMusic(){
                 this.$store.commit('setHeaderStatus',true)
-            }
+            },
+            changeHomeSelect(selectValue){
+                this.$router.push({'name':selectValue});
+            },
         },
         computed: {},
         components: {
@@ -103,7 +107,7 @@
             KajieTabbarItem
         },
         beforeRouteUpdate (to, from, next) {
-            this.selected = to.name;
+            // this.selected = to.name;
             next();
         }
     };

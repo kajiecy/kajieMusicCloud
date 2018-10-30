@@ -1,6 +1,6 @@
 <template>
     <a class="kajie-tabbar-item"
-       @click="$parent.$emit('input', id)"
+       @click="clickFooter()"
        :class="{ 'is-selected': $parent.value === id }">
         <div class="kajie-tabbar-item-icon"><slot name="icon"></slot></div>
         <div class="kajie-tabbar-item-label"><slot></slot></div>
@@ -21,7 +21,13 @@
 
         },
         watch: {},
-        methods: {},
+        methods: {
+            clickFooter(){
+                console.log(this.$parent);
+                this.$parent.$emit('input', this.id);
+                this.$emit('click');
+            }
+        },
         computed: {},
         components: {}
     };

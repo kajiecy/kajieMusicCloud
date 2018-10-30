@@ -1,11 +1,13 @@
 <template>
     <header
-            class="kajie-header"
-            :class="{ 'fixed-top': fixed }">
-        <div class="dis_table wd100 kajie-header">
+            class="kajie-header fixed-top"
+            :class="headerBackColor">
+        <div class="dis_table wd100 kajie-header" :class="headerBackColor">
             <div class="dis_table_cell kajie-header-button" :class='$store.getters.getHeaderStatus===false?"wd15":"wd5"'>
                 <template v-if="$store.getters.getHeaderStatus===false">
                     <slot name="left"></slot>
+                </template>
+                <template v-else>
                 </template>
             </div>
             <div class="dis_table_cell kajie-header-title" :class='$store.getters.getHeaderStatus===false?"wd70":"wd80"'>
@@ -115,7 +117,13 @@
                     className += 'pl20';
                 }
                 return className;
-            }
+            },
+            headerBackColor(){
+                if(this.$route.name === 'singListPage'){
+                    return 'transparent-header'
+                }
+                return '';
+            },
         },
         components: {
             KajieInput
@@ -233,5 +241,8 @@
         background-color: #EFEFEF;
         margin: 15px;
         border-radius: 60px;
+    }
+    .transparent-header{
+        background-color: rgba(0,0,0,0);
     }
 </style>
