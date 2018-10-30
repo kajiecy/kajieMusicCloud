@@ -1,14 +1,9 @@
 <template>
     <div class="div-parent">
+        <!--<div ></div>-->
         <kajie-header ref="kajieHeader">
             <div slot="left">
-                <template v-if="$route.name==='find'">
-                    <i class="iconfont icon-maikefeng left-icon"></i>
-                </template>
-                <template v-else-if="$route.name==='myPage'">
-                    <i class="iconfont icon-yun left-icon"></i>
-                </template>
-
+                <i class="iconfont left-icon" :class="$route.meta.icon"></i>
                 <!--<img class="left-img" src="http://p8kfci878.bkt.clouddn.com/left-home.png">-->
             </div>
             <template v-if="$route.name==='find'">
@@ -18,9 +13,9 @@
                     <span>{{$store.getters.getInputRecommend}}</span>
                 </div>
             </template>
-            <template v-else-if="$route.name==='myPage'">
+            <template v-else>
                 <div slot="title" class="heard-title-text">
-                    我的音乐
+                    {{$route.meta.title}}
                 </div>
             </template>
 
@@ -36,7 +31,10 @@
             </div>
         </kajie-header>
         <div class="wrapper">
-            <router-view />
+            <div class="wrapper-filler">
+                <div class="coverImg" :style="{backgroundImage: parentClass}"></div>
+            </div>
+            <router-view/>
         </div>
         <kajie-tabbar class="home-tabbar"  v-model="selected">
             <kajie-tabbar-item class="home-tabbar" id="find" @click="changeHomeSelect('find')">
@@ -100,7 +98,14 @@
                 this.$router.push({'name':selectValue});
             },
         },
-        computed: {},
+        computed: {
+            parentClass(){
+                if(this.$store.getters.getBodyBackImg!==''){
+                    return "url("+this.$store.getters.getBodyBackImg+")";
+                }
+                return '';
+            }
+        },
         components: {
             KajieHeader,
             KajieTabbar,
@@ -139,12 +144,33 @@
         width: 100%;
         height: 100vh;
         overflow: hidden;
+
+    }
+    .coverImg{
+        position: fixed;
+        top: -50px;
+        width: 120%;
+        height: 50vh;
+        left: -10%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        -webkit-filter: blur(25px);
+        -moz-filter: blur(25px);
+        -o-filter: blur(25px);
+        -ms-filter: blur(25px);
+        filter: blur(25px);
+        z-index: -1;
+        transition: all 1s;
     }
     .wrapper{
-        height: calc(100vh - 130px - 170px);
-        margin-top: 130px;
+        height: calc(100vh - 170px);
         margin-bottom: 170px;
         overflow: scroll;
+    }
+    .wrapper-filler{
+        width: 100%;
+        height: 130px;
     }
     .left-img{
         width: 57px;

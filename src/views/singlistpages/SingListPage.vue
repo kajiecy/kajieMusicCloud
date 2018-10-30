@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="singListParent" style="">
         传入id为：{{singListId}}
     </div>
 </template>
@@ -8,19 +8,29 @@
     export default {
         name: "SingListPage",
         data() {
-            return {}
+            return {
+                singListInfo:{
+                    singListCoverImg:'',
+                },
+            }
         },
         created() {
 
         },
         mounted() {
-
+            this.loadPageInfo();
         },
         watch: {},
-        methods: {},
+        methods: {
+            loadPageInfo(){
+                setTimeout(()=>{
+                    this.singListInfo.singListCoverImg = 'http://qiniu.kajie88.com/28913648.jpg';
+                    this.$store.commit('setBodyBackImg',this.singListInfo.singListCoverImg);
+                },1000)
+            }
+        },
         computed: {
             singListId(){
-                console.log(this.$route)
                 return this.$route.query.id;
             }
         },
@@ -29,5 +39,7 @@
 </script>
 
 <style scoped>
-
+    .singListParent{
+        height: calc( 100% - 130px );
+    }
 </style>

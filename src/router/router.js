@@ -8,14 +8,14 @@ export const otherRouter = {
     redirect: '/find',
     component: Main,
     children: [
-        {path: 'home', name: 'home', component: () => import('@/views/Welcome.vue')},
-        {path: 'find', name: 'find', component: () => import('@/views/homepages/HomeFind.vue')},
-        {path: 'video', name: 'video', component: () => import('@/views/homepages/HomeVideo.vue')},
-        {path: 'myPage', name: 'myPage', component: () => import('@/views/homepages/HomeMyPage.vue')},
-        {path: 'firends', name: 'firends', component: () => import('@/views/homepages/HomeFirends.vue')},
-        {path: 'account', name: 'account', component: () => import('@/views/homepages/HomeAccount.vue')},
-        {path: 'testPage', name: 'testPage', component: () => import('@/views/TestPage.vue')},
-        {path: 'singlistpage', name: 'singListPage', component: () => import('@/views/singlistpages/SingListPage.vue')},
+        {path: 'home', name: 'home',meta:{icon:'icon-zuo',title:'欢迎界面'}, component: () => import('@/views/Welcome.vue')},
+        {path: 'find', name: 'find',meta:{icon:'icon-maikefeng',title:'发现'}, component: () => import('@/views/homepages/HomeFind.vue')},
+        {path: 'video', name: 'video',meta:{icon:'icon-zuo',title:'视频'}, component: () => import('@/views/homepages/HomeVideo.vue')},
+        {path: 'myPage', name: 'myPage',meta:{icon:'icon-yun',title:'我的音乐'}, component: () => import('@/views/homepages/HomeMyPage.vue')},
+        {path: 'firends', name: 'firends',meta:{icon:'icon-zuo',title:'朋友'}, component: () => import('@/views/homepages/HomeFirends.vue')},
+        {path: 'account', name: 'account',meta:{icon:'icon-zuo',title:'账号'}, component: () => import('@/views/homepages/HomeAccount.vue')},
+        {path: 'testPage', name: 'testPage',meta:{icon:'icon-zuo',title:'测试界面'}, component: () => import('@/views/TestPage.vue')},
+        {path: 'singlistpage', name: 'singListPage',meta:{icon:'icon-zuo',title:'歌单'}, component: () => import('@/views/singlistpages/SingListPage.vue')},
     ]
 };
 

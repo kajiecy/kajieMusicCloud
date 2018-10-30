@@ -3,7 +3,8 @@ const app = {
         playerStatus:true,
         headerInformation:{
             headerStatus: false,//头部搜索框的展开收起状态
-            inputRecommend:"你瞒我瞒 - 陈伯宇",//用户搜索框的placeHolder内容
+            inputRecommend:"你瞒我瞒 - 陈伯宇",//用户搜索框的placeHolder内容,
+            bodyBackImg:"",//home 页面外层div的背景图片，虚化后展示，header也会根据此对属性是否为''判断是否显示为红色或透明
             hotSingList4Search:[ //搜索界面展开后 热门搜索内容
                 {name:'李荣浩贝贝'},
                 {name:'李荣浩'},
@@ -35,7 +36,11 @@ const app = {
         },
         getHeaderStatus(state){
             return state.headerInformation.headerStatus;
-        }
+        },
+        getBodyBackImg(state){
+            console.log("返回getBodyBackImg",state.headerInformation.bodyBackImg)
+            return state.headerInformation.bodyBackImg;
+        },
 
     },
     mutations: {
@@ -53,7 +58,11 @@ const app = {
         },
         setHeaderStatus(state,headerStatus){
             state.headerInformation.headerStatus=headerStatus;
-        }
+        },
+        setBodyBackImg(state,bodyBackImg){
+            // console.log()
+            state.headerInformation.bodyBackImg = bodyBackImg;
+        },
     }
 };
 
