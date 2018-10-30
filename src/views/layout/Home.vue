@@ -2,7 +2,7 @@
     <div class="div-parent">
         <!--<div ></div>-->
         <kajie-header ref="kajieHeader">
-            <div slot="left">
+            <div slot="left"  @click="leftOperation($route.meta.icon)">
                 <i class="iconfont left-icon" :class="$route.meta.icon"></i>
                 <!--<img class="left-img" src="http://p8kfci878.bkt.clouddn.com/left-home.png">-->
             </div>
@@ -97,6 +97,11 @@
             changeHomeSelect(selectValue){
                 this.$router.push({'name':selectValue});
             },
+            leftOperation(routeIcon){
+                if(routeIcon==='icon-zuo'){
+                    this.$router.go(-1);
+                }
+            }
         },
         computed: {
             parentClass(){
@@ -155,11 +160,11 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-        -webkit-filter: blur(25px);
-        -moz-filter: blur(25px);
-        -o-filter: blur(25px);
-        -ms-filter: blur(25px);
-        filter: blur(25px);
+        -webkit-filter: blur(40px);
+        -moz-filter: blur(40px);
+        -o-filter: blur(40px);
+        -ms-filter: blur(40px);
+        filter: blur(40px);
         z-index: -1;
         transition: all 1s;
     }
