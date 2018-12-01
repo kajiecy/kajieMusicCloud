@@ -2,7 +2,7 @@
     <div class="home-main-view ">
         <div class="swiper-header-tab-out">
             <div class="swiper-header-tab wd80 marginAuto">
-                <div v-for="(item,index) in siderList" :key="index" :class="{'is-select':activeIndex===index}" @click="changeSider(index,$event)" class="swiper-header-tab-item textcenter">
+                <div v-for="(item,index) in siderList" :key="index" @click="changeSider(index,$event)" class="swiper-header-tab-item textcenter">
                     {{item.name}}
                     <template v-if="index===0">
                         <div class="select-div">
@@ -21,9 +21,7 @@
                 </div>
                 <div class="swiper-slide">
                     <div class="swiper-slide-content">
-                            <!--<i class="iconfont icon-banshou"></i><br>-->
-                            <!--敬请期待-->
-                            <home-find-station></home-find-station>
+                        <home-find-station></home-find-station>
                     </div>
                 </div>
             </div>
@@ -63,7 +61,7 @@
                         _vm.activeIndex = this.activeIndex;
                     },
                     progress: function(progress){
-                        // _vm.swiperMain.slides[2].progress;
+                        console.log(progress)
                         _vm.$nextTick(()=>{
                             document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
                             document.querySelector('.select-div').style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';
@@ -130,12 +128,8 @@
         font-weight: 100;
         color: white;
     }
-    .is-select{
-        /*color: #303133;*/
-    }
     .select-div{
         width: 100%;
-        /*transition:all 1s;*/
     }
     .select-div-inner{
         width: 25%;
