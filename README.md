@@ -7,19 +7,19 @@
 
 [在线预览](http://music.kajie88.com)
 
-## 技术栈 ##
- 1. Vue.js 2.0 全家桶
- 2. axios
- 3. mint-ui (此UI库目前仅使用mt-loadmore组件其他组件均为自定义组件[Github地址](https://github.com/ElemeFE/mint-ui/))
- 4. Swiper [Github地址](https://github.com/nolimits4web/swiper)
- 5. skrollr.js (用于歌单详细界面滚动时 Header 的背景图片的偏移处理) [Github地址](https://github.com/Prinzhorn/skrollr)
-
 ## 功能实现 ##
 
 + [X] 发现页面 中Tabs（个性电台-主播推荐）切换时，选中状态样式的过渡效果。[详细文档](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/tabSwitch.md)
 + [X] Header右下角标识 播放状态 的动画图标的展示。[详细文档](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/cssAnimation.md)
 + [X] 发现页面搜索框的逻辑/过渡动画的处理。
 + [ ] 歌单详情页面Header背景为模糊的专辑封面，并需要在界面滚动式跟随变body不变换。
+
+## 技术栈 ##
+ 1. Vue.js 2.0 全家桶
+ 2. axios
+ 3. mint-ui (此UI库目前仅使用mt-loadmore组件其他组件均为自定义组件[Github地址](https://github.com/ElemeFE/mint-ui/))
+ 4. Swiper [Github地址](https://github.com/nolimits4web/swiper)
+ 5. skrollr.js (用于歌单详细界面滚动时 Header 的背景图片的偏移处理) [Github地址](https://github.com/Prinzhorn/skrollr)
 
 ## 参考文档 ##
 
