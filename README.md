@@ -17,7 +17,7 @@
 ## 技术栈 ##
  1. Vue.js 2.0 全家桶
  2. axios
- 3. mint-ui (此UI库目前仅使用mt-loadmore组件其他组件均为自定义组件[Github地址](https://github.com/ElemeFE/mint-ui/))
+ 3. mint-ui (此UI库目前仅使用mt-loadmore组件其他组件均为自定义组件)[Github地址](https://github.com/ElemeFE/mint-ui/)
  4. Swiper [Github地址](https://github.com/nolimits4web/swiper)
  5. skrollr.js (用于歌单详细界面滚动时 Header 的背景图片的偏移处理) [Github地址](https://github.com/Prinzhorn/skrollr)
 
