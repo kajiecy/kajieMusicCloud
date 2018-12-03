@@ -9,8 +9,8 @@
 
 ## 功能实现 ##
 
-+ [X] 发现页面 中Tabs（个性电台-主播推荐）切换时，选中状态样式的过渡效果。[详细文档](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/tabSwitch.md)
-+ [X] Header右下角标识 播放状态 的动画图标的展示。[详细文档](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/cssAnimation.md)
++ [X] 发现页面 中Tabs（个性电台-主播推荐）切换时，选中状态样式的过渡效果。[[详细文档]](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/tabSwitch.md)
++ [X] Header右下角标识 播放状态 的动画图标的展示。[[详细文档]](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/cssAnimation.md)
 + [X] 发现页面搜索框的逻辑/过渡动画的处理。
 + [ ] 歌单详情页面Header背景为模糊的专辑封面，并需要在界面滚动式跟随变body不变换。
 
