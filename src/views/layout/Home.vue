@@ -272,9 +272,6 @@
         83.3% { height: 30px;}
         to {height:40px;}
     }
-
-
-
     @keyframes dum1Ani2
     {
         from {height:60px;}
@@ -289,7 +286,6 @@
         83.3% { height: 70px;}
         to {height:60px;}
     }
-
     @keyframes dum1Ani3
     {
         from {height:50px;}
@@ -304,7 +300,6 @@
         83.3% { height: 40px;}
         to {height:50px;}
     }
-
     @keyframes dum1Ani4
     {
         from {height:50px;}

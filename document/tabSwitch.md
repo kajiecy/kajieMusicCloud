@@ -10,7 +10,8 @@
 - #### 页面构造 ####
 整个页面结构由两个部分组成 
 
-div.swiper-header-tab-out 为上半部分的tabs</br>
+div.swiper-header-tab-out 为上半部分的tabs
+
 div.swiper-container 为下半部分 Swiper 的滑动区域
 
 ![image](http://qiniu.kajie88.com/tabsDemo-1.png)
