@@ -61,7 +61,6 @@
                         _vm.activeIndex = this.activeIndex;
                     },
                     progress: function(progress){
-                        console.log(progress)
                         _vm.$nextTick(()=>{
                             document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
                             document.querySelector('.select-div').style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';

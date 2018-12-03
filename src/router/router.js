@@ -35,7 +35,8 @@ export const appRouter = [
                 component: () => import('@/views/Welcome.vue')
             }
         ]
-    }
+    },
+    {path: '/nianzhi', name: 'nianzhi',meta:{icon:'icon-zuo',title:'歌单'}, component: () => import('@/views/laboratory/nianzhi.vue')},
 ];
 export const undefindRouter = {
     path: '/404',

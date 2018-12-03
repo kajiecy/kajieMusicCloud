@@ -38,7 +38,6 @@ const app = {
             return state.headerInformation.headerStatus;
         },
         getBodyBackImg(state){
-            console.log("返回getBodyBackImg",state.headerInformation.bodyBackImg)
             return state.headerInformation.bodyBackImg;
         },
 

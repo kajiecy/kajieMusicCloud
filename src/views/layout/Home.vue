@@ -30,10 +30,11 @@
                 </div>
             </div>
         </kajie-header>
+
+
+
         <div class="wrapper">
-            <div class="wrapper-filler">
-                <div class="coverImg" :style="{backgroundImage: parentClass}"></div>
-            </div>
+
             <router-view/>
         </div>
         <kajie-tabbar class="home-tabbar"  v-model="selected">
@@ -169,14 +170,15 @@
         transition: all 1s;
     }
     .wrapper{
-        height: calc(100vh - 170px);
-        margin-bottom: 170px;
+        height: calc(100vh - 300px);
+        margin-bottom: 300px;
         overflow: scroll;
+        padding-top: 130px;
     }
-    .wrapper-filler{
-        width: 100%;
-        height: 130px;
-    }
+    /*.wrapper-filler{*/
+        /*width: 100%;*/
+        /*height: 130px;*/
+    /*}*/
     .left-img{
         width: 57px;
         height: 77px;
