@@ -22,7 +22,7 @@
  5. skrollr.js (用于歌单详细界面滚动时 Header 的背景图片的偏移处理) [Github地址](https://github.com/Prinzhorn/skrollr)
 
 ## 安装/运行
-```
+``` shell
 # install dependencies   安装依赖
 npm install
 
