@@ -36,3 +36,4 @@ npm run build
 ## 参考文档 ##
 
 + [如何在Vue项目中使用vw实现移动端适配](https://www.w3cplus.com/mobile/vw-layout-in-vue.html)
++ [iOS 与 惯性滚动](https://www.cnblogs.com/chris-oil/p/6164966.html)（现在部分样式无法兼容UIWebView内核的ios浏览器）
