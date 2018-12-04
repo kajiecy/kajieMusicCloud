@@ -14,8 +14,10 @@ export const otherRouter = {
         {path: 'myPage', name: 'myPage',meta:{icon:'icon-yun',title:'我的音乐'}, component: () => import('@/views/homepages/HomeMyPage.vue')},
         {path: 'firends', name: 'firends',meta:{icon:'icon-zuo',title:'朋友'}, component: () => import('@/views/homepages/HomeFirends.vue')},
         {path: 'account', name: 'account',meta:{icon:'icon-zuo',title:'账号'}, component: () => import('@/views/homepages/HomeAccount.vue')},
-        {path: 'testPage', name: 'testPage',meta:{icon:'icon-zuo',title:'测试界面'}, component: () => import('@/views/TestPage.vue')},
         {path: 'singlistpage', name: 'singListPage',meta:{icon:'icon-zuo',title:'歌单'}, component: () => import('@/views/singlistpages/SingListPage.vue')},
+
+        {path: 'testPage', name: 'testPage',meta:{icon:'icon-zuo',title:'测试界面'}, component: () => import('@/views/TestPage.vue')},
+
     ]
 };
 
@@ -38,6 +40,7 @@ export const appRouter = [
     },
     {path: '/nianzhi', name: 'nianzhi',meta:{icon:'icon-zuo',title:'歌单'}, component: () => import('@/views/laboratory/nianzhi.vue')},
     {path: '/positionSticky', name: 'positionSticky',meta:{icon:'icon-zuo',title:'歌单'}, component: () => import('@/views/laboratory/positionSticky.vue')},
+    {path: '/stackBlurDemo', name: 'stackBlurDemo',meta:{icon:'icon-zuo',title:'测试高斯模糊'}, component: () => import('@/views/laboratory/stackBlurDemo.vue')},
 ];
 export const undefindRouter = {
     path: '/404',

@@ -56,7 +56,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="singlist-content dis_table wd100">
                 <div v-for="(item,index) in singListData.singListArray" class="dis_table_row">
@@ -78,9 +77,7 @@
                     </div>
                 </div>
             </div>
-
         </kajie-scroll>
-
         <!--悬浮的替身div-->
         <div class="singlist-header singlist-header-fixed pt40" v-show="headerFix" :class="headerFix?'head-fixed':''">
             <div class="dis_table wd90 ">
@@ -122,7 +119,6 @@
                     多选
                 </div>
             </div>
-
             <div class="singlist-float dis_table wd100 mt40">
                 <div class="dis_table_cell wd12 pt30 pb30">
                     <i class="iconfont icon-bofang"></i>
@@ -196,8 +192,6 @@
                 if (document.getElementsByClassName('singlist-float')[0]) {
                     header_height = document.getElementsByClassName('singlist-float')[0].offsetTop
                 }
-                console.log('滚动的距离:' + scrolled, '头部的高度:' + header_height)
-                console.log('目标dom的top',document.getElementsByClassName('singlist-header')[0].offsetTop)
                 this.headerFix = scrolled >= header_height
             }
         },
