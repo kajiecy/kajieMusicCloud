@@ -1,10 +1,10 @@
 <template>
     <div style="text-align: center">
         <span class="testimg-span">
-            <img id="testimg" width="140" height="140" src="@/assets/image/recommendSong5.jpg" :style="{filter: 'blur('+rangeValue/10+'px)'}">
+            <img id="testimg" width="240" height="240" src="@/assets/image/recommendSong5.jpg" :style="{filter: 'blur('+rangeValue/10+'px)'}">
         </span>
         <span class="testimg-span">
-            <canvas id="testcanvas"  width="140" height="140"></canvas>
+            <canvas id="testcanvas"  width="240" height="240"></canvas>
         </span>
         <div class="wd90">
             <mt-range

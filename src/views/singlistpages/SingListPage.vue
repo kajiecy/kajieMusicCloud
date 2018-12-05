@@ -4,11 +4,12 @@
             <mt-loadmore
                     class="singlist-loadmore"
                     :top-method="loadTop"
+                    :topDistance="25"
                     @translate-change="translateChange"
                     @top-status-change="handleTopChange"
                     ref="loadmore">
 
-               <div class="singlist-loadmore-outer" style="background-color: #FF9900">
+               <div class="singlist-loadmore-outer" style="">
                    <div slot="top" class="mint-loadmore-top">
                        <div class="div-searchinput">
                            <kajie-input-ellipse></kajie-input-ellipse>
@@ -20,7 +21,7 @@
                                <div class="dis_table_row">
                                    <div class="dis_table_cell singlist-headdiv">
                                        <div class="singlist-coverimg">
-                                           <img :src="singListData.coverImg" width="100%" height="100%">
+                                           <img id="singlistcover" :src="singListData.coverImgBase64" width="100%" height="100%">
                                        </div>
                                    </div>
                                    <div class="dis_table_cell">
@@ -113,6 +114,8 @@
                 </div>
             </div>
         </div>
+        <img id="canvas-copy" :src="singListData.coverImgBase64" >
+        <canvas id="background-canvas" width="100%"></canvas>
     </div>
 
 </template>
@@ -124,6 +127,8 @@
         name: 'SingListPage',
         data() {
             return {
+                headerHight:0,
+
                 topStatus: '',//下拉状态
                 translate: 0,//下拉距离
                 moveTranslate: 0, //缩放比例
@@ -131,6 +136,7 @@
                 singListData: {
                     id: 5,
                     coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
+                    coverImgBase64:'',
                     title: '初识不知曲中意，再听已是曲中人,超级伤感的歌,超级伤感的歌,超级伤感的歌,超级伤感的歌',
                     playCount: 183,
                     ownerName: '卡杰',
@@ -167,18 +173,30 @@
         },
         mounted() {
             this.$nextTick(function () {
+                this.headerHight = document.querySelector('.kajie-header').offsetHeight;
                 document.querySelector('.swiper-slide-content').addEventListener('scroll', this.onScroll)
+
+                var image = new Image();
+                image.src = this.singListData.coverImg;
+                image.setAttribute("crossOrigin",'Anonymous')
+                image.onload = ()=>{
+                    this.singListData.coverImgBase64 = getBase64Image(image);
+
+                    setTimeout( ()=>{
+                        StackBlur.image('canvas-copy', 'background-canvas', 30,false);
+                    },200)
+                }
+
+
             })
         },
         watch: {},
         methods: {
             onScroll() {
                 let scrolled = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop
-                let header_height = null
-                if (document.getElementsByClassName('singlist-float')[0]) {
-                    header_height = document.getElementsByClassName('singlist-float')[0].offsetTop
-                }
-                this.headerFix = scrolled >= header_height
+                console.log(scrolled)
+                // console.log(document.getElementsByClassName('singlist-float')[0].getBoundingClientRect())
+                this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top
             },
             handleTopChange(status) {
                 this.moveTranslate = 1;
@@ -200,6 +218,18 @@
             KajieInputEllipse
         }
     };
+
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.setAttribute("crossOrigin",'Anonymous')
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
+        var dataURL = canvas.toDataURL("image/"+ext);
+        return dataURL;
+    }
 </script>
 
 <style scoped>
@@ -231,12 +261,10 @@
     }
 
     .singlist-header-out {
-        border: 0 solid #2AB1F0;
         height: 820px;
     }
 
     .singlist-header {
-        background-color: #909399;
     }
     .singlist-header-fixed{
         position: absolute;
@@ -336,9 +364,16 @@
     .div-searchinput{
         width: 95%;
         margin: 0 auto;
-        border: 1px solid #67BB1E;
     }
+    #canvas-copy{
+        display: none;
+        width: 1125px;
+        height: 1125px;
+    }
+    #background-canvas{
+        position: absolute;
 
-
-
+        top: 0;
+        left: 0;
+    }
 </style>
