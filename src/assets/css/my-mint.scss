@@ -18,3 +18,7 @@ $color-primary: #D93F37;
 .kajie-tabbar-item.is-selected div{
   color: #D93F37;
 }
+
+.singlist-loadmore .mint-loadmore-spinner,.singlist-loadmore .mint-loadmore-text{
+  display: none;
+}

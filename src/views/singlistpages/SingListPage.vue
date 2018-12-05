@@ -1,125 +1,105 @@
 <template>
     <div class="singlist-body">
         <kajie-scroll>
-            <div class="singlist-header-out">
-                <div class="singlist-header pt40">
-                    <div class="dis_table wd90 ">
-                        <div class="dis_table_row">
-                            <div class="dis_table_cell singlist-headdiv">
-                                <div class="singlist-coverimg">
-                                    <img :src="singListData.coverImg" width="100%" height="100%">
-                                </div>
-                            </div>
-                            <div class="dis_table_cell">
-                                <div class="textleft mt15 mb40 ft50 text_clamp2">
-                                    {{singListData.title}}
-                                </div>
-                                <div class="textleft mb15 ">
+            <mt-loadmore
+                    class="singlist-loadmore"
+                    :top-method="loadTop"
+                    @translate-change="translateChange"
+                    @top-status-change="handleTopChange"
+                    ref="loadmore">
+
+               <div class="singlist-loadmore-outer" style="background-color: #FF9900">
+                   <div slot="top" class="mint-loadmore-top">
+                       <div class="div-searchinput">
+                           <kajie-input-ellipse></kajie-input-ellipse>
+                       </div>
+                   </div>
+                   <div class="singlist-header-out">
+                       <div class="singlist-header pt40">
+                           <div class="dis_table wd90 ">
+                               <div class="dis_table_row">
+                                   <div class="dis_table_cell singlist-headdiv">
+                                       <div class="singlist-coverimg">
+                                           <img :src="singListData.coverImg" width="100%" height="100%">
+                                       </div>
+                                   </div>
+                                   <div class="dis_table_cell">
+                                       <div class="textleft mt15 mb40 ft50 text_clamp2">
+                                           {{singListData.title}}
+                                       </div>
+                                       <div class="textleft mb15 ">
                             <span class="singlist-ownerheadimg vertical-middle">
                                 <img :src="singListData.ownerImg" width="100%" height="100%">
                             </span>
-                                    {{singListData.ownerName}}
-                                    <i class="iconfont icon-you"></i>
-                                </div>
+                                           {{singListData.ownerName}}
+                                           <i class="iconfont icon-you"></i>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="singlist-header-funcbuttons dis_table wd90 mt80">
+                               <div class="dis_table_cell">
+                                   <i class="iconfont icon-pinglun"></i><br>
+                                   1098
+                               </div>
+                               <div class="dis_table_cell">
+                                   <i class="iconfont icon-fenxiang"></i><br>
+                                   2506
+                               </div>
+                               <div class="dis_table_cell">
+                                   <i class="iconfont icon-xiazai-copy"></i><br>
+                                   下载
+                               </div>
+                               <div class="dis_table_cell">
+                                   <i class="iconfont icon-duoxuan"></i><br>
+                                   多选
+                               </div>
+                           </div>
+                           <div class="singlist-float dis_table wd100 mt40">
+                               <div class="dis_table_cell wd12 pt30 pb30">
+                                   <i class="iconfont icon-bofang"></i>
+                               </div>
+                               <div class="dis_table_cell singlist-float-describe textleft">
+                                   播放全部
+                                   <span>(共{{singListData.singListArray==null?0:singListData.singListArray.length}}首)</span>
+                               </div>
+                               <div class="dis_table_cell wd30 collect">
+                                   <i class="iconfont icon-tianjiajiahaowubiankuang"></i>
+                                   收藏({{singListData.collectCount}}万)
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+
+
+                <div class="singlist-content dis_table wd100">
+                    <div v-for="(item,index) in singListData.singListArray" class="dis_table_row">
+                        <div class="dis_table_cell wd12">{{index+1}}</div>
+                        <div class="dis_table_cell">
+                            <div class="singlist-content-singname">
+                                {{item.name}}
+                            </div>
+                            <div class="singlist-content-describe">
+                                <template v-if="item.isSq">
+                                    <i class="iconfont icon-sq"></i>
+                                </template>
+                                {{item.singerName}} - {{item.specialName||item.name}}
                             </div>
                         </div>
-                    </div>
-                    <div class="singlist-header-funcbuttons dis_table wd90 mt80">
-                        <div class="dis_table_cell">
-                            <i class="iconfont icon-pinglun"></i><br>
-                            1098
-                        </div>
-                        <div class="dis_table_cell">
-                            <i class="iconfont icon-fenxiang"></i><br>
-                            2506
-                        </div>
-                        <div class="dis_table_cell">
-                            <i class="iconfont icon-xiazai-copy"></i><br>
-                            下载
-                        </div>
-                        <div class="dis_table_cell">
-                            <i class="iconfont icon-duoxuan"></i><br>
-                            多选
-                        </div>
-                    </div>
-                    <div class="singlist-float dis_table wd100 mt40">
-                        <div class="dis_table_cell wd12 pt30 pb30">
-                            <i class="iconfont icon-bofang"></i>
-                        </div>
-                        <div class="dis_table_cell singlist-float-describe textleft">
-                            播放全部
-                            <span>(共{{singListData.singListArray==null?0:singListData.singListArray.length}}首)</span>
-                        </div>
-                        <div class="dis_table_cell wd30 collect">
-                            <i class="iconfont icon-tianjiajiahaowubiankuang"></i>
-                            收藏({{singListData.collectCount}}万)
+                        <div class="dis_table_cell wd30 textright pr20">
+                            <i v-if="item.hasMv" class="iconfont icon-mv"></i>
+                            <i class="iconfont icon-shenglvehao"></i>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="singlist-content dis_table wd100">
-                <div v-for="(item,index) in singListData.singListArray" class="dis_table_row">
-                    <div class="dis_table_cell wd12">{{index+1}}</div>
-                    <div class="dis_table_cell">
-                        <div class="singlist-content-singname">
-                            {{item.name}}
-                        </div>
-                        <div class="singlist-content-describe">
-                            <template v-if="item.isSq">
-                                <i class="iconfont icon-sq"></i>
-                            </template>
-                            {{item.singerName}} - {{item.specialName||item.name}}
-                        </div>
-                    </div>
-                    <div class="dis_table_cell wd30 textright pr20">
-                        <i v-if="item.hasMv" class="iconfont icon-mv"></i>
-                        <i class="iconfont icon-shenglvehao"></i>
-                    </div>
-                </div>
-            </div>
+
+            </mt-loadmore>
         </kajie-scroll>
         <!--悬浮的替身div-->
-        <div class="singlist-header singlist-header-fixed pt40" v-show="headerFix" :class="headerFix?'head-fixed':''">
-            <div class="dis_table wd90 ">
-                <div class="dis_table_row">
-                    <div class="dis_table_cell singlist-headdiv">
-                        <div class="singlist-coverimg">
-                            <img :src="singListData.coverImg" width="100%" height="100%">
-                        </div>
-                    </div>
-                    <div class="dis_table_cell">
-                        <div class="textleft mt15 mb40 ft50 text_clamp2">
-                            {{singListData.title}}
-                        </div>
-                        <div class="textleft mb15 ">
-                            <span class="singlist-ownerheadimg vertical-middle">
-                                <img :src="singListData.ownerImg" width="100%" height="100%">
-                            </span>
-                            {{singListData.ownerName}}
-                            <i class="iconfont icon-you"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="singlist-header-funcbuttons dis_table wd90 mt80">
-                <div class="dis_table_cell">
-                    <i class="iconfont icon-pinglun"></i><br>
-                    1098
-                </div>
-                <div class="dis_table_cell">
-                    <i class="iconfont icon-fenxiang"></i><br>
-                    2506
-                </div>
-                <div class="dis_table_cell">
-                    <i class="iconfont icon-xiazai-copy"></i><br>
-                    下载
-                </div>
-                <div class="dis_table_cell">
-                    <i class="iconfont icon-duoxuan"></i><br>
-                    多选
-                </div>
-            </div>
-            <div class="singlist-float dis_table wd100 mt40">
+        <div class="singlist-header singlist-header-fixed " v-show="headerFix" :class="headerFix?'head-fixed':''">
+            <div class="singlist-float dis_table wd100 ">
                 <div class="dis_table_cell wd12 pt30 pb30">
                     <i class="iconfont icon-bofang"></i>
                 </div>
@@ -138,10 +118,16 @@
 </template>
 
 <script>
+    import KajieInputEllipse from '@/components/KajieInputEllipse.vue';
+
     export default {
         name: 'SingListPage',
         data() {
             return {
+                topStatus: '',//下拉状态
+                translate: 0,//下拉距离
+                moveTranslate: 0, //缩放比例
+
                 singListData: {
                     id: 5,
                     coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
@@ -193,10 +179,26 @@
                     header_height = document.getElementsByClassName('singlist-float')[0].offsetTop
                 }
                 this.headerFix = scrolled >= header_height
+            },
+            handleTopChange(status) {
+                this.moveTranslate = 1;
+                this.topStatus = status;
+            },
+            translateChange(translate) {
+                const translateNum = +translate;
+                this.translate = translateNum.toFixed(2);
+                this.moveTranslate = (1 + translateNum / 70).toFixed(2);
+            },
+            loadTop() {
+                // setTimeout(() => {
+                //     this.$refs.loadmore.onTopLoaded();
+                // }, 1500);
             }
         },
         computed: {},
-        components: {}
+        components: {
+            KajieInputEllipse
+        }
     };
 </script>
 
@@ -243,9 +245,8 @@
         z-index: 9;
     }
     .head-fixed {
-        /*top: 695px;*/
-        top: -575px;
-        left: 0px;
+        top: 120px;
+        left: 0;
         z-index: 9;
     }
 
@@ -331,5 +332,13 @@
         font-weight: bold;
         color: #F36B3A;
     }
+
+    .div-searchinput{
+        width: 95%;
+        margin: 0 auto;
+        border: 1px solid #67BB1E;
+    }
+
+
 
 </style>
