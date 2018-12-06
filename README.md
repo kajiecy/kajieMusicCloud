@@ -5,7 +5,7 @@
 本软件是仿照网易云音乐IOS版进行copy,在编写的过程中尽量还原APP效果。
 此项目诞生的目的仅为了VueJS手机端的架构及特性。（说白了就是自己拿来练手的BB一大堆。。。）
 
-[在线预览](http://music.kajie88.com)
+[[在线预览]](http://music.kajie88.com)
 
 ## 功能实现 ##
 
@@ -18,8 +18,8 @@
  1. Vue.js 2.0 全家桶
  2. axios
  3. mint-ui (此UI库目前仅使用mt-loadmore组件其他组件均为自定义组件)[[Github地址]](https://github.com/ElemeFE/mint-ui/)
- 4. Swiper [Github地址](https://github.com/nolimits4web/swiper)
- 5. stackblur.js [[Github地址]](https://github.com/flozz/StackBlur)[[效果展示]](http://music.kajie88.com/#/stackBlurDemo)
+ 4. Swiper [[Github地址]](https://github.com/nolimits4web/swiper)
+ 5. stackblur.js [[Github地址]](https://github.com/flozz/StackBlur) [[效果展示]](http://music.kajie88.com/#/stackBlurDemo)
 
 ## 安装/运行
 ``` shell
