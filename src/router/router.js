@@ -41,6 +41,8 @@ export const appRouter = [
     {path: '/nianzhi', name: 'nianzhi',meta:{icon:'icon-zuo',title:'歌单'}, component: () => import('@/views/laboratory/nianzhi.vue')},
     {path: '/positionSticky', name: 'positionSticky',meta:{icon:'icon-zuo',title:'歌单'}, component: () => import('@/views/laboratory/positionSticky.vue')},
     {path: '/stackBlurDemo', name: 'stackBlurDemo',meta:{icon:'icon-zuo',title:'测试高斯模糊'}, component: () => import('@/views/laboratory/stackBlurDemo.vue')},
+    {path: '/transformTest', name: 'transformTest',meta:{icon:'icon-zuo',title:'测试高斯模糊'}, component: () => import('@/views/laboratory/transformTest.vue')},
+
 ];
 export const undefindRouter = {
     path: '/404',

@@ -32,7 +32,7 @@
                             <span class="singlist-ownerheadimg vertical-middle">
                                 <img :src="singListData.ownerImg" width="100%" height="100%">
                             </span>
-                                           {{singListData.ownerName}}
+                                           {{singListData.ownerName}}{{topStatus}}
                                            <i class="iconfont icon-you"></i>
                                        </div>
                                    </div>
@@ -72,7 +72,6 @@
                        </div>
                    </div>
                </div>
-
 
 
                 <div class="singlist-content dis_table wd100">
@@ -115,13 +114,14 @@
             </div>
         </div>
         <img id="canvas-copy" :src="singListData.coverImgBase64" >
-        <canvas id="background-canvas" width="100%"></canvas>
+        <canvas id="background-canvas" :style="{ 'transform': transform }" width="100%"></canvas>
     </div>
 
 </template>
 
 <script>
     import KajieInputEllipse from '@/components/KajieInputEllipse.vue';
+    import * as StackBlur from '@/assets/js/stackblur/stackblur-es.js';
 
     export default {
         name: 'SingListPage',
@@ -129,6 +129,7 @@
             return {
                 headerHight:0,
 
+                canvasBgOffsetTop:0,
                 topStatus: '',//下拉状态
                 translate: 0,//下拉距离
                 moveTranslate: 0, //缩放比例
@@ -174,36 +175,61 @@
         mounted() {
             this.$nextTick(function () {
                 this.headerHight = document.querySelector('.kajie-header').offsetHeight;
-                document.querySelector('.swiper-slide-content').addEventListener('scroll', this.onScroll)
+                document.querySelector('.swiper-slide-content').addEventListener('scroll', this.onScroll);
 
-                var image = new Image();
-                image.src = this.singListData.coverImg;
-                image.setAttribute("crossOrigin",'Anonymous')
+                let image = new Image();
+                // 解决跨域 Canvas 污染问题
+                image.setAttribute("crossOrigin", "anonymous");
                 image.onload = ()=>{
-                    this.singListData.coverImgBase64 = getBase64Image(image);
+                    let canvas = document.createElement("canvas");
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    let context = canvas.getContext("2d");
+                    context.drawImage(image, 0, 0, image.width, image.height);
+                    let url = canvas.toDataURL("image/png"); //得到图片的base64编码数据
+                    this.singListData.coverImgBase64 = url
 
-                    setTimeout( ()=>{
-                        StackBlur.image('canvas-copy', 'background-canvas', 30,false);
-                    },200)
-                }
+                    let _image = new Image();
+                    _image.onload =()=>{
+                        console.log(_image)
+                        setTimeout(()=>{
+                            StackBlur.image('singlistcover', 'background-canvas', 30,false);
+                        },1000)
+                    }
+                    _image.src = url;
+                };
+                image.src = this.singListData.coverImg;
 
-
+                this.canvasBgOffsetTop = document.querySelector('#background-canvas').offsetTop;
             })
         },
-        watch: {},
+        watch: {
+            topStatus(newValue,oldValue){
+                if(oldValue==='drop'&&newValue==='loading'){
+                    document.querySelector('#background-canvas').style.transition = 'all 0.3s';
+                }
+                setTimeout(function () {
+                    document.querySelector('#background-canvas').style.transition = '';
+                },220)
+            }
+        },
         methods: {
             onScroll() {
-                let scrolled = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop
-                console.log(scrolled)
+                let scrolled = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop;
+                // let canvasBg = document.querySelector('#background-canvas');
+                document.querySelector('#background-canvas').style.top = this.canvasBgOffsetTop-scrolled+'px'
                 // console.log(document.getElementsByClassName('singlist-float')[0].getBoundingClientRect())
                 this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top
+
+
             },
             handleTopChange(status) {
                 this.moveTranslate = 1;
                 this.topStatus = status;
             },
             translateChange(translate) {
-                const translateNum = +translate;
+                const translateNum = Number(translate);
+
                 this.translate = translateNum.toFixed(2);
                 this.moveTranslate = (1 + translateNum / 70).toFixed(2);
             },
@@ -213,23 +239,17 @@
                 // }, 1500);
             }
         },
-        computed: {},
+        computed: {
+            transform() {
+                console.log(this.translate)
+                let translateStart = this.translate-50>0?this.translate-50:0;
+                return this.translate === 0 ? 'scale3d(1, 1, 1)' : 'scale3d('+(parseFloat(translateStart)*0.006+1)+', ' + (parseFloat(translateStart)*0.006+1) + ', 1)';
+            }
+        },
         components: {
             KajieInputEllipse
         }
     };
-
-    function getBase64Image(img) {
-        var canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        canvas.setAttribute("crossOrigin",'Anonymous')
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, img.width, img.height);
-        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
-        var dataURL = canvas.toDataURL("image/"+ext);
-        return dataURL;
-    }
 </script>
 
 <style scoped>
@@ -372,8 +392,8 @@
     }
     #background-canvas{
         position: absolute;
-
-        top: 0;
+        top: -120px;
         left: 0;
+        width: 100%;
     }
 </style>

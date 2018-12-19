@@ -26,7 +26,6 @@
 </template>
 
 <script>
-    import * as StackBlur from 'stackblur-canvas';
     import { Range } from 'mint-ui';
     export default {
         name: "stackBlurDemo",
