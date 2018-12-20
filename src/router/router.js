@@ -8,15 +8,16 @@ export const otherRouter = {
     redirect: '/find',
     component: Main,
     children: [
-        {path: 'home', name: 'home',meta:{icon:'icon-zuo',title:'欢迎界面'}, component: () => import('@/views/Welcome.vue')},
-        {path: 'find', name: 'find',meta:{icon:'icon-maikefeng',title:'发现'}, component: () => import('@/views/homepages/HomeFind.vue')},
-        {path: 'video', name: 'video',meta:{icon:'icon-zuo',title:'视频'}, component: () => import('@/views/homepages/HomeVideo.vue')},
-        {path: 'myPage', name: 'myPage',meta:{icon:'icon-yun',title:'我的音乐'}, component: () => import('@/views/homepages/HomeMyPage.vue')},
-        {path: 'firends', name: 'firends',meta:{icon:'icon-zuo',title:'朋友'}, component: () => import('@/views/homepages/HomeFirends.vue')},
-        {path: 'account', name: 'account',meta:{icon:'icon-zuo',title:'账号'}, component: () => import('@/views/homepages/HomeAccount.vue')},
-        {path: 'singlistpage', name: 'singListPage',meta:{icon:'icon-zuo',title:'歌单'}, component: () => import('@/views/singlistpages/SingListPage.vue')},
+        {path: 'home', name: 'home',meta:{icon:'icon-zuo',title:'欢迎界面',footShow:true}, component: () => import('@/views/Welcome.vue')},
+        {path: 'find', name: 'find',meta:{icon:'icon-maikefeng',title:'发现',footShow:true}, component: () => import('@/views/homepages/HomeFind.vue')},
+        {path: 'video', name: 'video',meta:{icon:'icon-zuo',title:'视频',footShow:true}, component: () => import('@/views/homepages/HomeVideo.vue')},
+        {path: 'myPage', name: 'myPage',meta:{icon:'icon-yun',title:'我的音乐',footShow:true}, component: () => import('@/views/homepages/HomeMyPage.vue')},
+        {path: 'firends', name: 'firends',meta:{icon:'icon-zuo',title:'朋友',footShow:true}, component: () => import('@/views/homepages/HomeFirends.vue')},
+        {path: 'account', name: 'account',meta:{icon:'icon-zuo',title:'账号',footShow:true}, component: () => import('@/views/homepages/HomeAccount.vue')},
+        {path: 'singlistpage', name: 'singListPage',meta:{icon:'icon-zuo',title:'歌单',transparent:true}, component: () => import('@/views/singlistpages/SingListPage.vue')},
+        {path: 'singPlayer', name: 'singPlayer',meta:{icon:'icon-zuo',titleType:'player',transparent:true,footShow:false}, component: () => import('@/views/singlistpages/SingPlayer.vue')},
 
-        {path: 'testPage', name: 'testPage',meta:{icon:'icon-zuo',title:'测试界面'}, component: () => import('@/views/TestPage.vue')},
+        {path: 'testPage', name: 'testPage',meta:{icon:'icon-zuo',title:'测试界面',footShow:true}, component: () => import('@/views/TestPage.vue')},
 
     ]
 };

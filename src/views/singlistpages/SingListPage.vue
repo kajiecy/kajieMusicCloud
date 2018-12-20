@@ -77,7 +77,7 @@
 
 
                 <div class="singlist-content dis_table wd100">
-                    <div v-for="(item,index) in singListData.singListArray" class="dis_table_row">
+                    <div v-for="(item,index) in singListData.singListArray" :key="index" class="dis_table_row" @click="pushToPlayer(item.id)">
                         <div class="dis_table_cell wd12">{{index+1}}</div>
                         <div class="dis_table_cell">
                             <div class="singlist-content-singname">
@@ -154,26 +154,26 @@
                     ownerImg: 'http://qiniu.kajie88.com/28913648.jpg',
                     collectCount: 36.8,
                     singListArray: [
-                        {name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: true},
-                        {name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                        {name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
-                        {name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: true},
-                        {name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                        {name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+                        {id:1,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: true},
+                        {id:2,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                        {id:3,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
+                        {id:4,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: true},
+                        {id:5,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                        {id:6,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
 
-                        {name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
-                        {name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                        {name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
-                        {name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: false},
-                        {name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                        {name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+                        {id:7,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
+                        {id:8,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                        {id:9,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
+                        {id:10,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: false},
+                        {id:11,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                        {id:12,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
 
-                        {name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
-                        {name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                        {name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: false, isSq: true},
-                        {name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: false, isSq: false},
-                        {name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                        {name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+                        {id:13,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
+                        {id:14,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                        {id:15,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: false, isSq: true},
+                        {id:16,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: false, isSq: false},
+                        {id:17,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                        {id:18,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
                     ]
                 },
                 headerFix: false,
@@ -236,21 +236,16 @@
                     document.querySelector('#background-canvas').style.transition = '';
                 },220)
             },
-            // headerFix(val){
-            // }
         },
         methods: {
             onScroll() {
                 let scrolled = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop;
 
                 this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top;
-
                 // 滚动时让模糊的背景图片跟随滚动移动
                 if(!this.headerFix){
                     document.querySelector('#background-canvas').style.top = this.canvasBgOffsetTop-scrolled+'px'
                 }
-
-
             },
             handleTopChange(status) {
                 this.moveTranslate = 1;
@@ -266,11 +261,14 @@
                 // setTimeout(() => {
                 //     this.$refs.loadmore.onTopLoaded();
                 // }, 1500);
+            },
+            pushToPlayer(singId){
+                this.$router.push({name:'singPlayer',query:{id:singId}});
             }
         },
         computed: {
             transform() {
-                console.log(this.translate)
+                // console.log(this.translate)
                 let translateStart = this.translate-50>0?this.translate-50:0;
 
                 return this.translate === 0 ? 'scale3d(1, 1, 1)' : 'scale3d('+(parseFloat(translateStart)*0.006+1)+', ' + (parseFloat(translateStart)*0.006+1) + ', 1)';

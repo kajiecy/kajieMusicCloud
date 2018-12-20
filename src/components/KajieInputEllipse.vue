@@ -23,7 +23,7 @@
         name: "KajieInputEllipse",
         data() {
             return {
-                isFocus:true,
+                isFocus:false,
                 placeholder:'搜索歌单内歌曲',
             }
         },

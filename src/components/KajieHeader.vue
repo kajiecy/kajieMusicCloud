@@ -120,7 +120,7 @@
             },
             //fixme 这里控制根据路由名称控制非常不规范！！！需要作出从新设计
             headerBackColor(){
-                if(this.$route.name === 'singListPage'){
+                if(this.$route.meta.transparent){
                     return 'transparentHeader'
                 }
                 return '';

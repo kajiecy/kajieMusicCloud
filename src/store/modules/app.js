@@ -18,6 +18,7 @@ const app = {
                 {singerImg:'http://qiniu.kajie88.com/28913648.jpg'},
                 {singerImg:'http://qiniu.kajie88.com/28913648.jpg'},
             ],
+            
         },
 
     },

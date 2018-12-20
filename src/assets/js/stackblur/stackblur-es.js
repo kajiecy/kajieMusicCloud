@@ -159,12 +159,12 @@ function processImageDataRGBA(imageData, topX, topY, width, height, radius) {
   const heightMinus1 = height - 1;
   const radiusPlus1 = radius + 1;
   const sumFactor = radiusPlus1 * (radiusPlus1 + 1) / 2;
-  const stackStart = new BlurStack();
+  const stackStart = {r:0,g:0,b:0,a:0,next:null,};
   let stack = stackStart;
   let stackEnd;
 
   for (i = 1; i < div; i++) {
-    stack = stack.next = new BlurStack();
+    stack = stack.next = {r:0,g:0,b:0,a:0,next:null,};
 
     if (i === radiusPlus1) {
       stackEnd = stack;
@@ -386,12 +386,12 @@ function processImageDataRGB(imageData, topX, topY, width, height, radius) {
   const heightMinus1 = height - 1;
   const radiusPlus1 = radius + 1;
   const sumFactor = radiusPlus1 * (radiusPlus1 + 1) / 2;
-  const stackStart = new BlurStack();
+  const stackStart = {r:0,g:0,b:0,a:0,next:null};
   let stack = stackStart;
   let stackEnd;
 
   for (i = 1; i < div; i++) {
-    stack = stack.next = new BlurStack();
+    stack = stack.next = {r:0,g:0,b:0,a:0,next:null};
 
     if (i === radiusPlus1) {
       stackEnd = stack;
@@ -539,16 +539,4 @@ function processImageDataRGB(imageData, topX, topY, width, height, radius) {
  *
  */
 
-
-class BlurStack {
-  constructor() {
-    this.r = 0;
-    this.g = 0;
-    this.b = 0;
-    this.a = 0;
-    this.next = null;
-  }
-
-}
-
-export { BlurStack, processImage as image, processCanvasRGBA as canvasRGBA, processCanvasRGB as canvasRGB, processImageDataRGBA as imageDataRGBA, processImageDataRGB as imageDataRGB };
+export {processImage as image, processCanvasRGBA as canvasRGBA, processCanvasRGB as canvasRGB, processImageDataRGBA as imageDataRGBA, processImageDataRGB as imageDataRGB };

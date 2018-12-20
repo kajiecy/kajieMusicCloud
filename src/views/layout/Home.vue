@@ -33,11 +33,11 @@
 
 
 
-        <div class="wrapper">
+        <div class="wrapper" :class="!$route.meta.footShow?'wrapper-no-foot':''">
 
             <router-view/>
         </div>
-        <kajie-tabbar class="home-tabbar"  v-model="selected">
+        <kajie-tabbar class="home-tabbar" v-if="$route.meta.footShow"  v-model="selected">
             <kajie-tabbar-item class="home-tabbar" id="find" @click="changeHomeSelect('find')">
                 <i class="iconfont iconfont-tabbar icon-wangyiyunyinlezizhi-copy"></i>
                 发现
@@ -170,10 +170,14 @@
         transition: all 1s;
     }
     .wrapper{
-        height: calc(100vh - 300px);
+        height: calc(100vh - 130px - 170px);
         margin-bottom: 300px;
         overflow: scroll;
         padding-top: 130px;
+    }
+    .wrapper-no-foot{
+        margin-bottom: 0;
+        height: calc(100vh - 130px);
     }
     /*.wrapper-filler{*/
         /*width: 100%;*/
