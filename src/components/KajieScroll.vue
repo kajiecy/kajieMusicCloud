@@ -25,7 +25,7 @@
 
         },
         mounted() {
-            let _vm = this;
+            // let _vm = this;
             // _vm.swiperMain = new Swiper('.swiper-main', {
             //     resistanceRatio : 0,//滑动到尽头时禁止在滑动
             //     iOSEdgeSwipeDetection : true,

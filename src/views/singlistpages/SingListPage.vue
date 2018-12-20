@@ -98,7 +98,10 @@
             </mt-loadmore>
         </kajie-scroll>
         <!--悬浮的替身div-->
-        <div class="singlist-header singlist-header-fixed " v-show="headerFix" :class="headerFix?'head-fixed':''">
+        <div class="singlist-header singlist-header-fixed " id="singlist-header-float" v-show="headerFix" :class="headerFix?'head-fixed':''">
+            <div class="background-canvas-out">
+                <canvas id="background-canvas-"></canvas>
+            </div>
             <div class="singlist-float dis_table wd100 ">
                 <div class="dis_table_cell wd12 pt30 pb30">
                     <i class="iconfont icon-bofang"></i>
@@ -112,7 +115,9 @@
                     收藏({{singListData.collectCount}}万)
                 </div>
             </div>
+
         </div>
+
         <img id="canvas-copy" :src="singListData.coverImgBase64" >
         <canvas id="background-canvas" :style="{ 'transform': transform }" ></canvas>
     </div>
@@ -197,7 +202,24 @@
 
                     let _image = new Image();
 
-                    _image.onload =()=>{StackBlur.image('singlistcover', 'background-canvas', 30,false);}
+                    _image.onload =()=>{
+                        StackBlur.image('singlistcover', 'background-canvas', 30,false);
+
+                        //background-canvas 复制一份 到 background-canvas-
+                        let source = document.getElementById('background-canvas'),
+                             target = document.getElementById('background-canvas-');
+
+
+                        console.log(source.clientWidth)
+
+                        let headerHeight = document.getElementById('singlist-header-float').clientHeight;
+
+                        headerHeight = 46;
+                        target.width = source.clientWidth;
+                        target.height = headerHeight;
+                        //复制一个 canvas用来充当 浮动框的假背景 填充圆角的背景 空缺
+                        target.getContext('2d').drawImage(source,0, source.height - source.height*headerHeight/source.clientHeight, source.width,source.height,0, 0, source.clientWidth, source.clientHeight);
+                    }
                     _image.src = url;
                 };
                 image.src = this.singListData.coverImg;
@@ -213,16 +235,20 @@
                 setTimeout(function () {
                     document.querySelector('#background-canvas').style.transition = '';
                 },220)
-            }
+            },
+            // headerFix(val){
+            // }
         },
         methods: {
             onScroll() {
                 let scrolled = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop;
-                // let canvasBg = document.querySelector('#background-canvas');
 
-                document.querySelector('#background-canvas').style.top = this.canvasBgOffsetTop-scrolled+'px'
-                // console.log(document.getElementsByClassName('singlist-float')[0].getBoundingClientRect())
-                this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top
+                this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top;
+
+                // 滚动时让模糊的背景图片跟随滚动移动
+                if(!this.headerFix){
+                    document.querySelector('#background-canvas').style.top = this.canvasBgOffsetTop-scrolled+'px'
+                }
 
 
             },
@@ -260,10 +286,10 @@
     .singlist-headdiv {
         width: 450px;
     }
-    .singlist-body{
+    .singlist-body {
         height: 100%;
     }
-    .swiper-slide-content {
+    .swiper-slide-content{
         /*增加弹性滚动,解决滚动不流畅的问题*/
         -webkit-overflow-scrolling: touch;
     }
@@ -297,7 +323,7 @@
         z-index: 9;
     }
     .head-fixed {
-        top: 120px;
+        top: 125px;
         left: 0;
         z-index: 9;
     }
@@ -393,11 +419,19 @@
         display: none;
         width: 1125px;
         height: 1125px;
+        z-index: 1;
     }
     #background-canvas{
         position: absolute;
         top: -120px;
         left: 0;
         width: 100%;
+    }
+    .background-canvas-out{
+        position: relative;
+        height: 0px;
+        /*top: -350px;*/
+        /*left: 0;*/
+        z-index: -1;
     }
 </style>

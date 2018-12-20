@@ -49,7 +49,7 @@
                     this.headerCanvasObj.width = w;
                     this.headerCanvasObj.height = h;
 
-                    this.headerCanvasObj.getContext('2d').drawImage(document.getElementById('testimg'), 0, 0, w, h, 0, 0, w, h); //实现放大镜
+                    this.headerCanvasObj.getContext('2d').drawImage(document.getElementById('testimg'), 0, h-47, w, h, 0, 0, w, 47); //实现放大镜
                 },1000)
 
             });
