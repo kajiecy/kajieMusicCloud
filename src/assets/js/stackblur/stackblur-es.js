@@ -50,15 +50,16 @@ const shgTable = [9, 11, 12, 13, 13, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 17,
 function processImage(img, canvas, radius, blurAlphaChannel) {
   if (typeof img === 'string') {
     img = document.getElementById(img);
-    img.setAttribute("crossOrigin", "anonymous");
   }
 
   if (!img || !('naturalWidth' in img)) {
     return;
   }
 
-    const w = img.clientWidth;
-    const h = img.clientHeight;
+    // const w = img.clientWidth;
+    // const h = img.clientHeight;
+    const w = img.naturalWidth;
+    const h = img.naturalHeight;
     // const w = 240;
     // const h = 240;
 

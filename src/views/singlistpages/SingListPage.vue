@@ -25,14 +25,16 @@
                                        </div>
                                    </div>
                                    <div class="dis_table_cell">
-                                       <div class="textleft mt15 mb40 ft50 text_clamp2">
+                                       <div class="singlist-title textleft mt15 mb40 ft50 text_clamp2">
                                            {{singListData.title}}
                                        </div>
-                                       <div class="textleft mb15 ">
-                            <span class="singlist-ownerheadimg vertical-middle">
-                                <img :src="singListData.ownerImg" width="100%" height="100%">
-                            </span>
-                                           {{singListData.ownerName}}{{topStatus}}
+                                       <div class="singlist-owner textleft mb15 ">
+                                            <span class="singlist-ownerheadimg vertical-middle">
+                                                <img :src="singListData.ownerImg" width="100%" height="100%">
+                                            </span>
+                                            <span class="singlist-owner-text">
+                                                {{singListData.ownerName}}
+                                            </span>
                                            <i class="iconfont icon-you"></i>
                                        </div>
                                    </div>
@@ -56,7 +58,7 @@
                                    多选
                                </div>
                            </div>
-                           <div class="singlist-float dis_table wd100 mt40">
+                           <div class="singlist-float dis_table wd100 mt40" id="singlist-header">
                                <div class="dis_table_cell wd12 pt30 pb30">
                                    <i class="iconfont icon-bofang"></i>
                                </div>
@@ -143,7 +145,8 @@
 
                 singListData: {
                     id: 5,
-                    coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
+                    coverImg: 'http://qiniu.kajie88.com/28913648.jpg',
+                    // coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
                     coverImgBase64:'',
                     title: '初识不知曲中意，再听已是曲中人,超级伤感的歌,超级伤感的歌,超级伤感的歌,超级伤感的歌',
                     playCount: 183,
@@ -174,6 +177,7 @@
                     ]
                 },
                 headerFix: false,
+                blurRate:60,
             };
         },
         created() {
@@ -203,22 +207,18 @@
                     let _image = new Image();
 
                     _image.onload =()=>{
-                        StackBlur.image('singlistcover', 'background-canvas', 30,false);
+                        StackBlur.image('singlistcover', 'background-canvas', this.blurRate,false);
 
                         //background-canvas 复制一份 到 background-canvas-
                         let source = document.getElementById('background-canvas'),
                              target = document.getElementById('background-canvas-');
 
+                        let headerHeight = document.getElementById('singlist-header').clientHeight;
 
-                        console.log(source.clientWidth)
-
-                        let headerHeight = document.getElementById('singlist-header-float').clientHeight;
-
-                        headerHeight = 46;
                         target.width = source.clientWidth;
                         target.height = headerHeight;
                         //复制一个 canvas用来充当 浮动框的假背景 填充圆角的背景 空缺
-                        target.getContext('2d').drawImage(source,0, source.height - source.height*headerHeight/source.clientHeight, source.width,source.height,0, 0, source.clientWidth, source.clientHeight);
+                        target.getContext('2d').drawImage(source,0, source.height - source.height*headerHeight/source.clientHeight, source.width,source.height*headerHeight/source.clientHeight,0, 0, source.clientWidth, source.clientHeight);
                     }
                     _image.src = url;
                 };
@@ -282,7 +282,13 @@
     };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    .mint-loadmore{
+        min-height: 100%;
+    }
+    .mint-loadmore-content{
+        min-height: 100%;
+    }
     .singlist-headdiv {
         width: 450px;
     }
@@ -332,15 +338,27 @@
         font-size: 20px;
     }
 
-    .singlist-header-funcbuttons .dis_table_cell {
-        font-size: 38px;
-        line-height: 65px;
+    .singlist-header-funcbuttons{
+        .dis_table_cell {
+            font-size: 38px;
+            line-height: 65px;
+            color: rgba(230,230,230,0.9);
+        }
+        .iconfont {
+            font-size: 55px;
+        }
     }
 
-    .singlist-header-funcbuttons .iconfont {
-        font-size: 55px;
+    .singlist-title{
+        color: white;
     }
-
+    .singlist-owner .singlist-owner-text{
+        display: inline-block;
+        padding-left: 15px;
+    }
+    .singlist-owner,.singlist-owner .iconfont{
+        color: rgba(240,240,240,0.8);
+    }
     .singlist-float {
         border-top-left-radius: 40px;
         border-top-right-radius: 40px;
@@ -429,9 +447,10 @@
     }
     .background-canvas-out{
         position: relative;
+        top: 0;
+        left: 0;
         height: 0px;
-        /*top: -350px;*/
-        /*left: 0;*/
         z-index: -1;
     }
+
 </style>
