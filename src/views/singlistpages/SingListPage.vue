@@ -114,12 +114,14 @@
             </div>
         </div>
         <img id="canvas-copy" :src="singListData.coverImgBase64" >
-        <canvas id="background-canvas" :style="{ 'transform': transform }" width="100%"></canvas>
+        <canvas id="background-canvas" :style="{ 'transform': transform }" ></canvas>
     </div>
 
 </template>
 
 <script>
+    /* eslint-disable no-invalid-this */
+
     import KajieInputEllipse from '@/components/KajieInputEllipse.vue';
     import * as StackBlur from '@/assets/js/stackblur/stackblur-es.js';
 
@@ -179,23 +181,23 @@
 
                 let image = new Image();
                 // 解决跨域 Canvas 污染问题
-                image.setAttribute("crossOrigin", "anonymous");
+
+                image.setAttribute('crossOrigin', 'anonymous');
                 image.onload = ()=>{
-                    let canvas = document.createElement("canvas");
+                    let canvas = document.createElement('canvas');
+
                     canvas.width = image.width;
                     canvas.height = image.height;
-                    let context = canvas.getContext("2d");
+                    let context = canvas.getContext('2d');
+
                     context.drawImage(image, 0, 0, image.width, image.height);
-                    let url = canvas.toDataURL("image/png"); //得到图片的base64编码数据
+                    let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
+
                     this.singListData.coverImgBase64 = url
 
                     let _image = new Image();
-                    _image.onload =()=>{
-                        console.log(_image)
-                        setTimeout(()=>{
-                            StackBlur.image('singlistcover', 'background-canvas', 30,false);
-                        },1000)
-                    }
+
+                    _image.onload =()=>{StackBlur.image('singlistcover', 'background-canvas', 30,false);}
                     _image.src = url;
                 };
                 image.src = this.singListData.coverImg;
@@ -217,6 +219,7 @@
             onScroll() {
                 let scrolled = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop;
                 // let canvasBg = document.querySelector('#background-canvas');
+
                 document.querySelector('#background-canvas').style.top = this.canvasBgOffsetTop-scrolled+'px'
                 // console.log(document.getElementsByClassName('singlist-float')[0].getBoundingClientRect())
                 this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top
@@ -243,6 +246,7 @@
             transform() {
                 console.log(this.translate)
                 let translateStart = this.translate-50>0?this.translate-50:0;
+
                 return this.translate === 0 ? 'scale3d(1, 1, 1)' : 'scale3d('+(parseFloat(translateStart)*0.006+1)+', ' + (parseFloat(translateStart)*0.006+1) + ', 1)';
             }
         },

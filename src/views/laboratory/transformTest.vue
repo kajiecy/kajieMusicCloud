@@ -1,36 +1,24 @@
 <template>
-    <div class="textcenter" style="margin-top: 50px">
-        <img id="testimg" :style="{ 'transform': transform }" width="120" height="120" src="@/assets/image/recommendSong5.jpg">
+    <div class="" style="">
+        <img id="testimg" :style="{ 'transform': transform }" src="@/assets/image/recommendSong5.jpg">
+        <div class="fill">
+            <div style="height: 45px;border: 1px solid #E6A23C">
+
+            </div>
+        </div>
         <div class="wd90">
-            x:<mt-range
-                v-model="x"
-                :min="0"
-                :max="100"
-                :step="1"
-                :bar-height="5">
+            <mt-range
+                    v-model="x"
+                    :min="1"
+                    :max="10"
+                    :step="0.1"
+                    :bar-height="5">
             </mt-range>
         </div>
 
-        <div class="wd90">
-            y:<mt-range
-                v-model="y"
-                :min="0"
-                :max="100"
-                :step="1"
-                :bar-height="5">
-            </mt-range>
+        <div style="border: 1px solid #67C23A;height: 45px;overflow: hidden">
+            <canvas id="haderCanvas" :style="{ 'transform': transform }"></canvas>
         </div>
-
-        <div class="wd90">
-            z:<mt-range
-                v-model="z"
-                :min="0"
-                :max="100"
-                :step="1"
-                :bar-height="5">
-            </mt-range>
-        </div>
-
     </div>
 </template>
 
@@ -42,6 +30,7 @@
                 x:1,
                 y:1,
                 z:1,
+                headerCanvasObj:{},
             }
         },
         created() {
@@ -49,8 +38,29 @@
         },
         mounted() {
 
+
+            this.$nextTick(()=>{
+                setTimeout(()=>{
+                    this.headerCanvasObj = document.getElementById('haderCanvas');
+                    this.headerCanvasObj.getContext('2d').clearRect(0, 0, this.headerCanvasObj.width, this.headerCanvasObj.height);
+                    let w = document.getElementById('testimg').naturalWidth;
+                    let h = document.getElementById('testimg').naturalHeight;
+
+                    this.headerCanvasObj.width = w;
+                    this.headerCanvasObj.height = h;
+
+                    this.headerCanvasObj.getContext('2d').drawImage(document.getElementById('testimg'), 0, 0, w, h, 0, 0, w, h); //实现放大镜
+                },1000)
+
+            });
+
+
         },
-        watch: {},
+        watch: {
+            x(oValue){
+                this.y = oValue;
+            }
+        },
         methods: {},
         computed: {
             transform() {
@@ -64,5 +74,16 @@
 </script>
 
 <style scoped>
-
+    #testimg{
+        position: absolute;
+        top: -140px;
+        width: 100%;
+        z-index: -1;
+    }
+    .fill{
+        height: 1000px;
+    }
+    #haderCanvas{
+        width: 100%;
+    }
 </style>

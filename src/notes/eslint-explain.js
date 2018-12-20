@@ -41,7 +41,7 @@ eslintObj = {
             'functions'
         ],
         'no-invalid-regexp': 2,//禁止无效的正则表达式
-        'no-invalid-this': 2,//禁止无效的this，只能用在构造器，类，对象字面量
+        'no-invalid-this': 0,//禁止无效的this，只能用在构造器，类，对象字面量
         'no-irregular-whitespace': 2,//不能有不规则的空格
         'no-iterator': 2,//禁止使用__iterator__ 属性
         'no-label-var': 2,//label名不能与var声明的变量名相同

@@ -121,7 +121,7 @@
             //fixme 这里控制根据路由名称控制非常不规范！！！需要作出从新设计
             headerBackColor(){
                 if(this.$route.name === 'singListPage'){
-                    return ''
+                    return 'transparentHeader'
                 }
                 return '';
             },
@@ -136,14 +136,16 @@
     .fixed-top {
         position: fixed;
         top: 0;
-        z-index: 999;
+        z-index: 4;
     }
 
     .kajie-header {
         width: 100%;
         height: 130px;
     }
-
+    .transparentHeader{
+        background-color: rgba(0,0,0,0);
+    }
     .kajie-header-button {
         flex: 0.2;
         text-align: center;
