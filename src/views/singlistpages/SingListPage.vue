@@ -145,8 +145,8 @@
 
                 singListData: {
                     id: 5,
-                    coverImg: 'http://qiniu.kajie88.com/28913648.jpg',
-                    // coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
+                    // coverImg: 'http://qiniu.kajie88.com/28913648.jpg',
+                    coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
                     coverImgBase64:'',
                     title: '初识不知曲中意，再听已是曲中人,超级伤感的歌,超级伤感的歌,超级伤感的歌,超级伤感的歌',
                     playCount: 183,
