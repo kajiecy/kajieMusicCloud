@@ -130,7 +130,6 @@
     /* eslint-disable no-invalid-this */
 
     import KajieInputEllipse from '@/components/KajieInputEllipse.vue';
-    import * as StackBlur from '@/assets/js/stackblur/stackblur-es.js';
 
     export default {
         name: 'SingListPage',
@@ -207,8 +206,8 @@
                     let _image = new Image();
 
                     _image.onload =()=>{
-                        StackBlur.image('singlistcover', 'background-canvas', this.blurRate,false);
-
+                        console.log(this.$store.getters)
+                        this.$store.getters.getStackBlur.image('singlistcover', 'background-canvas', this.blurRate,false);
                         //background-canvas 复制一份 到 background-canvas-
                         let source = document.getElementById('background-canvas'),
                              target = document.getElementById('background-canvas-');

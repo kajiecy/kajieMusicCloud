@@ -6,11 +6,21 @@
                 <i class="iconfont left-icon" :class="$route.meta.icon"></i>
                 <!--<img class="left-img" src="http://p8kfci878.bkt.clouddn.com/left-home.png">-->
             </div>
-            <template v-if="$route.name==='find'">
+            <template v-if="$route.meta.titleType==='find'">
                 <div slot="title" class="heard-title" @click="searchMusic()">
                     <!--<mt-field placeholder="请输入用户名" :attr="{ maxlength: 10 }"></mt-field>-->
                     <i class="iconfont icon-sousuo1"></i>
                     <span>{{$store.getters.getInputRecommend}}</span>
+                </div>
+            </template>
+            <template v-else-if="$route.meta.titleType==='player'">
+                <div slot="title" class="playing-title" >
+                    <div class="title-name">
+                        {{$store.state.app.playingInfo.name}}
+                    </div>
+                    <div class="title-singer">
+                        {{$store.state.app.playingInfo.singer}}
+                    </div>
                 </div>
             </template>
             <template v-else>
@@ -123,7 +133,7 @@
         }
     };
 </script>
-<style>
+<style lang="scss">
     .heard-title{
         font-size: 48px;
         line-height: 90px;
@@ -146,6 +156,16 @@
         display: inline-block;
         height: 90px;
     }
+    .playing-title{
+        color: rgba(255,255,255,0.9);
+        .title-name{
+            font-size: 45px;
+        }
+        .title-singer{
+            font-size: 15px;
+        }
+    }
+
     .div-parent{
         width: 100%;
         height: 100vh;
@@ -179,10 +199,6 @@
         margin-bottom: 0;
         height: calc(100vh - 130px);
     }
-    /*.wrapper-filler{*/
-        /*width: 100%;*/
-        /*height: 130px;*/
-    /*}*/
     .left-img{
         width: 57px;
         height: 77px;
@@ -264,57 +280,49 @@
         animation:dum1Ani4 1s linear infinite;
         -webkit-animation:dum1Ani4 1s linear infinite; /*Safari and Chrome*/
     }
-    @keyframes dum1Ani1
-    {
+    @keyframes dum1Ani1{
         from {height:40px;}
         33.3% { height: 60px;}
         83.3% { height: 30px;}
         to {height:40px;}
     }
-    @-webkit-keyframes dum1Ani1 /*Safari and Chrome*/
-    {
+    @-webkit-keyframes dum1Ani1{
         from {height:40px;}
         33.3% { height: 60px;}
         83.3% { height: 30px;}
         to {height:40px;}
     }
-    @keyframes dum1Ani2
-    {
+    @keyframes dum1Ani2{
         from {height:60px;}
         33.3% { height: 40px;}
         83.3% { height: 70px;}
         to {height:60px;}
     }
-    @-webkit-keyframes dum1Ani2 /*Safari and Chrome*/
-    {
+    @-webkit-keyframes dum1Ani2{
         from {height:60px;}
         33.3% { height: 40px;}
         83.3% { height: 70px;}
         to {height:60px;}
     }
-    @keyframes dum1Ani3
-    {
+    @keyframes dum1Ani3{
         from {height:50px;}
         33.3% { height: 70px;}
         83.3% { height: 40px;}
         to {height:50px;}
     }
-    @-webkit-keyframes dum1Ani3 /*Safari and Chrome*/
-    {
+    @-webkit-keyframes dum1Ani3{
         from {height:50px;}
         33.3% { height: 70px;}
         83.3% { height: 40px;}
         to {height:50px;}
     }
-    @keyframes dum1Ani4
-    {
+    @keyframes dum1Ani4{
         from {height:50px;}
         33.3% { height: 30px;}
         83.3% { height: 60px;}
         to {height:50px;}
     }
-    @-webkit-keyframes dum1Ani4 /*Safari and Chrome*/
-    {
+    @-webkit-keyframes dum1Ani4{
         from {height:50px;}
         33.3% { height: 30px;}
         83.3% { height: 60px;}

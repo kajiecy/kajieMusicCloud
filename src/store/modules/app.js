@@ -1,3 +1,6 @@
+//这个js存在问题不能多次引用 无奈先把他放在这里
+import * as StackBlur from '@/assets/js/stackblur/stackblur-es.js';
+
 const app = {
     state: {
         playerStatus:true,
@@ -18,9 +21,12 @@ const app = {
                 {singerImg:'http://qiniu.kajie88.com/28913648.jpg'},
                 {singerImg:'http://qiniu.kajie88.com/28913648.jpg'},
             ],
-            
         },
-
+        stackBlur:StackBlur,
+        playingInfo:{
+            name:'迂回',
+            singer:'徐秉龙',
+        },
     },
     getters:{
         getPlayerStatus(state){
@@ -41,7 +47,9 @@ const app = {
         getBodyBackImg(state){
             return state.headerInformation.bodyBackImg;
         },
-
+        getStackBlur: state => {
+            return state.stackBlur;
+        }
     },
     mutations: {
         setPlayerStatus(state,playStatus){

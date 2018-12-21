@@ -33,6 +33,7 @@
         </div>
         <!--search-masking
         发现列表 点击search的input框的蒙版
+        search-masking222 用来控制 index插件 的index值 这个插件超级坑又去不掉
         -->
         <div class="search-masking222" style=""></div>
         <div class="search-masking" v-show="$store.getters.getHeaderStatus===true" style="">
