@@ -51,31 +51,7 @@
 
         },
         mounted() {
-            let _vm = this;
-            _vm.swiperMain = new Swiper('.swiper-main', {
-                resistanceRatio : 0,//滑动到尽头时禁止在滑动
-                iOSEdgeSwipeDetection : true,
-                watchSlidesProgress : true,
-                on: {
-                    slideChange: function () {
-                        _vm.activeIndex = this.activeIndex;
-                    },
-                    progress: function(progress){
-                        _vm.$nextTick(()=>{
-                            document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
-                            document.querySelector('.select-div').style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';
-                        });
-                    },
-                    touchStart: function() {
-                        document.querySelector('.select-div').style.transition = '';
-                        document.querySelector('.select-div-inner').style.transition = '';
-                    },
-                    setTransition: function(speed) {
-                        document.querySelector('.select-div').style.transition = speed + 'ms';
-                        document.querySelector('.select-div-inner').style.transition = speed + 'ms';
-                    }
-                }
-            });
+            this.loadSwiper();
         },
         watch: {
         },
@@ -83,6 +59,33 @@
             changeSider(index){
                 this.swiperMain.slideTo(index, 500, false);
             },
+            loadSwiper(){
+                let _vm = this;
+                _vm.swiperMain = new Swiper('.swiper-main', {
+                    resistanceRatio : 0,//滑动到尽头时禁止在滑动
+                    iOSEdgeSwipeDetection : true,
+                    watchSlidesProgress : true,
+                    on: {
+                        slideChange: function () {
+                            _vm.activeIndex = this.activeIndex;
+                        },
+                        progress: function(progress){
+                            _vm.$nextTick(()=>{
+                                document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
+                                document.querySelector('.select-div').style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';
+                            });
+                        },
+                        touchStart: function() {
+                            document.querySelector('.select-div').style.transition = '';
+                            document.querySelector('.select-div-inner').style.transition = '';
+                        },
+                        setTransition: function(speed) {
+                            document.querySelector('.select-div').style.transition = speed + 'ms';
+                            document.querySelector('.select-div-inner').style.transition = speed + 'ms';
+                        }
+                    }
+                });
+            }
         },
         computed: {
 
