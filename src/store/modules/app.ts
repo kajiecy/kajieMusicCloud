@@ -1,4 +1,5 @@
 //这个js存在问题不能多次引用 无奈先把他放在这里
+// @ts-ignore
 import * as StackBlur from '@/assets/js/stackblur/stackblur-es.js';
 
 const app = {
@@ -29,45 +30,45 @@ const app = {
         },
     },
     getters:{
-        getPlayerStatus(state){
+        getPlayerStatus(state:any){
             return state.playerStatus;
         },
-        getInputRecommend(state){
+        getInputRecommend(state:any){
             return state.headerInformation.inputRecommend;
         },
-        getHotSingList4Search(state){
+        getHotSingList4Search(state:any){
             return state.headerInformation.hotSingList4Search;
         },
-        getHotSingerImg4Search(state){
+        getHotSingerImg4Search(state:any){
             return state.headerInformation.hotSingerImg4Search;
         },
-        getHeaderStatus(state){
+        getHeaderStatus(state:any){
             return state.headerInformation.headerStatus;
         },
-        getBodyBackImg(state){
+        getBodyBackImg(state:any){
             return state.headerInformation.bodyBackImg;
         },
-        getStackBlur: state => {
+        getStackBlur:(state:any) => {
             return state.stackBlur;
         }
     },
     mutations: {
-        setPlayerStatus(state,playStatus){
+        setPlayerStatus(state:any,playStatus:boolean){
             state.playerStatus = playStatus;
         },
-        setInputRecommend(state,inputRecommend){
+        setInputRecommend(state:any,inputRecommend:string){
             state.headerInformation.inputRecommend = inputRecommend;
         },
-        setHotSingList4Search(state,hotSingList4Search){
+        setHotSingList4Search(state:any,hotSingList4Search:Array<any>){
             state.headerInformation.hotSingList4Search = hotSingList4Search;
         },
-        setHotSingerImg4Search(state,hotSingerImg4Search){
+        setHotSingerImg4Search(state:any,hotSingerImg4Search:Array<any>){
             state.headerInformation.hotSingerImg4Search = hotSingerImg4Search;
         },
-        setHeaderStatus(state,headerStatus){
+        setHeaderStatus(state:any,headerStatus:boolean){
             state.headerInformation.headerStatus=headerStatus;
         },
-        setBodyBackImg(state,bodyBackImg){
+        setBodyBackImg(state:any,bodyBackImg:string){
             // console.log()
             state.headerInformation.bodyBackImg = bodyBackImg;
         },

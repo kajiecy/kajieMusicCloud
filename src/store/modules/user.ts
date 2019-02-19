@@ -11,12 +11,12 @@ const user = {
         ]
     },
     getters:{
-        getUserSearchList(state){
+        getUserSearchList(state: {userSearchList: Array<any>}){
             return state.userSearchList;
         }
     },
     mutations: {
-        setUserSearchList(state,userSearchList){
+        setUserSearchList(state:any,userSearchList:{userSearchList: Array<any>}){
             state.userSearchList = userSearchList;
         }
     }

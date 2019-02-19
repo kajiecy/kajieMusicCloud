@@ -1,4 +1,5 @@
 import 'swiper/dist/css/swiper.css';
+// @ts-ignore
 import Mint from 'mint-ui';
 import '@/assets/css/my-mint.scss';
 import '@/assets/css/main.scss';
