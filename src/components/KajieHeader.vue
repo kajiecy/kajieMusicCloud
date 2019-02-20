@@ -81,55 +81,31 @@
     </header>
 </template>
 
-<script>
+<script lang="ts">
     import KajieInput from '@/components/KajieInput.vue';
-
-    export default {
-        name: 'KajieHeader',
-        props: {
-            fixed: Boolean,
-            height: String,
-        },
-        data() {
-            return {
-                // headerStatus: false,
-            };
-        },
-        created() {
-
-        },
-        mounted() {
-
-
-        },
-        watch: {},
-        methods: {
-            showInput() {
-
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    @Component({components: {
+        KajieInput
+    }})
+    export default class KajieHeader extends Vue{
+        get titleInnerClass():string{
+            let className = '';
+            if(this.$route.name==='find'){
+                className += 'title-inner ';
             }
-        },
-        computed: {
-            titleInnerClass(){
-                let className = '';
-                if(this.$route.name==='find'){
-                    className += 'title-inner ';
-                }
-                if(this.$store.getters.getHeaderStatus===true){
-                    className += 'pl20';
-                }
-                return className;
-            },
-            //fixme 这里控制根据路由名称控制非常不规范！！！需要作出从新设计
-            headerBackColor(){
-                if(this.$route.meta.transparent){
-                    return 'transparentHeader'
-                }
-                return '';
-            },
-        },
-        components: {
-            KajieInput
+            if(this.$store.getters.getHeaderStatus===true){
+                className += 'pl20';
+            }
+            return className;
         }
+        //fixme 这里控制根据路由名称控制非常不规范！！！需要做出从新设计
+        get headerBackColor():string{
+            if(this.$route.meta.transparent){
+                return 'transparentHeader'
+            }
+            return '';
+        }
+
     };
 </script>
 

@@ -12,20 +12,14 @@ import Vue from 'vue';
 Vue.use(Mint);
 Vue.component('kajie-scroll',KajieScroll)
 
-
-
-
 import App from './App.vue';
 import router from './router';
 import store from './store';
 
 
-
-
-
 Vue.config.productionTip = true;
 
-new Vue({
+export default new Vue({
     router,
     store,
     'render': h => h(App)

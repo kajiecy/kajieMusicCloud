@@ -74,58 +74,64 @@
 </template>
 
 
-<script lang="ts">
-    import { Component, Vue,Watch,Emit,Provide } from 'vue-property-decorator';
-    Component.registerHooks([
-        'beforeRouteEnter',
-        'beforeRouteLeave',
-    ])
-
-    import KajieHeader from "@/components/KajieHeader.vue";
+<script>
+    import KajieHeader from '@/components/KajieHeader.vue';
     import KajieTabbar from '@/components/KajieTabbar.vue';
     import KajieTabbarItem from '@/components/KajieTabbarItem.vue';
 
-    @Component({
+    export default {
+        data() {
+            return {
+                selected: 'find',
+            };
+        },
+        created() {
+
+        },
+        mounted() {
+            this.selected = this.$route.name;
+        },
+        watch: {
+            selected(nvalue){
+                // alert("selected 改变"+nvalue);
+                // this.$store.commit("setHeaderStatus",false);
+                // this.$router.push({'name':nvalue});
+            }
+        },
+        methods: {
+            playIconClick(){
+                this.$store.commit('setPlayerStatus',!this.$store.getters.getPlayerStatus);
+            },
+            searchMusic(){
+                this.$store.commit('setHeaderStatus',true)
+            },
+            changeHomeSelect(selectValue){
+                this.$router.push({'name':selectValue});
+            },
+            leftOperation(routeIcon){
+                if(routeIcon==='icon-zuo'){
+                    this.$router.go(-1);
+                }
+            }
+        },
+        computed: {
+            parentClass(){
+                if(this.$store.getters.getBodyBackImg!==''){
+                    return "url("+this.$store.getters.getBodyBackImg+")";
+                }
+                return '';
+            }
+        },
         components: {
             KajieHeader,
             KajieTabbar,
-            KajieTabbarItem,
+            KajieTabbarItem
         },
-    })
-    export default class Home extends Vue {
-        selected:string = 'find';
-        mounted() {
-            this.selected = '1';
-            this.selected = this.$route.name;
+        beforeRouteUpdate (to, from, next) {
+            // this.selected = to.name;
+            next();
         }
-        playIconClick(){
-            this.$store.commit('setPlayerStatus',!this.$store.getters.getPlayerStatus);
-        }
-        searchMusic(){
-            this.$store.commit('setHeaderStatus',true)
-        }
-        changeHomeSelect(selectValue){
-            this.$router.push({'name':selectValue});
-        }
-        leftOperation(routeIcon){
-            if(routeIcon==='icon-zuo'){
-                this.$router.go(-1);
-            }
-        }
-
-        get parentClass(){
-            if(this.$store.getters.getBodyBackImg!==''){
-                return "url("+this.$store.getters.getBodyBackImg+")";
-            }
-            return '';
-        }
-
-        @Watch('selected', {deep: true})
-        watchSelected(newVal, oldVal) {
-            console.log("newVal", newVal, "oldVal", oldVal)
-        }
-    }
-
+    };
 </script>
 <style lang="scss">
     .heard-title{

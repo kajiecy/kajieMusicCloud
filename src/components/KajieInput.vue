@@ -6,17 +6,12 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: "KajieInput",
-        data() {
-            return {
-                initStatus:false,
-            }
-        },
-        created() {
+<script lang="ts">
+    import { Component, Vue} from 'vue-property-decorator';
 
-        },
+    @Component
+    export default class KajieInput extends Vue{
+        initStatus:boolean = false
         mounted() {
             setTimeout(()=>{
                 //组件加载好之后 将样式 从center 改为 left 并使 input 窗获得焦点
@@ -24,13 +19,11 @@
                 // console.log(this.$refs)
                 this.$refs.innerInput.focus();
             },100);
-        },
-        watch: {},
-        methods: {},
-        computed: {},
-        components: {}
+        }
     }
 </script>
+
+
 
 <style scoped>
     .input-out{
