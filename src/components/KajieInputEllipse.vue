@@ -18,38 +18,26 @@
 
 </template>
 
-<script>
-    export default {
-        name: "KajieInputEllipse",
-        data() {
-            return {
-                isFocus:false,
-                placeholder:'搜索歌单内歌曲',
-            }
-        },
-        created() {
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
 
-        },
-        mounted() {
-
-        },
-        watch: {},
-        methods: {
-            doFocusInput(){
-                setTimeout(()=>{
-                    //组件加载好之后 将样式 从center 改为 left 并使 input 窗获得焦点
-                    this.$refs.innerInput.focus();
-                },100);
-            },
-            inputFocus(){
-                this.isFocus = true;
-            },
-            inputBlur(){
-                this.isFocus = false;
-            },
-        },
-        computed: {},
-        components: {}
+    @Component
+    export default class KajieInputEllipse extends Vue{
+        isFocus:boolean = false;
+        placeholder:string = '搜索歌单内歌曲';
+        doFocusInput(){
+            setTimeout(()=>{
+                //组件加载好之后 将样式 从center 改为 left 并使 input 窗获得焦点
+                this.$refs.innerInput.focus();
+                new Element()
+            },100);
+        }
+        inputFocus(){
+            this.isFocus = true;
+        }
+        inputBlur(){
+            this.isFocus = false;
+        }
     }
 </script>
 
