@@ -19,7 +19,6 @@
     "stackblur-canvas": "^2.1.0",
     "swiper": "^4.4.1",
     "vux": "^2.9.2"
-
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
