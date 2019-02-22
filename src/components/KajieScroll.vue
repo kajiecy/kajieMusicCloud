@@ -12,18 +12,18 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    // @ts-ignore
     import Swiper from 'swiper';
-    export default {
-        name: "KajieScroll",
-        data() {
-            return {
-                swiperMain:null,
-            }
-        },
-        created() {
 
-        },
+    @Component({
+        components: {
+            Swiper,
+        }
+    })
+    export default class KajieScroll extends Vue{
+        swiperMain:any = null;
         mounted() {
             // let _vm = this;
             // _vm.swiperMain = new Swiper('.swiper-main', {
@@ -31,12 +31,6 @@
             //     iOSEdgeSwipeDetection : true,
             //     watchSlidesProgress : true,
             // });
-        },
-        watch: {},
-        methods: {},
-        computed: {},
-        components: {
-            Swiper,
         }
     }
 </script>

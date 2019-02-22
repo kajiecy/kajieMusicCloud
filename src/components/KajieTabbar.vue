@@ -23,30 +23,12 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'KajieTabbar',
-        props: {
-            value: {
-                type:String,
-                default(){
-                    return '';
-                }
-            }
-        },
-        data() {
-            return {};
-        },
-        created() {
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
 
-        },
-        mounted() {
-
-        },
-        watch: {},
-        methods: {},
-        computed: {},
-        components: {}
+    @Component
+    export default class KajieTabbar extends Vue{
+        @Prop({type: String,default:''}) private value!: string;
     };
 </script>
 

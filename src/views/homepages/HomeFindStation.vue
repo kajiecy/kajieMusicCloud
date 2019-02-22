@@ -72,32 +72,26 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    //@ts-ignore
     import Swiper from 'swiper';
 
-    export default {
-        name: "HomeFindRecommend",
-        data() {
-            return {
-                swiperInfo: null,
-                bannerList:[
-                    {imgUrl:'http://qiniu.kajie88.com/station01.jpg',tag:'电台频道'},
-                    {imgUrl:'http://qiniu.kajie88.com/station02.jpg',tag:'电台频道'},
-                    {imgUrl:'http://qiniu.kajie88.com/station03.jpg',tag:'电台频道'},
-                    {imgUrl:'http://qiniu.kajie88.com/station04.jpg',tag:'电台频道'},
-                    {imgUrl:'http://qiniu.kajie88.com/station05.jpg',tag:'电台频道'},
-                ],
-                recommendSongList: [
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '边走边爱',describe:"边走边爱的描述~~~~",playCount:420},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '小船说',describe:"小船说的描述~~~~",playCount:220},
-                    {coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '午夜电台',describe:"午夜电台的描述~~~~",playCount:100},
-                ],
-
-            }
-        },
-        created() {
-
-        },
+    @Component
+    export default class HomeFindRecommend extends Vue{
+        swiperInfo:any = null;
+        bannerList:Array<any> = [
+                {imgUrl:'http://qiniu.kajie88.com/station01.jpg',tag:'电台频道'},
+                {imgUrl:'http://qiniu.kajie88.com/station02.jpg',tag:'电台频道'},
+                {imgUrl:'http://qiniu.kajie88.com/station03.jpg',tag:'电台频道'},
+                {imgUrl:'http://qiniu.kajie88.com/station04.jpg',tag:'电台频道'},
+                {imgUrl:'http://qiniu.kajie88.com/station05.jpg',tag:'电台频道'},
+                ];
+        recommendSongList:Array<any> = [
+                {coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '边走边爱',describe:"边走边爱的描述~~~~",playCount:420},
+                {coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '小船说',describe:"小船说的描述~~~~",playCount:220},
+                {coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '午夜电台',describe:"午夜电台的描述~~~~",playCount:100},
+                ];
         mounted() {
             let _vm = this;
             _vm.swiperInfo = new Swiper('.swiper-station', {
@@ -113,13 +107,7 @@
                     el: '.swiper-pagination',
                 },
             });
-        },
-        watch: {},
-        methods: {
-
-        },
-        computed: {},
-        components: {}
+        }
     }
 </script>
 

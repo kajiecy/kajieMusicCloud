@@ -7,29 +7,16 @@
     </a>
 </template>
 
-<script>
-    export default {
-        name: 'KajieTabbarItem',
-        props: ['id'],
-        data() {
-            return {};
-        },
-        created() {
-
-        },
-        mounted() {
-
-        },
-        watch: {},
-        methods: {
-            clickFooter(){
-                console.log(this.$parent);
-                this.$parent.$emit('input', this.id);
-                this.$emit('click');
-            }
-        },
-        computed: {},
-        components: {}
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    @Component
+    export default class KajieTabbarItem extends Vue{
+        @Prop({type: [String,Number],default:''}) private id!: string|number;
+        clickFooter(){
+            console.log(this.$parent);
+            this.$parent.$emit('input', this.id);
+            this.$emit('click');
+        }
     };
 </script>
 

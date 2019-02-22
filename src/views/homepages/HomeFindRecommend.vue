@@ -105,37 +105,33 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    //@ts-ignore
     import Swiper from 'swiper';
 
-    export default {
-        name: "HomeFindRecommend",
-        data() {
-            return {
-                swiperInfo: null,
-                topStatus: '',//下拉刷新页面的状态
-                translate: 0,//下拉距离
-                recommendSongList: [
-                    {id:1,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:420},
-                    {id:2,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:220},
-                    {id:3,coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:100},
-                    {id:4,coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:120},
-                    {id:5,coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:183},
-                    {id:6,coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:121},
-                ],
-                newSongList: [
-                    {id:7,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:5},
-                    {id:8,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:1},
-                    {id:9,coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:23},
-                    {id:10,coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:4},
-                    {id:11,coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:67},
-                    {id:12,coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:11},
-                ]
-            }
-        },
-        created() {
+    @Component
+    export default class HomeFindRecommend extends Vue{
+        swiperInfo:any = null;
+        topStatus:string = '';//下拉刷新页面的状态
+        translate:number = 0;//下拉距离
+        recommendSongList:Array<any> = [
+                {id:1,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:420},
+                {id:2,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:220},
+                {id:3,coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:100},
+                {id:4,coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:120},
+                {id:5,coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:183},
+                {id:6,coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:121},
+                ];
+        newSongList:Array<any> = [
+                {id:7,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:5},
+                {id:8,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:1},
+                {id:9,coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:23},
+                {id:10,coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:4},
+                {id:11,coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:67},
+                {id:12,coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:11},
+                ];
 
-        },
         mounted() {
             let _vm = this;
             _vm.swiperInfo = new Swiper('.swiper-info', {
@@ -151,37 +147,35 @@
                     el: '.swiper-pagination',
                 },
             });
-        },
-        watch: {},
-        methods: {
-            /**
-             *   top-status-change 每当 状态改变 时触发
-             *   已知状态 pull 默认状态，drop 释放后执行 top-method， loading drop状态后待没有执行onTopLoaded()方法时的状态。
-             */
-            handleTopChange(status) {
-                this.moveTranslate = 1;
-                this.topStatus = status;
-            },
-            // @translate-change 当我执行 滑动操作时 总会触发此事件
-            translateChange(translate) {
-                const translateNum = +translate;
-                this.translate = translateNum.toFixed(2);
-            },
-            // :top-method 当我下拉足够的 距离时触发此方法 请求新信息 默认70
-            loadTop() {
-                setTimeout(() => {
-                    console.log("模拟一次request请求，延迟1s")
-                    this.translate = 0;
-                    this.$refs.loadmore.onTopLoaded();
-                }, 500);
-            },
-            push2SingList(singListId){
-                console.log(singListId)
-                this.$router.push({name:'singListPage',query:{id: "111"}})
-            }
-        },
-        computed: {},
-        components: {}
+        }
+        /**
+         *   top-status-change 每当 状态改变 时触发
+         *   已知状态 pull 默认状态，drop 释放后执行 top-method， loading drop状态后待没有执行onTopLoaded()方法时的状态。
+         */
+        handleTopChange(status:string) {
+            //@ts-ignore
+            this.moveTranslate = 1;
+            this.topStatus = status;
+        };
+        // @translate-change 当我执行 滑动操作时 总会触发此事件
+        translateChange(translate:number) {
+            const translateNum = +translate;
+            this.translate = parseFloat(translateNum.toFixed(2));
+        };
+        // :top-method 当我下拉足够的 距离时触发此方法 请求新信息 默认70
+        loadTop() {
+            setTimeout(() => {
+                console.log("模拟一次request请求，延迟1s")
+                this.translate = 0;
+                //@ts-ignore
+                this.$refs.loadmore.onTopLoaded();
+            }, 500);
+        };
+        push2SingList(singListId:string|number){
+            console.log(singListId)
+            this.$router.push({name:'singListPage',query:{id: "111"}})
+        }
+
     }
 </script>
 

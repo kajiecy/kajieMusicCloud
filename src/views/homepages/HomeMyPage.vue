@@ -4,22 +4,11 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'HomeMyPage',
-        data() {
-            return {};
-        },
-        created() {
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    @Component
+    export default class HomeMyPage extends Vue{
 
-        },
-        mounted() {
-
-        },
-        watch: {},
-        methods: {},
-        computed: {},
-        components: {}
     };
 </script>
 

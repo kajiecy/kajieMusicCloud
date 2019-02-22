@@ -4,21 +4,11 @@
     </div>
 </template>
 
-<script>
-    export default {
-        data() {
-            return {};
-        },
-        created() {
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    @Component
+    export default class undefindPage extends Vue{
 
-        },
-        mounted() {
-
-        },
-        watch: {},
-        methods: {},
-        computed: {},
-        components: {}
     };
 </script>
 

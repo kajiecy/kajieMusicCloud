@@ -30,70 +30,63 @@
 
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    // @ts-ignore
     import Swiper from 'swiper';
     import HomeFindRecommend from './HomeFindRecommend.vue';
     import HomeFindStation from './HomeFindStation.vue';
-    export default {
-        name: 'HomeFind',
-        data() {
-            return {
-                activeIndex:0,
-                siderList:[
-                    {name:'个性推荐'},
-                    {name:'主播电台'}
-                ],
-                swiperMain:null,
 
-            };
-        },
-        created() {
 
-        },
-        mounted() {
-            this.loadSwiper();
-        },
-        watch: {
-        },
-        methods: {
-            changeSider(index){
-                this.swiperMain.slideTo(index, 500, false);
-            },
-            loadSwiper(){
-                let _vm = this;
-                _vm.swiperMain = new Swiper('.swiper-main', {
-                    resistanceRatio : 0,//滑动到尽头时禁止在滑动
-                    iOSEdgeSwipeDetection : true,
-                    watchSlidesProgress : true,
-                    on: {
-                        slideChange: function () {
-                            _vm.activeIndex = this.activeIndex;
-                        },
-                        progress: function(progress){
-                            _vm.$nextTick(()=>{
-                                document.querySelector('.select-div-inner').style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
-                                document.querySelector('.select-div').style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';
-                            });
-                        },
-                        touchStart: function() {
-                            document.querySelector('.select-div').style.transition = '';
-                            document.querySelector('.select-div-inner').style.transition = '';
-                        },
-                        setTransition: function(speed) {
-                            document.querySelector('.select-div').style.transition = speed + 'ms';
-                            document.querySelector('.select-div-inner').style.transition = speed + 'ms';
-                        }
-                    }
-                });
-            }
-        },
-        computed: {
-
-        },
+    @Component({
         components: {
-            Swiper,
             HomeFindRecommend,
             HomeFindStation,
+        }
+    })
+    export default class HomeFind extends Vue{
+        name:string = 'HomeFind';
+        activeIndex:number = 0;
+        siderList:Array<object> = [
+                {name:'个性推荐'},
+                {name:'主播电台'}
+                ];
+        swiperMain:any = null;
+        mounted() {
+            this.loadSwiper();
+        }
+        changeSider(index:number){
+            this.swiperMain.slideTo(index, 500, false);
+        }
+        loadSwiper(){
+            let _vm:any = this;
+            _vm.swiperMain = new Swiper('.swiper-main', {
+                resistanceRatio : 0,//滑动到尽头时禁止在滑动
+                iOSEdgeSwipeDetection : true,
+                watchSlidesProgress : true,
+                on: {
+                    slideChange: function () {
+                        //@ts-ignore
+                        _vm.activeIndex = this.activeIndex;
+                    },
+                    progress: function(progress:number){
+                        _vm.$nextTick(()=>{
+                            //@ts-ignore
+                            (<HTMLElement>document.querySelector('.select-div-inner')).style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
+                            //@ts-ignore
+                            (<HTMLElement>document.querySelector('.select-div')).style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';
+                        });
+                    },
+                    touchStart: function() {
+                        (<HTMLElement>document.querySelector('.select-div')).style.transition = '';
+                        (<HTMLElement>document.querySelector('.select-div-inner')).style.transition = '';
+                    },
+                    setTransition: function(speed:number) {
+                        (<HTMLElement>document.querySelector('.select-div')).style.transition = speed + 'ms';
+                        (<HTMLElement>document.querySelector('.select-div-inner')).style.transition = speed + 'ms';
+                    }
+                }
+            });
         }
     };
 </script>

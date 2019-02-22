@@ -4,22 +4,11 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'HomeAccount',
-        data() {
-            return {};
-        },
-        created() {
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    @Component
+    export default class HomeAccount extends Vue{
 
-        },
-        mounted() {
-
-        },
-        watch: {},
-        methods: {},
-        computed: {},
-        components: {}
     };
 </script>
 
