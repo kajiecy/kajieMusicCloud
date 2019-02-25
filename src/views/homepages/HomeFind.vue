@@ -72,9 +72,9 @@
                     progress: function(progress:number){
                         _vm.$nextTick(()=>{
                             //@ts-ignore
-                            (<HTMLElement>document.querySelector('.select-div-inner')).style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
+                            (<HTMLElement>document.querySelector('.select-div-inner')!).style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
                             //@ts-ignore
-                            (<HTMLElement>document.querySelector('.select-div')).style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item').clientWidth*(this.slides.length-1)*progress+'px)';
+                            (<HTMLElement>document.querySelector('.select-div')!).style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item')!.clientWidth*(this.slides.length-1)*progress+'px)';
                         });
                     },
                     touchStart: function() {
@@ -149,6 +149,6 @@
         font-size: 180px;
     }
     .swiper-container{
-        margin-top: 0px;
+        margin-top: 0;
     }
 </style>

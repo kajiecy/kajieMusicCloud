@@ -184,8 +184,7 @@
             //@ts-ignore
             this.$nextTick(()=>{
                 this.headerHight = (<HTMLElement>document.querySelector('.kajie-header')).offsetHeight;
-                //@ts-ignore null
-                document.querySelector('.swiper-slide-content').addEventListener('scroll', this.onScroll);
+                document.querySelector('.swiper-slide-content')!.addEventListener('scroll', this.onScroll);
 
                 let image = new Image();
                 // 解决跨域 Canvas 污染问题
@@ -198,8 +197,7 @@
                     canvas.height = image.height;
                     let context = canvas.getContext('2d');
 
-                    //@ts-ignore null
-                    context.drawImage(image, 0, 0, image.width, image.height);
+                    context!.drawImage(image, 0, 0, image.width, image.height);
                     let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
 
                     this.singListData.coverImgBase64 = url
@@ -212,14 +210,12 @@
                         //background-canvas 复制一份 到 background-canvas-
                         let source= (<HTMLCanvasElement>document.getElementById('background-canvas')),
                              target = (<HTMLCanvasElement>document.getElementById('background-canvas-'));
-                        //@ts-ignore null
-                        let headerHeight = document.getElementById('singlist-header').clientHeight;
+                        let headerHeight = document.getElementById('singlist-header')!.clientHeight;
 
                         target.width = source.clientWidth;
                         target.height = headerHeight;
                         //复制一个 canvas用来充当 浮动框的假背景 填充圆角的背景 空缺
-                        //@ts-ignore null
-                        target.getContext('2d').drawImage(source,0, source.height - source.height*headerHeight/source.clientHeight, source.width,source.height*headerHeight/source.clientHeight,0, 0, source.clientWidth, source.clientHeight);
+                        target.getContext('2d')!.drawImage(source,0, source.height - source.height*headerHeight/source.clientHeight, source.width,source.height*headerHeight/source.clientHeight,0, 0, source.clientWidth, source.clientHeight);
                     }
                     _image.src = url;
                 };
@@ -240,8 +236,7 @@
 
 
         onScroll() {
-            //@ts-ignore null
-            let scrolled:number|null = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop;
+            let scrolled:number|null = document.querySelector('.swiper-slide-content')!.scrollTop || document.querySelector('.swiper-slide-content')!.scrollTop;
 
             this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top;
             // 滚动时让模糊的背景图片跟随滚动移动
