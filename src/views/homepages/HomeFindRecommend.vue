@@ -116,21 +116,21 @@
         translate:number = 0;//下拉距离
         moveTranslate:any = null;
         recommendSongList:Array<any> = [
-                {id:1,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:420},
-                {id:2,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:220},
-                {id:3,coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:100},
-                {id:4,coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:120},
-                {id:5,coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:183},
-                {id:6,coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:121},
-                ];
+            {id:1,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:420},
+            {id:2,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:220},
+            {id:3,coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:100},
+            {id:4,coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:120},
+            {id:5,coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:183},
+            {id:6,coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:121},
+        ];
         newSongList:Array<any> = [
-                {id:7,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:5},
-                {id:8,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:1},
-                {id:9,coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:23},
-                {id:10,coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:4},
-                {id:11,coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:67},
-                {id:12,coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:11},
-                ];
+            {id:7,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:5},
+            {id:8,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:1},
+            {id:9,coverImg: 'http://qiniu.kajie88.com/recommendSong3.jpg', title: '韩剧OST | 收集歌声中的浪漫碎片',playCount:23},
+            {id:10,coverImg: 'http://qiniu.kajie88.com/recommendSong4.jpg', title: '翻唱简史：欧美六百首',playCount:4},
+            {id:11,coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg', title: '初识不知曲中意，再听已是曲中人,超级伤感的歌',playCount:67},
+            {id:12,coverImg: 'http://qiniu.kajie88.com/recommendSong6.jpg', title: '多热烈的白羊，热烈的抽象。',playCount:11},
+        ];
 
         mounted() {
             let _vm = this;

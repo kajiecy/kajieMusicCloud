@@ -155,27 +155,27 @@
             ownerImg: 'http://qiniu.kajie88.com/28913648.jpg',
             collectCount: 36.8,
             singListArray: [
-                    {id:1,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: true},
-                    {id:2,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                    {id:3,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
-                    {id:4,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: true},
-                    {id:5,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                    {id:6,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+                {id:1,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: true},
+                {id:2,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                {id:3,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
+                {id:4,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: true},
+                {id:5,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                {id:6,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
 
-                    {id:7,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
-                    {id:8,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                    {id:9,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
-                    {id:10,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: false},
-                    {id:11,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                    {id:12,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+                {id:7,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
+                {id:8,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                {id:9,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
+                {id:10,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: false},
+                {id:11,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                {id:12,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
 
-                    {id:13,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
-                    {id:14,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                    {id:15,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: false, isSq: true},
-                    {id:16,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: false, isSq: false},
-                    {id:17,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                    {id:18,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
-                    ]
+                {id:13,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
+                {id:14,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                {id:15,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: false, isSq: true},
+                {id:16,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: false, isSq: false},
+                {id:17,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                {id:18,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+            ]
         };
         headerFix:boolean = false;
         blurRate:number = 60;
