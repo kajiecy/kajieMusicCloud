@@ -28,8 +28,7 @@
         doFocusInput(){
             setTimeout(()=>{
                 //组件加载好之后 将样式 从center 改为 left 并使 input 窗获得焦点
-                // @ts-ignore
-                this.$refs.innerInput.focus();
+                (<HTMLElement>this.$refs.innerInput).focus();
                 new Element()
             },100);
         }

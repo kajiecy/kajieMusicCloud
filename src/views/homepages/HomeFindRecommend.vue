@@ -175,7 +175,6 @@
             console.log(singListId)
             this.$router.push({name:'singListPage',query:{id: "111"}})
         }
-
     }
 </script>
 

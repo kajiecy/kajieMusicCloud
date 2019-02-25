@@ -126,65 +126,65 @@
 
 </template>
 
-<script>
-    /* eslint-disable no-invalid-this */
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
 
     import KajieInputEllipse from '@/components/KajieInputEllipse.vue';
 
-    export default {
-        name: 'SingListPage',
-        data() {
-            return {
-                headerHight:0,
+    @Component({
+        components: {
+            KajieInputEllipse
+        }
+    })
+    export default class SingListPage extends Vue{
+        headerHight:number = 0;
 
-                canvasBgOffsetTop:0,
-                topStatus: '',//下拉状态
-                translate: 0,//下拉距离
-                moveTranslate: 0, //缩放比例
+        canvasBgOffsetTop:number = 0;
+        topStatus:string = '';//下拉状态
+        translate:number = 0;//下拉距离
+        moveTranslate:number = 0; //缩放比例
 
-                singListData: {
-                    id: 5,
-                    // coverImg: 'http://qiniu.kajie88.com/28913648.jpg',
-                    coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
-                    coverImgBase64:'',
-                    title: '初识不知曲中意，再听已是曲中人,超级伤感的歌,超级伤感的歌,超级伤感的歌,超级伤感的歌',
-                    playCount: 183,
-                    ownerName: '卡杰',
-                    ownerImg: 'http://qiniu.kajie88.com/28913648.jpg',
-                    collectCount: 36.8,
-                    singListArray: [
-                        {id:1,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: true},
-                        {id:2,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                        {id:3,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
-                        {id:4,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: true},
-                        {id:5,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                        {id:6,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+        singListData:any = {
+            id: 5,
+            // coverImg: 'http://qiniu.kajie88.com/28913648.jpg',
+            coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
+            coverImgBase64:'',
+            title: '初识不知曲中意，再听已是曲中人,超级伤感的歌,超级伤感的歌,超级伤感的歌,超级伤感的歌',
+            playCount: 183,
+            ownerName: '卡杰',
+            ownerImg: 'http://qiniu.kajie88.com/28913648.jpg',
+            collectCount: 36.8,
+            singListArray: [
+                    {id:1,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: true},
+                    {id:2,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                    {id:3,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
+                    {id:4,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: true},
+                    {id:5,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                    {id:6,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
 
-                        {id:7,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
-                        {id:8,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                        {id:9,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
-                        {id:10,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: false},
-                        {id:11,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                        {id:12,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+                    {id:7,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
+                    {id:8,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                    {id:9,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: true, isSq: true},
+                    {id:10,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: true, isSq: false},
+                    {id:11,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                    {id:12,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
 
-                        {id:13,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
-                        {id:14,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
-                        {id:15,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: false, isSq: true},
-                        {id:16,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: false, isSq: false},
-                        {id:17,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
-                        {id:18,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
+                    {id:13,name: '爱如潮水', singerName: '张信哲', specialName: '张信哲精选', hasMv: true, isSq: false},
+                    {id:14,name: '无尽的爱', singerName: '关淑怡', specialName: '32首选', hasMv: false, isSq: false},
+                    {id:15,name: '大约在冬季', singerName: '齐秦', specialName: '摘金宝典', hasMv: false, isSq: true},
+                    {id:16,name: '别话', singerName: '张国荣', specialName: 'Ultimate', hasMv: false, isSq: false},
+                    {id:17,name: '千千阙歌', singerName: '陈慧娴', hasMv: false, isSq: false},
+                    {id:18,name: '风中的承诺', singerName: '李彧', specialName: '情歌传唱天后', hasMv: false, isSq: false},
                     ]
-                },
-                headerFix: false,
-                blurRate:60,
-            };
-        },
-        created() {
+        };
+        headerFix:boolean = false;
+        blurRate:number = 60;
 
-        },
         mounted() {
-            this.$nextTick(function () {
-                this.headerHight = document.querySelector('.kajie-header').offsetHeight;
+            //@ts-ignore
+            this.$nextTick(()=>{
+                this.headerHight = (<HTMLElement>document.querySelector('.kajie-header')).offsetHeight;
+                //@ts-ignore null
                 document.querySelector('.swiper-slide-content').addEventListener('scroll', this.onScroll);
 
                 let image = new Image();
@@ -192,12 +192,13 @@
 
                 image.setAttribute('crossOrigin', 'anonymous');
                 image.onload = ()=>{
-                    let canvas = document.createElement('canvas');
+                    let canvas = <HTMLCanvasElement>document.createElement('canvas');
 
                     canvas.width = image.width;
                     canvas.height = image.height;
                     let context = canvas.getContext('2d');
 
+                    //@ts-ignore null
                     context.drawImage(image, 0, 0, image.width, image.height);
                     let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
 
@@ -209,72 +210,67 @@
                         console.log(this.$store.getters)
                         this.$store.getters.getStackBlur.image('singlistcover', 'background-canvas', this.blurRate,false);
                         //background-canvas 复制一份 到 background-canvas-
-                        let source = document.getElementById('background-canvas'),
-                             target = document.getElementById('background-canvas-');
-
+                        let source= (<HTMLCanvasElement>document.getElementById('background-canvas')),
+                             target = (<HTMLCanvasElement>document.getElementById('background-canvas-'));
+                        //@ts-ignore null
                         let headerHeight = document.getElementById('singlist-header').clientHeight;
 
                         target.width = source.clientWidth;
                         target.height = headerHeight;
                         //复制一个 canvas用来充当 浮动框的假背景 填充圆角的背景 空缺
+                        //@ts-ignore null
                         target.getContext('2d').drawImage(source,0, source.height - source.height*headerHeight/source.clientHeight, source.width,source.height*headerHeight/source.clientHeight,0, 0, source.clientWidth, source.clientHeight);
                     }
                     _image.src = url;
                 };
                 image.src = this.singListData.coverImg;
 
-                this.canvasBgOffsetTop = document.querySelector('#background-canvas').offsetTop;
+                this.canvasBgOffsetTop = (<HTMLCanvasElement>document.querySelector('#background-canvas')).offsetTop;
             })
-        },
-        watch: {
-            topStatus(newValue,oldValue){
-                if(oldValue==='drop'&&newValue==='loading'){
-                    document.querySelector('#background-canvas').style.transition = 'all 0.3s';
-                }
-                setTimeout(function () {
-                    document.querySelector('#background-canvas').style.transition = '';
-                },220)
-            },
-        },
-        methods: {
-            onScroll() {
-                let scrolled = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop;
-
-                this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top;
-                // 滚动时让模糊的背景图片跟随滚动移动
-                if(!this.headerFix){
-                    document.querySelector('#background-canvas').style.top = this.canvasBgOffsetTop-scrolled+'px'
-                }
-            },
-            handleTopChange(status) {
-                this.moveTranslate = 1;
-                this.topStatus = status;
-            },
-            translateChange(translate) {
-                const translateNum = Number(translate);
-
-                this.translate = translateNum.toFixed(2);
-                this.moveTranslate = (1 + translateNum / 70).toFixed(2);
-            },
-            loadTop() {
-                // setTimeout(() => {
-                //     this.$refs.loadmore.onTopLoaded();
-                // }, 1500);
-            },
-            pushToPlayer(singId){
-                this.$router.push({name:'singPlayer',query:{id:singId}});
+        }
+        @Watch('topStatus', {deep: false})
+        watchTopStatus(newValue:any,oldValue:any){
+            if(oldValue==='drop'&&newValue==='loading'){
+                (<HTMLElement>document.querySelector('#background-canvas')).style.transition = 'all 0.3s';
             }
-        },
-        computed: {
-            transform() {
-                // console.log(this.translate)
-                let translateStart = this.translate-50>0?this.translate-50:0;
+            setTimeout(function () {
+                (<HTMLElement>document.querySelector('#background-canvas')).style.transition = '';
+            },220)
+        }
 
-                return this.translate === 0 ? 'scale3d(1, 1, 1)' : 'scale3d('+(parseFloat(translateStart)*0.006+1)+', ' + (parseFloat(translateStart)*0.006+1) + ', 1)';
+
+        onScroll() {
+            //@ts-ignore null
+            let scrolled:number|null = document.querySelector('.swiper-slide-content').scrollTop || document.querySelector('.swiper-slide-content').scrollTop;
+
+            this.headerFix = this.headerHight >= document.getElementsByClassName('singlist-float')[0].getBoundingClientRect().top;
+            // 滚动时让模糊的背景图片跟随滚动移动
+            if(!this.headerFix){
+                (<HTMLElement>document.querySelector('#background-canvas')).style.top = this.canvasBgOffsetTop-scrolled+'px'
             }
-        },
-        components: {
-            KajieInputEllipse
+        }
+        handleTopChange(status:string) {
+            this.moveTranslate = 1;
+            this.topStatus = status;
+        }
+        translateChange(translate:any) {
+            const translateNum:number = Number(translate);
+            this.translate = parseFloat(translateNum.toFixed(2));
+            this.moveTranslate = parseFloat((1 + translateNum / 70).toFixed(2));
+        }
+        loadTop() {
+            // setTimeout(() => {
+            //     this.$refs.loadmore.onTopLoaded();
+            // }, 1500);
+        }
+        pushToPlayer(singId:any){
+            this.$router.push({name:'singPlayer',query:{id:singId}});
+        }
+        get transform() {
+            // console.log(this.translate)
+            let translateStart = this.translate-50>0?this.translate-50:0;
+
+            return this.translate === 0 ? 'scale3d(1, 1, 1)' : 'scale3d('+(translateStart*0.006+1)+', ' + (translateStart*0.006+1) + ', 1)';
         }
     };
 </script>
