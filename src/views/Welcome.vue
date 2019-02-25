@@ -15,24 +15,11 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'Welcome',
-        data() {
-            return {
-                message:'hello word'
-            };
-        },
-        created() {
-
-        },
-        mounted() {
-
-        },
-        watch: {},
-        methods: {},
-        computed: {},
-        components: {}
+<script lang="ts">
+    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    @Component
+    export default class Welcome extends Vue{
+        message:string = 'hello word';
     };
 </script>
 
