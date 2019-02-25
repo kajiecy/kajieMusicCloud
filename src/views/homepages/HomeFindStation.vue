@@ -74,7 +74,6 @@
 
 <script lang="ts">
     import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
-    //@ts-ignore
     import Swiper from 'swiper';
 
     @Component

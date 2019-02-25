@@ -1,5 +1,4 @@
 //这个js存在问题不能多次引用 无奈先把他放在这里
-// @ts-ignore
 import * as StackBlur from '@/assets/js/stackblur/stackblur-es.js';
 
 const app = {

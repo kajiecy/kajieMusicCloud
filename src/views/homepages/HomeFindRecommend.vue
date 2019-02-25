@@ -107,7 +107,6 @@
 
 <script lang="ts">
     import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
-    //@ts-ignore
     import Swiper from 'swiper';
 
     @Component
@@ -115,6 +114,7 @@
         swiperInfo:any = null;
         topStatus:string = '';//下拉刷新页面的状态
         translate:number = 0;//下拉距离
+        moveTranslate:any = null;
         recommendSongList:Array<any> = [
                 {id:1,coverImg: 'http://qiniu.kajie88.com/recommendSong1.jpg', title: '你穿秋裤了么？',playCount:420},
                 {id:2,coverImg: 'http://qiniu.kajie88.com/recommendSong2.jpg', title: '治愈男声//回眸之时，只望遇见你',playCount:220},
@@ -153,7 +153,6 @@
          *   已知状态 pull 默认状态，drop 释放后执行 top-method， loading drop状态后待没有执行onTopLoaded()方法时的状态。
          */
         handleTopChange(status:string) {
-            //@ts-ignore
             this.moveTranslate = 1;
             this.topStatus = status;
         };

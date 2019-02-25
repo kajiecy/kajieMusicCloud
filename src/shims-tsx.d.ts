@@ -1,7 +1,10 @@
 import Vue, { VNode } from 'vue';
+import * as lodash from 'lodash'
 
 declare global {
-  namespace JSX {
+    const _: typeof lodash;
+
+    namespace JSX {
     // tslint:disable no-empty-interface
     interface Element extends VNode {
 

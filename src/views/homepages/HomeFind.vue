@@ -32,7 +32,6 @@
 
 <script lang="ts">
     import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
-    // @ts-ignore
     import Swiper from 'swiper';
     import HomeFindRecommend from './HomeFindRecommend.vue';
     import HomeFindStation from './HomeFindStation.vue';
@@ -66,14 +65,11 @@
                 watchSlidesProgress : true,
                 on: {
                     slideChange: function () {
-                        //@ts-ignore
                         _vm.activeIndex = this.activeIndex;
                     },
                     progress: function(progress:number){
                         _vm.$nextTick(()=>{
-                            //@ts-ignore
                             (<HTMLElement>document.querySelector('.select-div-inner')!).style.width=25*(1+Math.abs(this.slides[_vm.activeIndex].progress)*2)+'%';
-                            //@ts-ignore
                             (<HTMLElement>document.querySelector('.select-div')!).style.transform = 'translateX('+document.querySelector('.swiper-header-tab-item')!.clientWidth*(this.slides.length-1)*progress+'px)';
                         });
                     },

@@ -181,7 +181,6 @@
         blurRate:number = 60;
 
         mounted() {
-            //@ts-ignore
             this.$nextTick(()=>{
                 this.headerHight = (<HTMLElement>document.querySelector('.kajie-header')).offsetHeight;
                 document.querySelector('.swiper-slide-content')!.addEventListener('scroll', this.onScroll);
