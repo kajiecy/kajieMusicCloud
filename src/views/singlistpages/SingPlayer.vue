@@ -1,6 +1,7 @@
 <template>
     <div>
-        <img src="http://qiniu.kajie88.com/recommendSong5.jpg">
+        <!--<img src="http://qiniu.kajie88.com/recommendSong5.jpg">-->
+        {{nowTime}}
     </div>
 </template>
 
@@ -18,6 +19,13 @@
             isSq: true
         }
         get singId(){return this.$route.query.id}
+        get nowTime(){
+            // let result = _.difference([3, 2, 1], [4,2,6]);
+            let arr1 = [1, 2, 3];
+            let result = _.drop(arr1);
+            console.log("arr1",arr1);
+            return result;
+        }
     }
 </script>
 

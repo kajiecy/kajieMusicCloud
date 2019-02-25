@@ -1,5 +1,5 @@
 import Vue, { VNode } from 'vue';
-import * as lodash from 'lodash'
+import * as lodash from 'lodash';
 
 declare global {
     const _: typeof lodash;

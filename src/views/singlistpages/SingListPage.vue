@@ -184,10 +184,8 @@
             this.$nextTick(()=>{
                 this.headerHight = (<HTMLElement>document.querySelector('.kajie-header')).offsetHeight;
                 document.querySelector('.swiper-slide-content')!.addEventListener('scroll', this.onScroll);
-
                 let image = new Image();
                 // 解决跨域 Canvas 污染问题
-
                 image.setAttribute('crossOrigin', 'anonymous');
                 image.onload = ()=>{
                     let canvas = <HTMLCanvasElement>document.createElement('canvas');
