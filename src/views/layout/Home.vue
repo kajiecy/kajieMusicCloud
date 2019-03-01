@@ -51,7 +51,6 @@
 
 
         <div class="wrapper" :class="!$route.meta.footShow?'wrapper-no-foot':''">
-
             <router-view/>
         </div>
         <kajie-tabbar class="home-tabbar" v-if="$route.meta.footShow"  v-model="selected">

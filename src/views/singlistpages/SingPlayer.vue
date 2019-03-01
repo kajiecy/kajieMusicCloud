@@ -1,66 +1,72 @@
 <template>
     <div class="singlist-body page-body">
-        <kajie-scroll>
-
+        <!--<kajie-scroll class="page-body-scroll">-->
             <div class="pole-div ">
                 <!--pole-animal-->
-                <div class="player-pole-layer ">
+                <div class="player-pole-layer">
                     <div class="player-pole">
                         <img :src="playerPole" width="100%" height="100%">
                     </div>
                 </div>
             </div>
             <!--cover-animal-->
-            <div class="saucer-div ">
-                <div class="cover-animal">
-                    <div class="saucer-cover-layout ">
-                        <div class="saucer-cover-img "><img src="http://qiniu.kajie88.com/recommendSong5.jpg" width="100%" height="100%"></div>
-                    </div>
-                    <div class="player-saucer ">
-                        <img :src="playerSaucer" width="100%" height="100%">
-                    </div>
-                </div>
-            </div>
+            <div class="view-center"  @click="coverEvent">
+                <template v-if="playingMode[nowMode]!=null?playingMode[nowMode].icon:''">
 
-            <div class="interactive-buttons dis_flax">
-                <div class="interactive-button dis_flax_child textcenter"><i  @click="transformIcon" class="iconfont " :class="iconState?'icon-xin1':'icon-xin'"></i></div>
-                <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-plus-download"></i></div>
-                <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-yun_l"></i></div>
-                <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-weibiaoti-"></i></div>
-                <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-diandiandianshu"></i></div>
-            </div>
-
-            <div class="process-div wd90 dis_table">
-                <div class="dis_table_cell wd10">00:08</div>
-                <div class="dis_table_cell center-cell">
-                    <div class="process-line"></div>
-                    <div class="process-point-layout">
-                        <div class="process-point">
-                            <div class="process-point-inner"></div>
+                </template>
+                <div class="saucer-div ">
+                    <div class="cover-animal">
+                        <div class="saucer-cover-layout ">
+                            <div class="saucer-cover-img "><img src="http://qiniu.kajie88.com/recommendSong5.jpg" width="100%" height="100%"></div>
+                        </div>
+                        <div class="player-saucer ">
+                            <img :src="playerSaucer" width="100%" height="100%">
                         </div>
                     </div>
                 </div>
-                <div class="dis_table_cell wd10">04:50</div>
             </div>
 
 
-            <div class="control-buttons dis_flax">
-                <div class="control-button dis_flax_child textcenter"><i  @click="transformIcon" class="iconfont " :class="iconState?'icon-xin1':'icon-xin'"></i></div>
-                <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-shangyishou"></i></div>
-                <div class="control-button dis_flax_child textcenter">
-                    <div class="pass-pause-div">
-                        <!--<div class="triangle_border_right"></div>-->
-                        <div class="pause-div">
-                            <div class="pause-div-inner pause-div-left"></div>
-                            <div class="pause-div-inner pause-div-right"></div>
+            <!--底部按钮组div-->
+            <div class="fixed bottom0 control-center">
+                <div class="interactive-buttons dis_flax">
+                    <div class="interactive-button dis_flax_child textcenter"><i  @click="transformIcon" class="iconfont " :class="iconState?'icon-xin1':'icon-xin'"></i></div>
+                    <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-plus-download"></i></div>
+                    <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-yun_l"></i></div>
+                    <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-weibiaoti-"></i></div>
+                    <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-diandiandianshu"></i></div>
+                </div>
+
+                <div class="process-div wd90 dis_table">
+                    <div class="dis_table_cell wd10">00:08</div>
+                    <div class="dis_table_cell center-cell">
+                        <div class="process-line"></div>
+                        <div class="process-point-layout">
+                            <div class="process-point">
+                                <div class="process-point-inner"></div>
+                            </div>
                         </div>
                     </div>
+                    <div class="dis_table_cell wd10">04:50</div>
                 </div>
-                <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-shangyishou rotate180"></i></div>
-                <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-bofangliebiao"></i></div>
-            </div>
 
-        </kajie-scroll>
+
+                <div class="control-buttons dis_flax">
+                    <div class="control-button dis_flax_child textcenter"><i  @click="changePlayMode" class="iconfont icon-play-model" :class="playingMode[nowMode]!=null?playingMode[nowMode].icon:''"></i></div>
+                    <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-shangyishou"></i></div>
+                    <div class="control-button dis_flax_child textcenter">
+                        <div class="pass-pause-div" @click="touchPassButtonEvent">
+                            <div :class="playingState===true?'pass-div':'pause-div'">
+                                <div class="pause-div-inner pause-div-left"></div>
+                                <div class="pause-div-inner pause-div-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-shangyishou rotate180"></i></div>
+                    <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-bofangliebiao"></i></div>
+                </div>
+            </div>
+        <!--</kajie-scroll>-->
 
         <!--隐藏元素用于模糊背景的实现-->
         <img id="canvas-copy" :src="backgroundImgBase64" >
@@ -72,11 +78,15 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator';
+    import { Component, Prop, Vue ,Model,Watch,Inject}from 'vue-property-decorator';
     //@ts-ignore
     import playerPole from '@/assets/image/player/2.png';
     //@ts-ignore
     import playerSaucer from '@/assets/image/player/1.png';
+
+    import {playerCenterShowMode,playingMode} from '@/enum/playerEnums.ts';
+
+
     @Component
     export default class SingPlayer extends Vue{
         playerPole:typeof HTMLImageElement = playerPole;
@@ -93,11 +103,34 @@
             hasMv: true,
             isSq: true
         };
-        iconState:boolean=true;
+        iconState:boolean = true;
+        //歌曲的播放状态
+        playingState:boolean = false;
+        // 当前的播放模式
+        nowMode:number = 0;
+        //三种播放模式 单曲循环 列表循环 随机播放
+        playingMode:typeof playingMode= playingMode;
+        //
+        centerShow:string = 'coverImg';
+        playerShowMode:String[] =[
+            "coverImg",
+            "lyrics",
+        ];
         transformIcon(){
             this.iconState = !this.iconState;
         }
-
+        touchPassButtonEvent(){
+            this.playingState = !this.playingState;
+        }
+        //改变歌曲的播放模式
+        changePlayMode(){
+            if(++this.nowMode>=this.playingMode.length){
+                this.nowMode = 0;
+            }
+        }
+        coverEvent(){
+            console.log("111")
+        }
         mounted() {
             this.$nextTick(()=>{
                 this.headerHight = (<HTMLElement>document.querySelector('.kajie-header')).offsetHeight;
@@ -128,6 +161,10 @@
 <style lang="scss" scoped>
     .page-body{
         border-top: 1px solid rgba(255,255,255,0.2);
+        height: 100%;
+    }
+    .control-center{
+        padding-bottom: 60px;
     }
     #canvas-copy{
         /*width: 100%;*/
@@ -279,24 +316,49 @@
         }
 
     }
+
+
     .pass-pause-div{
         margin: 0 auto;
         border: 5px solid rgba(255,255,255,0.5);
         height: 120px;
         width: 120px;
         border-radius: 50%;
+        .pause-div-left{
+            transition: width 0.5s;
+        }
+        .pass-div{
+            .pause-div-left{
+                width:0;
+                height:0;
+                border-width:30px 0 30px 45px;
+                border-style:solid;
+                border-color:transparent transparent transparent rgba(255,255,255,0.5);/*透明 透明 透明 灰*/
+                margin:40px auto;
+                position:relative;
+                top: -10px;
+                left: 5px;
+            }
+            .pause-div-right{
+                display: none;
+            }
+        }
         .pause-div{
-
+            position: relative;
+            top: 30px;
             .pause-div-inner{
                 display: inline-block;
-                width: 5px;
-                height: 20px;
-                background-color: #E4E3E6;
-                margin: 0px;
+                width: 12px;
+                height: 60px;
+                background-color: rgba(255,255,255,0.5);
+                margin: 0px 8px;
             }
         }
     }
-
+    .icon-play-model{
+        position: relative;
+        top: 10px;
+    }
 
 
     .cover-animal{
@@ -328,15 +390,5 @@
         }
     }
 
-    .triangle_border_right{
-        width:0;
-        height:0;
-        border-width:30px 0 30px 45px;
-        border-style:solid;
-        border-color:transparent transparent transparent rgba(255,255,255,0.5);/*透明 透明 透明 灰*/
-        margin:40px auto;
-        position:relative;
-        top: -10px;
-        left: 5px;
-    }
+
 </style>
