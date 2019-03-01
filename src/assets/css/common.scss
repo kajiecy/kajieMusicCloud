@@ -1110,3 +1110,18 @@ input[type='submit']:enabled:active {
 .hairlines {
   border-bottom: 0.5px solid #E4E7ED;
 }
+
+
+.dis_flax{
+  display: flex;
+
+}
+
+.dis_flax_child{
+  flex: 1 1 auto;
+}
+
+.rotate180{
+  display: inline-block;
+  transform: rotate(180deg);
+}

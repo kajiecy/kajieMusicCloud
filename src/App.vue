@@ -12,7 +12,7 @@
     }
 </script>
 <style>
-  @import "//at.alicdn.com/t/font_843329_2qylu6i9bm8.css";
+  @import "//at.alicdn.com/t/font_843329_hz1p6meqibn.css";
   .swiper-pagination-bullet{
     width: 20px;
     height: 20px;

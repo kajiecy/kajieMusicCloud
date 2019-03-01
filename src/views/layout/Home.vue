@@ -13,13 +13,14 @@
                     <span>{{$store.getters.getInputRecommend}}</span>
                 </div>
             </template>
+            <!--如果 router 中 titleType 的titleType 为player 显示 歌名和 歌手名称 -->
             <template v-else-if="$route.meta.titleType==='player'">
                 <div slot="title" class="playing-title" >
                     <div class="title-name">
                         {{$store.state.app.playingInfo.name}}
                     </div>
                     <div class="title-singer">
-                        {{$store.state.app.playingInfo.singer}}
+                        {{$store.state.app.playingInfo.singer}} <span class="singer-right-icon"><i class="iconfont icon-you1"></i></span>
                     </div>
                 </div>
             </template>
@@ -32,12 +33,18 @@
             <div slot="right">
                 <!--<i class="iconfont icon-yinle" style="font-size: 20px"></i>-->
                 <!--<img class="right-img" src="http://p8kfci878.bkt.clouddn.com/right-home.png"> -->
-                <div class="right-icon textcenter" @click="playIconClick()">
-                    <div class="dummydiv dummy1" :class='$store.getters.getPlayerStatus?"dummy1-play":""'></div>
-                    <div class="dummydiv dummy2" :class='$store.getters.getPlayerStatus?"dummy2-play":""'></div>
-                    <div class="dummydiv dummy3" :class='$store.getters.getPlayerStatus?"dummy3-play":""'></div>
-                    <div class="dummydiv dummy4" :class='$store.getters.getPlayerStatus?"dummy4-play":""'></div>
-                </div>
+                <template v-if="$route.meta.titleType==='player'">
+                    <i class="iconfont icon-fenxiang1"></i>
+                </template>
+                <template v-else>
+                    <div class="right-icon textcenter" @click="playIconClick()">
+                        <div class="dummydiv dummy1" :class='$store.getters.getPlayerStatus?"dummy1-play":""'></div>
+                        <div class="dummydiv dummy2" :class='$store.getters.getPlayerStatus?"dummy2-play":""'></div>
+                        <div class="dummydiv dummy3" :class='$store.getters.getPlayerStatus?"dummy3-play":""'></div>
+                        <div class="dummydiv dummy4" :class='$store.getters.getPlayerStatus?"dummy4-play":""'></div>
+                    </div>
+                </template>
+
             </div>
         </kajie-header>
 
@@ -158,14 +165,20 @@
     }
     .playing-title{
         color: rgba(255,255,255,0.9);
+        text-align: left;
         .title-name{
             font-size: 45px;
         }
         .title-singer{
-            font-size: 15px;
+            font-size: 30px;
         }
     }
-
+    .singer-right-icon{
+        color: rgba(255,255,255,0.5);
+        .icon-you1{
+            font-size: 26px;
+        }
+    }
     .div-parent{
         width: 100%;
         height: 100vh;
@@ -206,6 +219,12 @@
         position: relative;
         left: -20px;
     }
+    .icon-fenxiang1{
+        font-size: 60px;
+        color: white;
+        margin-top: 10px;
+        display: inline-block;
+    }
     .right-img{
         width: 71px;
         height: 71px;
@@ -230,7 +249,7 @@
         margin-top: 20px;
     }
     .left-icon{
-        font-size: 75px;
+        font-size: 65px;
         color: white;
         margin-top: 10px;
     }

@@ -1,6 +1,5 @@
 <template>
-    <header
-            class="kajie-header fixed-top"
+    <header class="kajie-header fixed-top"
             :class="headerBackColor">
         <div class="dis_table wd100 kajie-header" :class="headerBackColor">
             <div class="dis_table_cell kajie-header-button" :class='$store.getters.getHeaderStatus===false?"wd15":"wd5"'>
@@ -115,7 +114,6 @@
         top: 0;
         z-index: 4;
     }
-
     .kajie-header {
         width: 100%;
         height: 130px;
@@ -127,26 +125,21 @@
         flex: 0.2;
         text-align: center;
     }
-
     .wd5 {
         width: 5%;
     }
-
     .cancelBtn {
         color: white;
         text-align: center;
     }
-
     .dis_table_cell {
         transition: all 0.4s;
     }
-
     .title-inner {
         border-radius: 45px;
         background-color: #E0635C;
         border: 1px solid #DC524B;
     }
-
     .search-masking {
         position: relative;
         top: 0;
@@ -155,11 +148,9 @@
         height: calc(100vh - 130px - 170px);
         background-color: #ffffff;
     }
-
     .search-masking222 {
         z-index: 1;
     }
-
     .search-masking-title {
         font-size: 40px;
         padding: 20px 30px;
@@ -168,18 +159,15 @@
         align-items: center;
         justify-content: space-between;
     }
-
     .search-masking-title .icon-you {
         font-size: 18px;
         display: inline-block;
         margin-left: 15px;
         color: #AAAAAA;
     }
-
     .hairlines {
         border-bottom: 1px solid #F0F0F0;
     }
-
     .search-masking-title-img {
         display: inline-block;
         width: 80px;

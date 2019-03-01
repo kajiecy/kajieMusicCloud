@@ -15,7 +15,7 @@ export const otherRouter = {
         {path: 'firends', name: 'firends',meta:{icon:'icon-zuo',title:'朋友',footShow:true}, component: () => import('@/views/homepages/HomeFirends.vue')},
         {path: 'account', name: 'account',meta:{icon:'icon-zuo',title:'账号',footShow:true}, component: () => import('@/views/homepages/HomeAccount.vue')},
         {path: 'singlistpage', name: 'singListPage',meta:{icon:'icon-zuo',title:'歌单',transparent:true,footShow:true}, component: () => import('@/views/singlistpages/SingListPage.vue')},
-        {path: 'singPlayer', name: 'singPlayer',meta:{icon:'icon-zuo',title:'播放页',titleType:'player',transparent:false,footShow:false}, component: () => import('@/views/singlistpages/SingPlayer.vue')},
+        {path: 'singPlayer', name: 'singPlayer',meta:{icon:'icon-zuo',title:'播放页',titleType:'player',transparent:true,footShow:false}, component: () => import('@/views/singlistpages/SingPlayer.vue')},
         {path: 'testPage', name: 'testPage',meta:{icon:'icon-zuo',title:'测试界面',footShow:true}, component: () => import('@/views/TestPage.vue')},
     ],
 };
