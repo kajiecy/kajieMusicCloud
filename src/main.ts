@@ -5,14 +5,19 @@ import '@/assets/css/my-mint.scss';
 import '@/assets/css/main.scss';
 import '@/assets/css/common.scss';
 
+// @ts-ignore
 import KajieScroll from '@/components/KajieScroll.vue';
+import CommonUtil from '@/util/CommonUtil.ts';
 
 
 import Vue from 'vue';
 Vue.use(Mint);
 Vue.component('kajie-scroll',KajieScroll)
 Vue.prototype._ = lodash;
+Vue.prototype.$myUtil = CommonUtil;
 
+
+// @ts-ignore
 import App from './App.vue';
 import router from './router';
 import store from './store';

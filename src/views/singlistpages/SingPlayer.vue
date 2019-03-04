@@ -1,7 +1,7 @@
 <template>
     <div class="singlist-body page-body">
         <!--<kajie-scroll class="page-body-scroll">-->
-            <div class="pole-div ">
+            <div class="pole-div "  v-if="centerShow===playerCenterShowMode.disc">
                 <!--pole-animal-->
                 <div class="player-pole-layer">
                     <div class="player-pole">
@@ -11,22 +11,25 @@
             </div>
             <!--cover-animal-->
             <div class="view-center"  @click="coverEvent">
-                <template v-if="playingMode[nowMode]!=null?playingMode[nowMode].icon:''">
-
-                </template>
-                <div class="saucer-div ">
-                    <div class="cover-animal">
-                        <div class="saucer-cover-layout ">
-                            <div class="saucer-cover-img "><img src="http://qiniu.kajie88.com/recommendSong5.jpg" width="100%" height="100%"></div>
-                        </div>
-                        <div class="player-saucer ">
-                            <img :src="playerSaucer" width="100%" height="100%">
+                <!--歌曲的封面页面显示-->
+                <template v-if="centerShow===playerCenterShowMode.disc">
+                    <div class="saucer-div">
+                        <div class="cover-animal">
+                            <div class="saucer-cover-layout ">
+                                <div class="saucer-cover-img "><img src="http://qiniu.kajie88.com/recommendSong5.jpg" width="100%" height="100%"></div>
+                            </div>
+                            <div class="player-saucer ">
+                                <img :src="playerSaucer" width="100%" height="100%">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </template>
+                <!--歌曲的歌词显示-->
+                <template v-if="centerShow===playerCenterShowMode.lyrics">
+                    <lyrics-show></lyrics-show>
+                </template>
+                <audio ref="myPlayer" controls="controls" src="http://qiniu.kajie88.com/%E8%AE%B8%E4%B8%80%E9%B8%A3%20-%20%E8%99%8E%E5%8F%A3%E8%84%B1%E9%99%A9%EF%BC%88Cover%20%E8%80%81%E7%8B%BC%EF%BC%89.mp3"></audio>
             </div>
-
-
             <!--底部按钮组div-->
             <div class="fixed bottom0 control-center">
                 <div class="interactive-buttons dis_flax">
@@ -52,7 +55,9 @@
 
 
                 <div class="control-buttons dis_flax">
-                    <div class="control-button dis_flax_child textcenter"><i  @click="changePlayMode" class="iconfont icon-play-model" :class="playingMode[nowMode]!=null?playingMode[nowMode].icon:''"></i></div>
+                    <div class="control-button dis_flax_child textcenter">
+                        <i @click="changePlayMode" class="iconfont icon-play-model" :class="playingMode[nowMode]!=null?playingMode[nowMode].icon:''"></i>
+                    </div>
                     <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-shangyishou"></i></div>
                     <div class="control-button dis_flax_child textcenter">
                         <div class="pass-pause-div" @click="touchPassButtonEvent">
@@ -62,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-shangyishou rotate180"></i></div>
+                    <div class="control-button dis_flax_child textcenter" @click="nextSong()"><i class="iconfont icon-shangyishou rotate180"></i></div>
                     <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-bofangliebiao"></i></div>
                 </div>
             </div>
@@ -84,56 +89,58 @@
     //@ts-ignore
     import playerSaucer from '@/assets/image/player/1.png';
 
-    import {playerCenterShowMode,playingMode} from '@/enum/playerEnums.ts';
+    import {playerCenterShowMode,playingMode,activeSongType} from '@/enum/playerEnums.ts';
+    import LyricsShow from '@/views/singlistpages/LyricsShow.vue';
 
-
-    @Component
+    @Component({
+        components:{
+            LyricsShow:LyricsShow
+        }
+    })
     export default class SingPlayer extends Vue{
+        // 图片：唱片杆
         playerPole:typeof HTMLImageElement = playerPole;
+        // 图片：唱片碟
         playerSaucer:typeof HTMLImageElement= playerSaucer;
-        headerHight:number=0;
+        // 歌词封面图片的 64位字节用于 给高斯模糊js提供数据源，次js无法直接模糊跨域图片
         backgroundImgBase64:string="";
+        // 背景的模糊比例
         blurRate:number = 40;
+        // 歌曲的基本信息☆
         singData:any = {
             id: 1,
             name: '爱如潮水',
             singerName: '张信哲',
             specialName: '张信哲精选',
             coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
+            songSrc:'http://qiniu.kajie88.com/%E8%AE%B8%E4%B8%80%E9%B8%A3%20-%20%E8%99%8E%E5%8F%A3%E8%84%B1%E9%99%A9%EF%BC%88Cover%20%E8%80%81%E7%8B%BC%EF%BC%89.mp3',
+            lrcSrc:'http://qiniu.kajie88.com/%E8%AE%B8%E4%B8%80%E9%B8%A3%20-%20%E8%99%8E%E5%8F%A3%E8%84%B1%E9%99%A9%EF%BC%88Cover%20%E8%80%81%E7%8B%BC%EF%BC%89.lrc',
             hasMv: true,
             isSq: true
         };
+        // 临时属性 用来表示歌曲的 喜欢状态
         iconState:boolean = true;
         //歌曲的播放状态
         playingState:boolean = false;
         // 当前的播放模式
         nowMode:number = 0;
         //三种播放模式 单曲循环 列表循环 随机播放
-        playingMode:typeof playingMode= playingMode;
-        //
-        centerShow:string = 'coverImg';
-        playerShowMode:String[] =[
-            "coverImg",
-            "lyrics",
-        ];
-        transformIcon(){
-            this.iconState = !this.iconState;
+        playingMode:Array<Object>= playingMode;
+        //页面中心 标识页面显示 歌词合适封面
+        centerShow:number = playerCenterShowMode.lyrics;
+        playerCenterShowMode:typeof playerCenterShowMode = playerCenterShowMode;
+
+        playerWatcher:any = null;
+        playStatus :object = {
+            nowTimeFormat:'00:00',
+            nowTimeNum:0,
+            sumTimeFormat:'00:00',
+            sumTimeNum:0,
+
         }
-        touchPassButtonEvent(){
-            this.playingState = !this.playingState;
-        }
-        //改变歌曲的播放模式
-        changePlayMode(){
-            if(++this.nowMode>=this.playingMode.length){
-                this.nowMode = 0;
-            }
-        }
-        coverEvent(){
-            console.log("111")
-        }
+        // -------------------------      mounted start      -------------------------
         mounted() {
             this.$nextTick(()=>{
-                this.headerHight = (<HTMLElement>document.querySelector('.kajie-header')).offsetHeight;
                 let image = new Image();
                 // 解决跨域 Canvas 污染问题
                 image.setAttribute('crossOrigin', 'anonymous');
@@ -155,6 +162,66 @@
                 image.src = this.singData.coverImg;
             })
         }
+        // -------------------------      mounted end      -------------------------
+
+        // -------------------------      methods start      -------------------------
+        //控制 喜欢的点击操作
+        transformIcon(){
+            this.iconState = !this.iconState;
+        }
+        //播放暂停按钮的处理逻辑 获取audio控件 判断其状态执行 播放或暂停操作
+        touchPassButtonEvent(){
+            this.playingState = !this.playingState;
+            let myPlayer = <HTMLMediaElement>this.$refs.myPlayer;
+            if(myPlayer.paused===true){
+                myPlayer.play();
+            }else {
+                myPlayer.pause();
+            }
+        }
+        //
+        changeSong(activeType){
+            let myPlayer = <HTMLMediaElement>this.$refs.myPlayer;
+            console.log("总时长",myPlayer.duration);
+            console.log("播放时长",myPlayer.currentTime);
+        }
+
+        //改变歌曲的播放模式
+        changePlayMode(){
+            if(++this.nowMode>=this.playingMode.length){
+                this.nowMode = 0;
+            }
+        }
+        //点击封面 或者 歌词 循环切换
+        coverEvent(){
+            if(this.centerShow === this.playerCenterShowMode.disc){
+                this.centerShow = this.playerCenterShowMode.lyrics;
+            }else if(this.centerShow === this.playerCenterShowMode.lyrics){
+                this.centerShow = this.playerCenterShowMode.disc;
+            }
+        }
+        // -------------------------      methods end      -------------------------
+
+        // -------------------------      watchs start      -------------------------
+        //监听播放状态
+        @Watch('playingState', {deep: false})
+        watchPlayingState(newValue:boolean){
+            //如果状态变为 true 启动一个 循环器 轮询播放状态
+            let myPlayer = <HTMLMediaElement>this.$refs.myPlayer;
+            if(newValue===true){
+                this.playerWatcher = window.setInterval(()=>{
+                    // console.log("总时长",myPlayer.duration);
+                    console.log("播放时长",myPlayer.currentTime);
+                    console.log(this.$myUtil.formatSecond(myPlayer.currentTime));
+                },1000);
+            }else {
+                window.clearInterval(this.playerWatcher);
+            }
+        }
+        // -------------------------      watchs end      -------------------------
+
+
+
     }
 </script>
 
@@ -199,8 +266,9 @@
         overflow: hidden;
         position: absolute;
         z-index: 3;
-        /*left: calc(50vw - 50px);*/
+        pointer-events:none;
 
+        /*left: calc(50vw - 50px);*/
         .player-pole-layer{
             transform:rotate(25deg);
 
@@ -327,7 +395,7 @@
         .pause-div-left{
             transition: width 0.5s;
         }
-        .pass-div{
+        .pause-div{
             .pause-div-left{
                 width:0;
                 height:0;
@@ -343,7 +411,7 @@
                 display: none;
             }
         }
-        .pause-div{
+        .pass-div{
             position: relative;
             top: 30px;
             .pause-div-inner{

@@ -2,10 +2,13 @@
 export enum playerCenterShowMode {
     disc,lyrics
 }
-// 下一首时的循环策略
-export enum playingMode{
-    one = 'icon-xunhuanbofang',
-    cycle = 'icon-danquxunhuan',
-    random = 'icon-suiji',
+export enum activeSongType {
+    previous,next
 }
+// 下一首时的循环策略
+export let playingMode = [
+    {modeName:'one',icon:'icon-danquxunhuan'},
+    {modeName:'cycle',icon:'icon-xunhuanbofang'},
+    {modeName:'random',icon:'icon-suiji'},
+]
 
