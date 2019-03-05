@@ -8,7 +8,9 @@ import '@/assets/css/common.scss';
 // @ts-ignore
 import KajieScroll from '@/components/KajieScroll.vue';
 import CommonUtil from '@/util/CommonUtil.ts';
-
+// 引入自定义指令
+import directive from '@/directives/directives'
+directive.init();
 
 import Vue from 'vue';
 Vue.use(Mint);
