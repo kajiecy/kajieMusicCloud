@@ -178,12 +178,13 @@
 </script>
 
 <style scoped>
+
     .mint-loadmore {
         /*header:130px;footer:170px;tab:110px*/
         min-height: calc(100vh - 110px - 130px - 170px);
     }
     .myloaddiv {
-
+        padding-bottom: 300px;
     }
     .swiper-info {
         /*background-color: #67BB1E;*/

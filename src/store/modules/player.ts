@@ -71,15 +71,22 @@ const player = {
         }
     },
     mutations: {
-        //
+        // 播放器控件加载好后调用次函数将 控件对象存储到内存中并添加相应的监听
         setPlayerEntity(state: any,playerEntity: HTMLMediaElement){
-
             state.playerEntity = playerEntity;
-
+            playerEntity.addEventListener('canplay', (event)=>{
+                state.playStatus.sumTimeNum = playerEntity.duration;
+            });
+            playerEntity.addEventListener('onload', (event)=>{
+                console.log('onload');
+                state.playStatus.sumTimeNum = playerEntity.duration;
+            });
+            playerEntity.addEventListener('progress', (event)=>{
+                state.playStatus.sumTimeNum = playerEntity.duration;
+            });
             playerEntity.addEventListener('canplaythrough', (event)=>{
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
-            // console.log('buffered',playerEntity.buffered.start(0))
         },
         // 控制 喜欢的点击操作
         changeLoveStatus(state: any){
@@ -105,6 +112,14 @@ const player = {
                 state.nowMode = 0;
             }
         },
+        setCurrentTime(state: any,rate: number){
+            let currentTime = state.playStatus.sumTimeNum * rate;
+            state.playStatus.nowTimeNum = currentTime;
+
+        },
+        changePlayTime(state: any){
+            state.playerEntity.currentTime = state.playStatus.nowTimeNum;
+        }
     },
 }
 function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
@@ -117,7 +132,15 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
             // 歌曲的总时长
             state.playStatus.sumTimeNum = playerEntity.duration	;
             // 当前歌曲是否结束
-            state.playStatus.ended = playerEntity.ended	;
+            state.playStatus.ended = playerEntity.ended;
+            // 根据播放时间，移动进度条
+            const rate = parseFloat((state.playStatus.nowTimeNum/state.playStatus.sumTimeNum).toFixed(3));
+            const el = <any>document.querySelector('.process-point');
+            const limitLine = <any>document.querySelector('.process-line-out');
+            const completeLine = <any>document.querySelector('.complete-line');
+            const l = rate*(limitLine.offsetWidth-el.offsetWidth);
+            completeLine.style.right = `calc( 100% - ${l}px)`;
+            el.style.left = `${l}px`;
         },1000);
     }else {
         window.clearInterval(state.playerWatcher);

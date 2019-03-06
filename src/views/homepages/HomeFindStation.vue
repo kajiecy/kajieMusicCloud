@@ -1,5 +1,5 @@
 <template>
-    <div class="info-back">
+    <div class="station-body">
         <div class="info-back textcenter">
             <div class="swiper-container swiper-station">
                 <div class="swiper-wrapper">
@@ -56,9 +56,7 @@
 
             <div class="recommend-body">
                 <div class="recommend-body-item ignore-border dis_table" v-for="(item,key) in recommendSongList" :key="key">
-                    <div class="dis_table_cell cell-img">
-                        <img :src="item.coverImg" width="100%" height="100%">
-                    </div>
+                    <div class="dis_table_cell cell-img"><img :src="item.coverImg" width="100%" height="100%"></div>
                     <div class="dis_table_cell cell-desc">
                         <div class="recommend-list-title">{{item.title}}</div>
                         <div class="recommend-list-play-count">节目:{{item.playCount}}</div>
@@ -110,11 +108,8 @@
     }
 </script>
 
-<style scoped>
-    .mint-loadmore {
-        /*header:130px;footer:170px;tab:110px*/
-        min-height: calc(100vh - 110px - 130px - 170px);
-    }
+<style scoped lang="scss">
+
     .myloaddiv {
 
     }
@@ -149,6 +144,7 @@
     }
 
     .info-back {
+        padding-top: 10px;
         background-color: #D93F37;
         height: 320px;
     }
@@ -232,7 +228,7 @@
     }
     .recommend-body-item {
         width: 1090px;
-        margin: 10px auto;
+        margin: 10px auto 20px auto;
         /*border: 1px solid #495060;*/
     }
     .cell-img{
@@ -240,6 +236,9 @@
         height: 300px;
         border-radius: 20px;
         overflow: hidden;
+        img{
+            display: block;
+        }
     }
 
     .swiper-container{
@@ -254,5 +253,8 @@
     .icon-16pxhuanyihuan{
         font-size: 30px;
     }
-
+    .station-body{
+        padding-top: 10px;
+        padding-bottom: 300px;
+    }
 </style>

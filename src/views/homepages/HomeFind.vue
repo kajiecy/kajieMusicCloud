@@ -88,6 +88,10 @@
 </script>
 
 <style scoped>
+    .mint-loadmore {
+        /*header:130px;footer:170px;tab:110px*/
+        min-height: calc(100vh - 110px - 130px - 170px);
+    }
     .home-main-view{
         height: 100%;
         z-index: 1;

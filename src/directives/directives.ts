@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import store from '@/store';
 
 
 
@@ -7,40 +8,33 @@ export default {
         // v-dialogDrag: 弹窗拖拽
         Vue.directive('playPointDrag', {
             bind(el, binding, vnode, oldVnode) {
-
-                const limitLine = <any>document.querySelector('#process-point-inner');
-                console.log('dialogDrag',limitLine);
-
-                // const dialogHeaderEl = el.querySelector('.el-dialog__header');
-                // const dragDom = el.querySelector('.el-dialog');
-                // dialogHeaderEl.style.cursor = 'move';
-
                 // 获取原有属性 ie dom元素.currentStyle 火狐谷歌 window.getComputedStyle(dom元素, null);
                 const sty = el.currentStyle || window.getComputedStyle(el, null);
-                const limitSty = limitLine.currentStyle || window.getComputedStyle(limitLine, null);
+                let rate = 0;
                 el.ontouchstart = (e) => {
-                    // console.log('onmousedown',sty.left);
-                    console.log('clientX',e.touches[0].clientX);
-                    console.log('limitSty',limitLine)
+                    const limitLine = <any>document.querySelector('.process-line-out');
+                    const completeLine = <any>document.querySelector('.complete-line');
                     // 触摸时，计算当前元素距离可视区的距离
-                    const disX = e.touches[0].clientX;
-
+                    const disX = limitLine.offsetLeft;
                     document.ontouchmove = (event: any)=>{
-                        console.log('onmousemove',event.touches[0].clientX);
-                        // console.log('clientX',event.touches[0].clientX);
-
-                        // 通过事件委托，计算移动的距离
-                        const l = event.touches[0].clientX - disX;
-                        // const t = event.clientY - disY;
-                        //
-                        // 移动当前元素
-                        el.style.left = `${l}px`;
-                        // dragDom.style.top = `${t + styT}px`;
-                        //
-                        // 将此时的位置传出去
-                        // binding.value({x:e.pageX,y:e.pageY})
+                        if((limitLine.offsetLeft<=el.offsetLeft)&&((el.offsetLeft+el.offsetWidth)<=(limitLine.offsetLeft+limitLine.offsetWidth))){
+                            // 通过事件委托，计算移动的距离
+                            const l = event.touches[0].clientX - disX - el.offsetWidth/2;
+                            if((limitLine.offsetLeft<=(limitLine.offsetLeft+l))&&(limitLine.offsetLeft+l+el.offsetWidth)<=(limitLine.offsetLeft+limitLine.offsetWidth)){
+                                // 移动当前元素
+                                completeLine.style.right = `calc( 100% - ${l}px)`;
+                                el.style.left = `${l}px`;
+                                console.log(`width:${limitLine.offsetWidth},right:${l},rate:${parseFloat((l/(limitLine.offsetWidth-el.offsetWidth)).toFixed(3))}`);
+                                rate = parseFloat((l/(limitLine.offsetWidth-el.offsetWidth)).toFixed(3));
+                                store.commit('setCurrentTime',rate);
+                            }
+                        }
                     };
-                    document.ontouchend = ()=>{
+                    document.ontouchend = (e)=>{
+                        // const limitLine = <any>document.querySelector('.process-line-out');
+                        // const completeLine = <any>document.querySelector('.complete-line');
+                        // 触摸结束时 计算移动的百分比 将播放的歌曲切换到此处
+                        store.commit('changePlayTime');
                         document.ontouchmove = null;
                         document.ontouchend = null;
                     };

@@ -3,7 +3,7 @@
         <!--<kajie-scroll class="page-body-scroll">-->
             <div class="pole-div "  v-if="centerShow===playerCenterShowMode.disc">
                 <!--pole-animal-->
-                <div class="player-pole-layer">
+                <div class="player-pole-layer" :class="$store.getters.getPlayingState===true?'transform25':''">
                     <div class="player-pole">
                         <img :src="playerPole" width="100%" height="100%">
                     </div>
@@ -14,7 +14,7 @@
                 <!--歌曲的封面页面显示-->
                 <template v-if="centerShow===playerCenterShowMode.disc">
                     <div class="saucer-div">
-                        <div class="cover-animal">
+                        <div class="cover-animal" :class="$store.getters.getPlayingState===true?'animation-running':'animation-pasued'">
                             <div class="saucer-cover-layout ">
                                 <div class="saucer-cover-img "><img src="http://qiniu.kajie88.com/recommendSong5.jpg" width="100%" height="100%"></div>
                             </div>
@@ -42,7 +42,11 @@
                 <div class="process-div wd90 dis_table">
                     <div class="dis_table_cell wd10">{{$store.getters.getNowPlayTime({needFormat:true})}}</div>
                     <div class="dis_table_cell center-cell">
-                        <div class="process-line"></div>
+                        <div class="process-line-out">
+                            <div class="process-line">
+                                <div class="complete-line"></div>
+                            </div>
+                        </div>
                         <div class="process-point-layout">
                             <div class="process-point" v-playPointDrag>
                                 <div id="process-point-inner" class="process-point-inner"></div>
@@ -105,7 +109,7 @@
         // 背景的模糊比例
         blurRate:number = 40;
         //页面中心 标识页面显示 歌词合适封面
-        centerShow:number = playerCenterShowMode.lyrics;
+        centerShow:number = playerCenterShowMode.disc;
         playerCenterShowMode:typeof playerCenterShowMode = playerCenterShowMode;
         // -------------------------      mounted start      -------------------------
         mounted() {
@@ -217,11 +221,9 @@
         position: absolute;
         z-index: 3;
         pointer-events:none;
-
         /*left: calc(50vw - 50px);*/
         .player-pole-layer{
-            transform:rotate(25deg);
-
+            transition:transform 500ms;
             width: 1100px;
             height: 760px;
             position: relative;
@@ -235,9 +237,7 @@
                 left: 492px;
             }
         }
-
     }
-
     .canvas-div{
         position: absolute;
         top: 0;
@@ -251,7 +251,6 @@
             left: calc(-50vh + 50vw);
             width: 100vh;
             height: 100vh;
-
         }
     }
     .interactive-buttons{
@@ -277,7 +276,6 @@
             }
         }
     }
-
     .control-buttons{
         width: 100%;
         margin: 0 auto;
@@ -296,16 +294,25 @@
         margin: 3vh auto;
         .dis_table_cell{
             color: rgba(255,255,255,0.5);
+
             .process-line{
+                overflow: hidden;
                 margin: 0 20px;
                 height: 6px;
                 background-color: rgba(255,255,255,0.3);
                 border-radius: 25%;
+                .complete-line{
+                    background-color: #D33A30;
+                    height: 5px;
+                    position: relative;
+                    right: 100%;
+                }
             }
             .process-point-layout{
                 height: 0px;
                 width: calc( 100% - 45px );
                 .process-point{
+
                     position: relative;
                     top: -27px;
                     width: 45px;
@@ -318,6 +325,7 @@
 
                     left: 0%;
                     .process-point-inner{
+
                         position: relative;
                         width: 12px;
                         height: 12px;
@@ -378,6 +386,9 @@
         top: 10px;
     }
 
+    .transform25{
+        transform:rotate(27deg);
+    }
 
     .cover-animal{
         animation:coverAnimal 15s linear infinite;
@@ -408,5 +419,10 @@
         }
     }
 
-
+    .animation-pasued {
+        animation-play-state: paused;
+    }
+    .animation-running {
+        animation-play-state: running;
+    }
 </style>

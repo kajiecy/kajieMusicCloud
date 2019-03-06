@@ -202,13 +202,11 @@
                     let _image = new Image();
 
                     _image.onload =()=>{
-                        console.log(this.$store.getters)
                         this.$store.getters.getStackBlur.image('singlistcover', 'background-canvas', this.blurRate,false);
                         //background-canvas 复制一份 到 background-canvas-
                         let source= (<HTMLCanvasElement>document.getElementById('background-canvas')),
                              target = (<HTMLCanvasElement>document.getElementById('background-canvas-'));
                         let headerHeight = document.getElementById('singlist-header')!.clientHeight;
-
                         target.width = source.clientWidth;
                         target.height = headerHeight;
                         //复制一个 canvas用来充当 浮动框的假背景 填充圆角的背景 空缺
