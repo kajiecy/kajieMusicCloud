@@ -254,7 +254,6 @@
         font-size: 30px;
     }
     .station-body{
-        padding-top: 10px;
         padding-bottom: 300px;
     }
 </style>

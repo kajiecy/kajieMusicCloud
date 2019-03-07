@@ -294,7 +294,6 @@
         margin: 3vh auto;
         .dis_table_cell{
             color: rgba(255,255,255,0.5);
-
             .process-line{
                 overflow: hidden;
                 margin: 0 20px;
@@ -303,7 +302,7 @@
                 border-radius: 25%;
                 .complete-line{
                     background-color: #D33A30;
-                    height: 5px;
+                    height: 6px;
                     position: relative;
                     right: 100%;
                 }
@@ -381,6 +380,11 @@
             }
         }
     }
+
+    .view-center{
+        height: calc( 100% - 500px );
+    }
+
     .icon-play-model{
         position: relative;
         top: 10px;
