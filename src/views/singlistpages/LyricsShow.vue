@@ -50,6 +50,12 @@
                 <div class="swiper-slide">
                     <span class="lyrics-line">Slide 1</span>
                 </div>
+                <div class="swiper-slide">
+                    <span class="lyrics-line">
+                        {{$store.getters.getSingData.lrcSrc}}
+                    </span>
+                </div>
+
             </div>
         </div>
         <div class="flag-line-body dis_table" :class="flagLineStatue===true?'show-flag-line':'hidden-flag-line'">
@@ -95,7 +101,7 @@
                 spaceBetween: 5,
                 freeModeSticky:true,
 
-                freeModeMomentumVelocityRatio:0.3,
+                freeModeMomentumVelocityRatio:0.2,
 
                 on: {
                     touchStart: function(event){
@@ -106,11 +112,37 @@
                         console.log('slideChangeTransitionEnd事件触发了;');
                         setTimeout(function () {
                             _vm.flagLineStatue = false;
-                        },1500);
+                        },500);
 
                     },
                 },
             });
+
+            this.ajaxGetHTML(this.$store.getters.getSingData.lrcSrc);
+        }
+
+        /* 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径   */
+        ajaxGetHTML(webURL) {
+            var url = webURL;
+            // if (url == "") url = document.getElementById("xurl").value;
+            var xmlhttp;
+            try {
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch(e) {
+                try {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch(e) {}
+            }
+            if (!xmlhttp) xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4) {
+                    var s = xmlhttp.responseText;
+
+                    alert(s);
+                }
+            }
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send(null);
         }
     }
 </script>
@@ -126,8 +158,11 @@
             height: 300px;
             text-align: center;
             .lyrics-line{
-                color: rgba(255,255,255,0.6);
+                color: rgba(255,255,255,0.5);
                 font-size: 43px;
+            }
+            &.swiper-slide-active .lyrics-line{
+                color: rgba(255,255,255,0.75);
             }
         }
     }
@@ -136,6 +171,7 @@
         top: -735px;
         width: 100%;
         transition: all 750ms;
+
         .play-icon{
             width:0;
             height:0;
@@ -163,15 +199,15 @@
                 color: rgba(255,255,255,0.6);
             }
         }
+        &.hidden-flag-line{
+            opacity:0;
+            /*display: none;*/
+        }
+        &.show-flag-line{
+            opacity:1;
+            /*display: table;*/
+        }
+    }
 
 
-    }
-    .hidden-flag-line{
-        opacity:0;
-        /*display: none;*/
-    }
-    .show-flag-line{
-        opacity:1;
-        /*display: table;*/
-    }
 </style>
