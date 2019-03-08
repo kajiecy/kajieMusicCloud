@@ -138,7 +138,7 @@
                 if (xmlhttp.readyState == 4) {
                     var s = xmlhttp.responseText;
 
-                    alert(s);
+                    console.log(s);
                 }
             }
             xmlhttp.open("GET", url, true);
