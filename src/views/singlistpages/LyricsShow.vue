@@ -131,8 +131,16 @@
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4) {
                     let s = xmlhttp.responseText;
+                    // console.dir(s);
+                    let lrcReg = /\[(([0-9]+):([0-9]+).([0-9]+))](.[^\[\]]*)/g;
 
-                    console.log(s);
+                    let result = lrcReg.exec(s);
+                    while(result){
+                        console.log(result[5]);
+                        result = lrcReg.exec(s);
+                    }
+
+                    return s;
                 }
             }
             xmlhttp.open("GET", url, true);
