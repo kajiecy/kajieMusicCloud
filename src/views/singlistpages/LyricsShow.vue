@@ -50,12 +50,6 @@
                 <div class="swiper-slide">
                     <span class="lyrics-line">Slide 1</span>
                 </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">
-                        {{$store.getters.getSingData.lrcSrc}}
-                    </span>
-                </div>
-
             </div>
         </div>
         <div class="flag-line-body dis_table" :class="flagLineStatue===true?'show-flag-line':'hidden-flag-line'">
@@ -104,11 +98,11 @@
                 freeModeMomentumVelocityRatio:0.2,
 
                 on: {
-                    touchStart: function(event){
+                    touchStart: function(){
                         console.log('touchStart事件触发了;');
                         _vm.flagLineStatue = true;
                     },
-                    slideChangeTransitionEnd: function(event){
+                    slideChangeTransitionEnd: function(){
                         console.log('slideChangeTransitionEnd事件触发了;');
                         setTimeout(function () {
                             _vm.flagLineStatue = false;
@@ -123,9 +117,9 @@
 
         /* 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径   */
         ajaxGetHTML(webURL) {
-            var url = webURL;
+            let url = webURL;
             // if (url == "") url = document.getElementById("xurl").value;
-            var xmlhttp;
+            let xmlhttp;
             try {
                 xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
             } catch(e) {
@@ -136,7 +130,7 @@
             if (!xmlhttp) xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4) {
-                    var s = xmlhttp.responseText;
+                    let s = xmlhttp.responseText;
 
                     console.log(s);
                 }

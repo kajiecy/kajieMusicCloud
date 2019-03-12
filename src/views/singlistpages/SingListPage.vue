@@ -197,7 +197,7 @@
                     context!.drawImage(image, 0, 0, image.width, image.height);
                     let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
 
-                    this.singListData.coverImgBase64 = url
+                    this.singListData.coverImgBase64 = url;
 
                     let _image = new Image();
 
@@ -211,7 +211,7 @@
                         target.height = headerHeight;
                         //复制一个 canvas用来充当 浮动框的假背景 填充圆角的背景 空缺
                         target.getContext('2d')!.drawImage(source,0, source.height - source.height*headerHeight/source.clientHeight, source.width,source.height*headerHeight/source.clientHeight,0, 0, source.clientWidth, source.clientHeight);
-                    }
+                    };
                     _image.src = url;
                 };
                 image.src = this.singListData.coverImg;
@@ -432,7 +432,7 @@
         position: relative;
         top: 0;
         left: 0;
-        height: 0px;
+        height: 0;
         z-index: -1;
     }
 
