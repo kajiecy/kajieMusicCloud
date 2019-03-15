@@ -150,7 +150,7 @@
                     setTimeout(()=>{
                         // 播放歌曲
                         console.log('播放歌曲111');
-                        this.$store.commit('touchPassButtonEvent')
+                        this.$store.commit('touchPassButtonEvent');
                     },1000);
                 })
             }
