@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--controls-->
-    <audio ref="myPlayer" src="http://qiniu.kajie88.com/%E8%AE%B8%E4%B8%80%E9%B8%A3%20-%20%E8%99%8E%E5%8F%A3%E8%84%B1%E9%99%A9%EF%BC%88Cover%20%E8%80%81%E7%8B%BC%EF%BC%89.mp3"></audio>
+    <audio ref="myPlayer" :src="null"></audio>
     <router-view/>
   </div>
 </template>

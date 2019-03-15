@@ -4,47 +4,48 @@ import Vuex from 'vuex';
 import app from './modules/app';
 import user from './modules/user';
 import player from './modules/player';
+import remote from './modules/remote';
 
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {
-  },
-  getters:{
-    /**
-     * vue中的计算属性
-     *---------------------------------------------------------------
-     *    当成属性返回
-     *     doneTodos: state => {
-     *       return state.todos.filter(todo => todo.done)
-     *     }
-     *     调用方法：return this.$store.getters.doneTodosCount;
-     *---------------------------------------------------------------
-     *      当成方法返回
-     *     doneTodos: (state) =>(id) =>{
-     *       return
-     *     }
-     *     调用方法：return this.$store.getters.getTodoById(2);
-     *---------------------------------------------------------------
-     */
+    state: {},
+    getters: {
+        /**
+         * vue中的计算属性
+         *---------------------------------------------------------------
+         *    当成属性返回
+         *     doneTodos: state => {
+         *       return state.todos.filter(todo => todo.done)
+         *     }
+         *     调用方法：return this.$store.getters.doneTodosCount;
+         *---------------------------------------------------------------
+         *      当成方法返回
+         *     doneTodos: (state) =>(id) =>{
+         *       return
+         *     }
+         *     调用方法：return this.$store.getters.getTodoById(2);
+         *---------------------------------------------------------------
+         */
 
-  },
-  mutations:{
-    //更新store方法
+    },
+    mutations: {
+        //更新store方法
 
-    /**
-     * 调用方法：this.$store.commit('addCount', {
-     *             num: 10
-     *           })
-     */
-  },
-  actions: {},
-  modules: {
-    app,
-    user,
-    player
-  }
+        /**
+         * 调用方法：this.$store.commit('addCount', {
+         *             num: 10
+         *           })
+         */
+    },
+    actions: {},
+    modules: {
+        app,
+        user,
+        player,
+        remote
+    }
 });
 
 export default store;

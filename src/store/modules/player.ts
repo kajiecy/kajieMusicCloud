@@ -5,17 +5,18 @@ const player = {
     state: {
         // 歌曲的基本信息☆
         singData : {
-            id: 1,
-            name: '爱如潮水',
-            singerName: '张信哲',
-            specialName: '张信哲精选',
-            coverImg: 'http://qiniu.kajie88.com/recommendSong5.jpg',
-            songSrc:'http://qiniu.kajie88.com/%E8%AE%B8%E4%B8%80%E9%B8%A3%20-%20%E8%99%8E%E5%8F%A3%E8%84%B1%E9%99%A9%EF%BC%88Cover%20%E8%80%81%E7%8B%BC%EF%BC%89.mp3',
-            lrcSrc:'http://qiniu.kajie88.com/%E8%AE%B8%E4%B8%80%E9%B8%A3%20-%20%E8%99%8E%E5%8F%A3%E8%84%B1%E9%99%A9%EF%BC%88Cover%20%E8%80%81%E7%8B%BC%EF%BC%89.lrc',
-            hasMv: true,
-            isSq: true,
-            // 用来表示歌曲的 喜欢状态
-            userLove:false,
+            // id: 1,
+            // name: '爱如潮水',
+            // singerName: '张信哲',
+            // specialName: '张信哲精选',
+            // coverImg: '',
+            // coverImg: '@/assets/image/defaultBackgroundImg.jpg',
+            // songSrc:'http://qiniu.kajie88.com/%E8%AE%B8%E4%B8%80%E9%B8%A3%20-%20%E8%99%8E%E5%8F%A3%E8%84%B1%E9%99%A9%EF%BC%88Cover%20%E8%80%81%E7%8B%BC%EF%BC%89.mp3',
+            // lrcSrc:'http://qiniu.kajie88.com/%E8%AE%B8%E4%B8%80%E9%B8%A3%20-%20%E8%99%8E%E5%8F%A3%E8%84%B1%E9%99%A9%EF%BC%88Cover%20%E8%80%81%E7%8B%BC%EF%BC%89.lrc',
+            // hasMv: true,
+            // isSq: true,
+            // // 用来表示歌曲的 喜欢状态
+            // userLove:false,
         },
         // 歌曲的播放状态
         playingState:false,
@@ -90,7 +91,10 @@ const player = {
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
         },
-        setSingData(state: any,singData:any){
+        palyReload(){
+
+        },
+        setSingData(state: any,singData: any){
             state.singData = singData;
             // 从歌词数据中 加载歌词内容
             ajaxGetHTML(state.singData.lrcSrc).then((result)=>{
@@ -106,17 +110,16 @@ const player = {
         },
         // 播放暂停按钮的处理逻辑 获取audio控件 判断其状态执行 播放或暂停操作
         touchPassButtonEvent(state: any){
-            // console.log(state.playerEntity.canPlayType())
-            // if(state.playerEntity.canPlayType()){
-            state.playingState = !state.playingState;
-            if(state.playerEntity.paused===true){
-                state.playerEntity.play();
-                watchPlayingState(true,state.playerEntity,state);
-            }else {
-                state.playerEntity.pause();
-                watchPlayingState(false,state.playerEntity,state);
+            if(state.playerEntity.src){
+                state.playingState = !state.playingState;
+                if(state.playerEntity.paused===true){
+                    state.playerEntity.play();
+                    watchPlayingState(true,state.playerEntity,state);
+                }else {
+                    state.playerEntity.pause();
+                    watchPlayingState(false,state.playerEntity,state);
+                }
             }
-            // }
         },
         // 改变歌曲的播放模式
         changePlayMode(state: any){
@@ -125,14 +128,14 @@ const player = {
             }
         },
         setCurrentTime(state: any,rate: number){
-            let currentTime = state.playStatus.sumTimeNum * rate;
+            const currentTime = state.playStatus.sumTimeNum * rate;
             state.playStatus.nowTimeNum = _.round(currentTime,2);
         },
         changePlayTime(state: any){
             state.playerEntity.currentTime = state.playStatus.nowTimeNum;
         }
     },
-}
+};
 function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
     // 如果状态变为 true 启动一个 循环器 轮询播放状态
     if(newValue===true){
@@ -160,8 +163,8 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
 
 /* 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径   */
 function ajaxGetHTML(webURL) {
-    return new Promise((resolve:any,reject:any)=>{
-        let url = webURL;
+    return new Promise((resolve: any,reject: any)=>{
+        const url = webURL;
         let xmlhttp;
         try {
             xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");

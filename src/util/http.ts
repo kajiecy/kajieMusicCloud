@@ -28,12 +28,9 @@ axios.interceptors.request.use((config) => {
 );
 
 // http response 拦截器
-axios.interceptors.response.use(
-        (response) => {
-    // console.log("========================>拦截到请求的 response",response)
+axios.interceptors.response.use((response) => {
     return response;
-  },
-        (error) => {
+  },(error) => {
     return Promise.reject(error);
   }
 )
@@ -61,7 +58,7 @@ export function post(url: string, data: any = {}, option: any = {}) {
       .then((response) => {
         // loading.close();
         // console.log("关闭");
-        if (response.data.respCode === '00') {
+        if (response.data.result === '00') {
           resolve(response.data);
         }else {
           if (!option.isAlert) {

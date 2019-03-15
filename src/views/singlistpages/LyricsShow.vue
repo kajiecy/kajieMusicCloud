@@ -2,7 +2,7 @@
     <div class="lyrics-body">
         <div class="swiper-container swiper-main">
             <div class="swiper-wrapper wrapper-main">
-                <div v-for="(item,index) in lrcData" class="swiper-slide">
+                <div v-for="(item,index) in $store.state.player.lrcContent" class="swiper-slide">
                     <span class="lyrics-line">{{item.lrcLine}}</span>
                 </div>
                 <!--<div class="swiper-slide">-->
@@ -46,15 +46,10 @@
         flagLineStatue:boolean = false;
         lrcData:Object[] = [];
         mounted() {
-            // this.ajaxGetHTML(this.$store.getters.getSingData.lrcSrc).then((result)=>{
-            //     this.lrcData = result;
-            //     this.$nextTick(()=>{
-            //         this.loadSwiperComponent();
-            //     })
-            // }).catch((error)=>{
-            //     console.error(error);
-            // }).finally(()=>{
-            // });
+            this.lrcData = this.$store.state.player.lrcContent;
+            this.$nextTick(()=>{
+                this.loadSwiperComponent();
+            })
         }
 
         loadSwiperComponent(){
@@ -88,6 +83,14 @@
                     },
                 },
             });
+        }
+        @Watch('$store.state.player.lrcContent', {deep: false})
+        watchLrcContent(newValue:any,oldValue:any){
+            console.log('watchLrcContent',newValue);
+            this.lrcData = newValue;
+            this.$nextTick(()=>{
+                this.loadSwiperComponent();
+            })
         }
 
 

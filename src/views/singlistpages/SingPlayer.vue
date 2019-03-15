@@ -16,7 +16,7 @@
                     <div class="saucer-div">
                         <div class="cover-animal" :class="$store.getters.getPlayingState===true?'animation-running':'animation-pasued'">
                             <div class="saucer-cover-layout ">
-                                <div class="saucer-cover-img "><img src="http://qiniu.kajie88.com/recommendSong5.jpg" width="100%" height="100%"></div>
+                                <div class="saucer-cover-img "><img v-if="$store.state.player.singData.coverImg" :src="$store.state.player.singData.coverImg" width="100%" height="100%"></div>
                             </div>
                             <div class="player-saucer ">
                                 <img :src="playerSaucer" width="100%" height="100%">
@@ -81,6 +81,7 @@
         <div class="canvas-div">
             <canvas id="background-canvas" :style="''" ></canvas>
         </div>
+        <img id="canvas-default" style="display: none" :src="defaultBackgroundImg" >
     </div>
 
 </template>
@@ -91,6 +92,10 @@
     import playerSaucer from '@/assets/image/player/1.png';
     //@ts-ignore
     import playerPole from '@/assets/image/player/2.png';
+    //@ts-ignore
+    import defaultBackgroundImg from '@/assets/image/defaultBackgroundImg.jpg';
+
+
     import {playerCenterShowMode,activeSongType} from '@/enum/playerEnums.ts';
     import LyricsShow from '@/views/singlistpages/LyricsShow.vue';
 
@@ -104,6 +109,8 @@
         playerPole:typeof HTMLImageElement = playerPole;
         // 图片：唱片碟
         playerSaucer:typeof HTMLImageElement= playerSaucer;
+        // 在歌曲信息没加载出来是显示的默认背景图片
+        defaultBackgroundImg:typeof HTMLImageElement= defaultBackgroundImg;
         // 歌词封面图片的 64位字节用于 给高斯模糊js提供数据源，次js无法直接模糊跨域图片
         backgroundImgBase64:string="";
         // 背景的模糊比例
@@ -114,25 +121,15 @@
         // -------------------------      mounted start      -------------------------
         mounted() {
             this.$nextTick(()=>{
-                let image = new Image();
-                // 解决跨域 Canvas 污染问题
-                image.setAttribute('crossOrigin', 'anonymous');
-                image.onload = ()=>{
-                    let canvas = <HTMLCanvasElement>document.createElement('canvas');
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    let context = canvas.getContext('2d');
-                    context!.drawImage(image, 0, 0, image.width, image.height);
-                    let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
-                    this.backgroundImgBase64 = url;
-                    let _image = new Image();
-                    _image.onload =()=>{
-                        console.log(this.$store.getters);
-                        this.$store.getters.getStackBlur.image('canvas-copy', 'background-canvas', this.blurRate,false);
-                    };
-                    _image.src = url;
+                (<HTMLImageElement>document.getElementById('canvas-default')).onload =()=>{
+                    this.$store.getters.getStackBlur.image('canvas-default', 'background-canvas', this.blurRate,false);
                 };
-                image.src = this.$store.state.player.singData.coverImg;
+            })
+            this.$post(this.$store.state.remote.getSingInfo,{
+                id:1
+            }).then(result=>{
+                console.log(result);
+                this.$store.commit('setSingData',result.singInfo);
             })
         }
         // -------------------------      mounted end      -------------------------
@@ -177,6 +174,30 @@
 
 
     }
+
+    // {
+    //     this.$nextTick(()=>{
+    //         let image = new Image();
+    //         // 解决跨域 Canvas 污染问题
+    //         image.setAttribute('crossOrigin', 'anonymous');
+    //         image.onload = ()=>{
+    //             let canvas = <HTMLCanvasElement>document.createElement('canvas');
+    //             canvas.width = image.width;
+    //             canvas.height = image.height;
+    //             let context = canvas.getContext('2d');
+    //             context!.drawImage(image, 0, 0, image.width, image.height);
+    //             let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
+    //             this.backgroundImgBase64 = url;
+    //             let _image = new Image();
+    //             _image.onload =()=>{
+    //                 console.log(this.$store.getters);
+    //                 this.$store.getters.getStackBlur.image('canvas-copy', 'background-canvas', this.blurRate,false);
+    //             };
+    //             _image.src = url;
+    //         };
+    //         image.src = this.$store.state.player.singData.coverImg;
+    //     })
+    // }
 </script>
 
 <style lang="scss" scoped>
@@ -206,9 +227,12 @@
             height: 0;
             left: 260px;
             top: 175px;
+
             .saucer-cover-img{
+                background-color: #303133;
                 display: inline-block;
                 border-radius: 50%;
+                border-color: #303133;
                 overflow: hidden;
                 width: 605px;
                 height: 605px;
