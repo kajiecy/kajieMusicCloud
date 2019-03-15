@@ -124,12 +124,12 @@
                     let context = canvas.getContext('2d');
                     context!.drawImage(image, 0, 0, image.width, image.height);
                     let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
-                    this.backgroundImgBase64 = url
+                    this.backgroundImgBase64 = url;
                     let _image = new Image();
                     _image.onload =()=>{
-                        console.log(this.$store.getters)
+                        console.log(this.$store.getters);
                         this.$store.getters.getStackBlur.image('canvas-copy', 'background-canvas', this.blurRate,false);
-                    }
+                    };
                     _image.src = url;
                 };
                 image.src = this.$store.state.player.singData.coverImg;
@@ -197,7 +197,6 @@
         z-index: 2;
         margin: 250px 0 4vh 0;
         overflow: hidden;
-
         .player-saucer{
             width: 85%;
             margin: 0 auto;

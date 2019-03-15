@@ -15,7 +15,7 @@ const player = {
             hasMv: true,
             isSq: true,
             // 用来表示歌曲的 喜欢状态
-            userLove:true,
+            userLove:false,
         },
         // 歌曲的播放状态
         playingState:false,
@@ -32,6 +32,8 @@ const player = {
             ended:false,
         },
         playerEntity:null,
+        // 歌词内容
+        lrcContent:[],
     },
     getters: {
         getSingData(state: any){
@@ -88,6 +90,16 @@ const player = {
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
         },
+        setSingData(state: any,singData:any){
+            state.singData = singData;
+            // 从歌词数据中 加载歌词内容
+            ajaxGetHTML(state.singData.lrcSrc).then((result)=>{
+                state.lrcContent = result;
+            }).catch((error)=>{
+                // console.error(error);
+                state.lrcContent = [{timeStr:'00:00',timeNum:0,lrcLine:'歌词资源加载失败'}];
+            })
+        },
         // 控制 喜欢的点击操作
         changeLoveStatus(state: any){
             state.singData.userLove = !state.singData.userLove;
@@ -114,8 +126,7 @@ const player = {
         },
         setCurrentTime(state: any,rate: number){
             let currentTime = state.playStatus.sumTimeNum * rate;
-            state.playStatus.nowTimeNum = currentTime;
-
+            state.playStatus.nowTimeNum = _.round(currentTime,2);
         },
         changePlayTime(state: any){
             state.playerEntity.currentTime = state.playStatus.nowTimeNum;
@@ -145,5 +156,44 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
     }else {
         window.clearInterval(state.playerWatcher);
     }
+}
+
+/* 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径   */
+function ajaxGetHTML(webURL) {
+    return new Promise((resolve:any,reject:any)=>{
+        let url = webURL;
+        let xmlhttp;
+        try {
+            xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch(e) {
+            try {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch(e) {}
+        }
+        if (!xmlhttp) xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = ()=>{
+            if (xmlhttp.readyState === 4) {
+                const s = xmlhttp.responseText;
+                if(s){
+                    const lrcReg = /\[(([0-9]+):([0-9]+).([0-9]+))](.[^\[\]]*)/g;
+                    let result = lrcReg.exec(s);
+                    const lrcFormat = [];
+                    while(result){
+                        let lineFormat = {timeStr:'',timeNum:0,lrcLine:''};
+                        lineFormat.timeStr = result[1];
+                        lineFormat.lrcLine = result[5];
+                        lineFormat.timeNum = parseFloat(parseInt(result[2])*60+parseInt(result[3])+'.'+result[4]);
+                        lrcFormat.push(lineFormat);
+                        result = lrcReg.exec(s);
+                    }
+                    resolve(lrcFormat);
+                }else {
+                    reject('歌词资源加载失败');
+                }
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send(null);
+    });
 }
 export default player;

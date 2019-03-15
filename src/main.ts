@@ -1,5 +1,7 @@
 import 'swiper/dist/css/swiper.css';
+// @ts-ignore
 import Mint from 'mint-ui';
+// @ts-ignore
 import * as lodash from 'lodash';
 import '@/assets/css/my-mint.scss';
 import '@/assets/css/main.scss';
@@ -11,12 +13,11 @@ import CommonUtil from '@/util/CommonUtil.ts';
 // 引入自定义指令
 import directive from '@/directives/directives'
 directive.init();
-
+// @ts-ignore
 import Vue from 'vue';
 Vue.use(Mint);
 Vue.component('kajie-scroll',KajieScroll)
-Vue.prototype._ = lodash;
-Vue.prototype.$myUtil = CommonUtil;
+
 
 
 // @ts-ignore
@@ -24,6 +25,16 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
+import Mock from './mock/index'
+Mock.init();
+
+// axios 封装 post
+import {post} from './util/http'
+
+
+Vue.prototype._ = lodash;
+Vue.prototype.$myUtil = CommonUtil;
+Vue.prototype.$post=post;
 
 Vue.config.productionTip = true;
 

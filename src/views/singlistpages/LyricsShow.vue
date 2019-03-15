@@ -2,54 +2,19 @@
     <div class="lyrics-body">
         <div class="swiper-container swiper-main">
             <div class="swiper-wrapper wrapper-main">
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
+                <div v-for="(item,index) in lrcData" class="swiper-slide">
+                    <span class="lyrics-line">{{item.lrcLine}}</span>
                 </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
-                <div class="swiper-slide">
-                    <span class="lyrics-line">Slide 1</span>
-                </div>
+                <!--<div class="swiper-slide">-->
+                    <!--<span class="lyrics-line">111</span>-->
+                <!--</div>-->
+                <!--<div class="swiper-slide">-->
+                    <!--<span class="lyrics-line">222</span>-->
+                <!--</div>-->
+                <!--<div class="swiper-slide">-->
+                    <!--<span class="lyrics-line">333</span>-->
+                <!--</div>-->
+
             </div>
         </div>
         <div class="flag-line-body dis_table" :class="flagLineStatue===true?'show-flag-line':'hidden-flag-line'">
@@ -59,7 +24,7 @@
             <div class="dis_table_cell flag-line-cell">
                 <div class="flag-line"></div>
             </div>
-            <div class=" dis_table_cell flag-line-time-cell">
+            <div class="dis_table_cell flag-line-time-cell">
                 <div class="flag-line-time">05:39</div>
             </div>
         </div>
@@ -79,8 +44,20 @@
     export default class LyricsShow extends Vue{
         swiperMain:any = null;
         flagLineStatue:boolean = false;
-
+        lrcData:Object[] = [];
         mounted() {
+            // this.ajaxGetHTML(this.$store.getters.getSingData.lrcSrc).then((result)=>{
+            //     this.lrcData = result;
+            //     this.$nextTick(()=>{
+            //         this.loadSwiperComponent();
+            //     })
+            // }).catch((error)=>{
+            //     console.error(error);
+            // }).finally(()=>{
+            // });
+        }
+
+        loadSwiperComponent(){
             let _vm = this;
             _vm.swiperMain = new Swiper('.swiper-main', {
                 resistanceRatio : 0,//滑动到尽头时禁止在滑动
@@ -111,41 +88,9 @@
                     },
                 },
             });
-
-            this.ajaxGetHTML(this.$store.getters.getSingData.lrcSrc);
         }
 
-        /* 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径   */
-        ajaxGetHTML(webURL) {
-            let url = webURL;
-            // if (url == "") url = document.getElementById("xurl").value;
-            let xmlhttp;
-            try {
-                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-            } catch(e) {
-                try {
-                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                } catch(e) {}
-            }
-            if (!xmlhttp) xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4) {
-                    let s = xmlhttp.responseText;
-                    // console.dir(s);
-                    let lrcReg = /\[(([0-9]+):([0-9]+).([0-9]+))](.[^\[\]]*)/g;
 
-                    let result = lrcReg.exec(s);
-                    while(result){
-                        console.log(result[5]);
-                        result = lrcReg.exec(s);
-                    }
-
-                    return s;
-                }
-            }
-            xmlhttp.open("GET", url, true);
-            xmlhttp.send(null);
-        }
     }
 </script>
 

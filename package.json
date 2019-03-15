@@ -9,6 +9,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "axios-mock-adapter": "^1.16.0",
     "lodash": "^4.17.11",
     "mint-ui": "^2.2.13",
     "stackblur-canvas": "^2.1.0",
@@ -31,6 +33,7 @@
     "babel-plugin-component": "^1.1.1",
     "cssnano": "^4.1.4",
     "cssnano-preset-advanced": "^4.0.2",
+    "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.9.0",
     "postcss-aspect-ratio-mini": "0.0.2",
     "postcss-cssnext": "^3.1.0",

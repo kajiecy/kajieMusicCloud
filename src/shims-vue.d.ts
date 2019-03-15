@@ -1,14 +1,17 @@
+// @ts-ignore
 import {ComponentOptions, CreateElement, VNode, WatchOptions} from 'vue';
 import {ScopedSlot} from 'vue/types/vnode';
 import {Vue} from 'vue/types/vue';
+// @ts-ignore
 import lodash from 'lodash';
 declare module '*.vue' {
-  export default Vue;
+    export default Vue;
 }
 declare module 'vue/types/vue' {
     export interface Vue {
         readonly $myUtil: any;
         readonly _: typeof lodash;
+        readonly $post: any;
 
         readonly $el: Element;
         readonly $options: ComponentOptions<Vue>;
@@ -16,6 +19,7 @@ declare module 'vue/types/vue' {
         readonly $root: Vue;
         readonly $children: Vue[];
         readonly $refs: { [key: string]: Vue | Element | Vue[] | Element[] };
+        // @ts-ignore
         readonly $slots: { [key: string]: VNode[] | undefined };
         readonly $scopedSlots: { [key: string]: ScopedSlot | undefined };
         readonly $isServer: boolean;
