@@ -129,13 +129,32 @@
                     };
                 }
 
-            })
-            this.$post(this.$store.state.remote.getSingInfo,{
-                id:1
-            }).then(result=>{
-                // console.log(result);
-                this.$store.commit('setSingData',result.singInfo);
-            })
+            });
+            // 判断传入的id 与 store 中的 播放歌曲是否一致
+            console.log('判断传入的id 与 store 中的 播放歌曲是否一致',this.$store.getters.getSingData.id)
+            if(this.$route.query['id']===this.$store.getters.getSingData.id){
+                // 如果当前为暂停状态 继续播放
+                if(!this.$store.getters.getPlayingState){
+                    //播放歌曲
+                    this.$store.commit('touchPassButtonEvent')
+                }
+            }else {
+                this.$post(this.$store.state.remote.getSingInfo,{
+                    id:this.$route.query['id']
+                }).then(result=>{
+                    // console.log(result);
+                    this.$store.commit('setSingData',result.singInfo);
+                    // this.$store.getters.getPlayerEntity.addEventListener('canplay', (event)=>{
+                    //
+                    // });
+                    setTimeout(()=>{
+                        // 播放歌曲
+                        console.log('播放歌曲111');
+                        this.$store.commit('touchPassButtonEvent')
+                    },1000);
+                })
+            }
+
         }
         // -------------------------      mounted end      -------------------------
 
@@ -175,7 +194,7 @@
                 this.backgroundImgBase64 = url;
                 let _image = new Image();
                 _image.onload =()=>{
-                    console.log(this.$store.getters);
+                    // console.log(this.$store.getters);
                     this.$store.getters.getStackBlur.image('canvas-copy', 'background-canvas', this.blurRate,false);
                 };
                 _image.src = url;

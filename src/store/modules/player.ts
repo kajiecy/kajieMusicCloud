@@ -71,6 +71,9 @@ const player = {
             }else {
                 return state.playStatus.sumTimeNum;
             }
+        },
+        getPlayerEntity(state: any): HTMLMediaElement{
+            return state.playerEntity;
         }
     },
     mutations: {
@@ -78,23 +81,19 @@ const player = {
         setPlayerEntity(state: any,playerEntity: HTMLMediaElement){
             state.playerEntity = playerEntity;
             playerEntity.addEventListener('canplay', (event)=>{
-                state.playStatus.sumTimeNum = playerEntity.duration;
-            });
-            playerEntity.onload =(event)=>{
-                console.log("onload")
-                state.playStatus.sumTimeNum = playerEntity.duration;
-            }
-            playerEntity.addEventListener('progress', (event)=>{
+                console.log("canplay")
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
             playerEntity.addEventListener('canplaythrough', (event)=>{
+                console.log("canplaythrough")
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
         },
 
         setSingData(state: any,singData: any){
             state.singData = singData;
-            state.playerEntity.src = singData.songSrc
+            console.log('改变了',state.playerEntity.src);
+            state.playerEntity.src = singData.songSrc;
 
             // 从歌词数据中 加载歌词内容
             ajaxGetHTML(state.singData.lrcSrc).then((result)=>{
@@ -110,6 +109,7 @@ const player = {
         },
         // 播放暂停按钮的处理逻辑 获取audio控件 判断其状态执行 播放或暂停操作
         touchPassButtonEvent(state: any){
+            console.log(state.playerEntity.src)
             if(state.playerEntity.src){
                 state.playingState = !state.playingState;
                 if(state.playerEntity.paused===true){
