@@ -24,7 +24,7 @@ export default {
                                 // 移动当前元素
                                 completeLine.style.right = `calc( 100% - ${l}px)`;
                                 el.style.left = `${l}px`;
-                                console.log(`width:${limitLine.offsetWidth},right:${l},rate:${parseFloat((l/(limitLine.offsetWidth-el.offsetWidth)).toFixed(3))}`);
+                                // console.log(`width:${limitLine.offsetWidth},right:${l},rate:${parseFloat((l/(limitLine.offsetWidth-el.offsetWidth)).toFixed(3))}`);
                                 rate = parseFloat((l/(limitLine.offsetWidth-el.offsetWidth)).toFixed(3));
                                 store.commit('setCurrentTime',rate);
                             }

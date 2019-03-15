@@ -80,10 +80,10 @@ const player = {
             playerEntity.addEventListener('canplay', (event)=>{
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
-            playerEntity.addEventListener('onload', (event)=>{
-                console.log('onload');
+            playerEntity.onload =(event)=>{
+                console.log("onload")
                 state.playStatus.sumTimeNum = playerEntity.duration;
-            });
+            }
             playerEntity.addEventListener('progress', (event)=>{
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
@@ -91,11 +91,11 @@ const player = {
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
         },
-        palyReload(){
 
-        },
         setSingData(state: any,singData: any){
             state.singData = singData;
+            state.playerEntity.src = singData.songSrc
+
             // 从歌词数据中 加载歌词内容
             ajaxGetHTML(state.singData.lrcSrc).then((result)=>{
                 state.lrcContent = result;

@@ -121,14 +121,19 @@
         // -------------------------      mounted start      -------------------------
         mounted() {
             this.$nextTick(()=>{
-                (<HTMLImageElement>document.getElementById('canvas-default')).onload =()=>{
-                    this.$store.getters.getStackBlur.image('canvas-default', 'background-canvas', this.blurRate,false);
-                };
+                if(this.$store.state.player.singData.coverImg){
+                    this.watchCoverImg(this.$store.state.player.singData.coverImg);
+                }else{
+                    (<HTMLImageElement>document.getElementById('canvas-default')).onload =()=>{
+                        this.$store.getters.getStackBlur.image('canvas-default', 'background-canvas', this.blurRate,false);
+                    };
+                }
+
             })
             this.$post(this.$store.state.remote.getSingInfo,{
                 id:1
             }).then(result=>{
-                console.log(result);
+                // console.log(result);
                 this.$store.commit('setSingData',result.singInfo);
             })
         }
@@ -138,8 +143,8 @@
         //
         changeSong(activeType){
             let myPlayer = <HTMLMediaElement>this.$refs.myPlayer;
-            console.log("总时长",myPlayer.duration);
-            console.log("播放时长",myPlayer.currentTime);
+            // console.log("总时长",myPlayer.duration);
+            // console.log("播放时长",myPlayer.currentTime);
         }
 
 
@@ -154,50 +159,36 @@
         // -------------------------      methods end      -------------------------
 
         // -------------------------      watchs start      -------------------------
-        // //监听播放状态
-        // @Watch('playingState', {deep: false})
-        // watchPlayingState(newValue:boolean){
-        //     //如果状态变为 true 启动一个 循环器 轮询播放状态
-        //     let myPlayer = <HTMLMediaElement>this.$refs.myPlayer;
-        //     if(newValue===true){
-        //         this.playerWatcher = window.setInterval(()=>{
-        //             // console.log("总时长",myPlayer.duration);
-        //             console.log("播放时长",myPlayer.currentTime);
-        //             console.log(this.$myUtil.formatSecond(myPlayer.currentTime));
-        //         },1000);
-        //     }else {
-        //         window.clearInterval(this.playerWatcher);
-        //     }
-        // }
+        // 监听封面的更新及时切换封面
+        @Watch('$store.state.player.singData.coverImg', {deep: false})
+        watchCoverImg(newValue:any){
+            let image = new Image();
+            // 解决跨域 Canvas 污染问题
+            image.setAttribute('crossOrigin', 'anonymous');
+            image.onload = ()=>{
+                let canvas = <HTMLCanvasElement>document.createElement('canvas');
+                canvas.width = image.width;
+                canvas.height = image.height;
+                let context = canvas.getContext('2d');
+                context!.drawImage(image, 0, 0, image.width, image.height);
+                let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
+                this.backgroundImgBase64 = url;
+                let _image = new Image();
+                _image.onload =()=>{
+                    console.log(this.$store.getters);
+                    this.$store.getters.getStackBlur.image('canvas-copy', 'background-canvas', this.blurRate,false);
+                };
+                _image.src = url;
+            };
+            image.src = newValue;
+        }
         // -------------------------      watchs end      -------------------------
+
 
 
 
     }
 
-    // {
-    //     this.$nextTick(()=>{
-    //         let image = new Image();
-    //         // 解决跨域 Canvas 污染问题
-    //         image.setAttribute('crossOrigin', 'anonymous');
-    //         image.onload = ()=>{
-    //             let canvas = <HTMLCanvasElement>document.createElement('canvas');
-    //             canvas.width = image.width;
-    //             canvas.height = image.height;
-    //             let context = canvas.getContext('2d');
-    //             context!.drawImage(image, 0, 0, image.width, image.height);
-    //             let url = canvas.toDataURL('image/png'); //得到图片的base64编码数据
-    //             this.backgroundImgBase64 = url;
-    //             let _image = new Image();
-    //             _image.onload =()=>{
-    //                 console.log(this.$store.getters);
-    //                 this.$store.getters.getStackBlur.image('canvas-copy', 'background-canvas', this.blurRate,false);
-    //             };
-    //             _image.src = url;
-    //         };
-    //         image.src = this.$store.state.player.singData.coverImg;
-    //     })
-    // }
 </script>
 
 <style lang="scss" scoped>

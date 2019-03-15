@@ -13,7 +13,7 @@
     export default class KajieTabbarItem extends Vue{
         @Prop({type: [String,Number],default:''}) private id!: string|number;
         clickFooter(){
-            console.log(this.$parent);
+            // console.log(this.$parent);
             this.$parent.$emit('input', this.id);
             this.$emit('click');
         }
