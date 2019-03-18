@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--controls-->
-    <audio controls ref="myPlayer" src=""></audio>
+    <audio  ref="myPlayer" src=""></audio>
     <router-view/>
   </div>
 </template>

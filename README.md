@@ -12,15 +12,16 @@
 + [X] 发现页面 中Tabs（个性电台-主播推荐）切换时，选中状态样式的过渡效果。[[✍详细文档]](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/tabSwitch.md)
 + [X] Header右下角标识 播放状态 的动画图标的展示。[[✍详细文档]](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/cssAnimation.md)
 + [X] 发现页面搜索框的逻辑/过渡动画的处理。
-+ [ ] 歌单详情页面Header背景为模糊的专辑封面，并需要在界面滚动式跟随变body不变换。
-
++ [X] 歌单详情页面Header背景为模糊的专辑封面，并需要在界面滚动式跟随变body不变换。
++ [X] audio控件控制及动态
 ## 技术栈 ##
  1. Vue.js 2.0 全家桶
  2. axios
  3. mint-ui (此UI库目前仅使用mt-loadmore组件其他组件均为自定义组件)[[Github地址]](https://github.com/ElemeFE/mint-ui/)
  4. Swiper [[Github地址]](https://github.com/nolimits4web/swiper)
- 5. stackblur.js [[Github地址]](https://github.com/flozz/StackBlur) [[✍效果展示]](http://music.kajie88.com/#/stackBlurDemo)
-
+ 5. stackblur.js(高斯模糊) [[Github地址]](https://github.com/flozz/StackBlur) [[✍效果展示]](http://music.kajie88.com/#/stackBlurDemo)
+ 6. TypeScript [[Github地址]](https://github.com/Microsoft/TypeScript) 
+ 7. mock.js [[Github地址]](https://github.com/nuysoft/Mock) 
 ## 安装/运行
 ``` shell
 # install dependencies   安装依赖
@@ -40,3 +41,5 @@ npm run build
 
 + [如何在Vue项目中使用vw实现移动端适配](https://www.w3cplus.com/mobile/vw-layout-in-vue.html)
 + [iOS 与 惯性滚动](https://www.cnblogs.com/chris-oil/p/6164966.html)（现在部分样式无法兼容UIWebView内核的ios浏览器）
++ [Swiper4 API](https://www.swiper.com.cn/api/index.html)
++ [HTML 5 视频/音频参考手册](http://www.w3school.com.cn/tags/html_ref_audio_video_dom.asp)
