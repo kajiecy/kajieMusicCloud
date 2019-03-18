@@ -102,6 +102,7 @@
         <div class="singlist-header singlist-header-fixed " id="singlist-header-float" v-show="headerFix"
              :class="headerFix?'head-fixed':''">
             <div class="background-canvas-out">
+                <div class="gray-mark-"></div>
                 <canvas id="background-canvas-"></canvas>
             </div>
             <div class="singlist-float dis_table wd100 ">
@@ -119,6 +120,7 @@
             </div>
         </div>
         <img id="canvas-copy" :src="singListData.coverImgBase64">
+        <div class="gray-mark" :style="{ 'transform': transform }"></div>
         <canvas id="background-canvas" :style="{ 'transform': transform }"></canvas>
     </div>
 
@@ -401,19 +403,33 @@
         z-index: 1;
     }
 
+    .gray-mark{
+        position: absolute;
+        top: -120px;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+        height: 60vh;
+        background-color: rgba(0,0,0,0.2);
+    }
     #background-canvas {
         position: absolute;
         top: -120px;
         left: 0;
         width: 100%;
+        z-index: -2;
     }
-
+    .gray-mark-{
+        position: absolute;
+        width: 100vw;
+        height: 50px;
+        background-color: rgba(0,0,0,0.2);
+    }
     .background-canvas-out {
         position: relative;
         top: 0;
         left: 0;
         height: 0;
-        z-index: -1;
+        z-index: -2;
     }
-
 </style>
