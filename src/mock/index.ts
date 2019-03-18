@@ -15,8 +15,14 @@ export default {
         const mockTools = new MockTools(mock);
         // 获取歌曲详细信息的 mock接口
         mockTools.doPost(store.state['remote'].getSingInfo, ({id}) => {
-            if(1===parseInt(id,10)){
-                return MockTools.resultData({singInfo: singData.singInfo});
+            let resultData = null;
+            singData.singInfoDetail.map((value, index, array)=> {
+                if(value.id === id){
+                    resultData = value;
+                }
+            });
+            if(!!resultData){
+                return MockTools.resultData({singInfo: resultData});
             }else {
                 return MockTools.resultData({},'无法找到此歌曲');
             }

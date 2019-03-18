@@ -17,10 +17,10 @@
             <template v-else-if="$route.meta.titleType==='player'">
                 <div slot="title" class="playing-title" >
                     <div class="title-name">
-                        {{$store.state.app.playingInfo.name}}
+                        {{$store.state.player.singData.name}}
                     </div>
                     <div class="title-singer">
-                        {{$store.state.app.playingInfo.singer}} <span class="singer-right-icon"><i class="iconfont icon-you1"></i></span>
+                        {{$store.state.player.singData.singerName}} <span class="singer-right-icon"><i class="iconfont icon-you1"></i></span>
                     </div>
                 </div>
             </template>

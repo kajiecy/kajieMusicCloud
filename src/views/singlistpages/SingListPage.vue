@@ -80,10 +80,10 @@
                          @click="pushToPlayer(item.id)">
                         <div class="dis_table_cell wd12">{{index+1}}</div>
                         <div class="dis_table_cell">
-                            <div class="singlist-content-singname">
+                            <div class="singlist-content-singname text_clamp1">
                                 {{item.name}}
                             </div>
-                            <div class="singlist-content-describe">
+                            <div class="singlist-content-describe text_clamp1">
                                 <template v-if="item.isSq">
                                     <i class="iconfont icon-sq"></i>
                                 </template>
@@ -143,7 +143,6 @@
         singListData: any = {};
         headerFix: boolean = false;
         blurRate: number = 60;
-
         mounted() {
             this.$post(this.$store.state.remote.getSongListDetail, {
                 songListId: this.$route.query.id

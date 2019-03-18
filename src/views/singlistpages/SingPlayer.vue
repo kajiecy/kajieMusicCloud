@@ -79,7 +79,8 @@
         <!--隐藏元素用于模糊背景的实现-->
         <img id="canvas-copy" :src="backgroundImgBase64" >
         <div class="canvas-div">
-            <canvas id="background-canvas" :style="''" ></canvas>
+            <div class="gray-mark"></div>
+            <canvas id="background-canvas" :style="''"></canvas>
         </div>
         <img id="canvas-default" style="display: none" :src="defaultBackgroundImg" >
     </div>
@@ -95,10 +96,8 @@
     //@ts-ignore
     import defaultBackgroundImg from '@/assets/image/defaultBackgroundImg.jpg';
 
-
     import {playerCenterShowMode,activeSongType} from '@/enum/playerEnums.ts';
     import LyricsShow from '@/views/singlistpages/LyricsShow.vue';
-
     @Component({
         components:{
             LyricsShow:LyricsShow
@@ -128,7 +127,6 @@
                         this.$store.getters.getStackBlur.image('canvas-default', 'background-canvas', this.blurRate,false);
                     };
                 }
-
             });
             // 判断传入的id 与 store 中的 播放歌曲是否一致
             console.log('判断传入的id 与 store 中的 播放歌曲是否一致',this.$route.query['id'])
@@ -150,19 +148,14 @@
                     });
                 })
             }
-
         }
         // -------------------------      mounted end      -------------------------
-
         // -------------------------      methods start      -------------------------
-        //
         changeSong(activeType){
             let myPlayer = <HTMLMediaElement>this.$refs.myPlayer;
             // console.log("总时长",myPlayer.duration);
             // console.log("播放时长",myPlayer.currentTime);
         }
-
-
         //点击封面 或者 歌词 循环切换
         coverEvent(){
             if(this.centerShow === this.playerCenterShowMode.disc){
@@ -172,7 +165,6 @@
             }
         }
         // -------------------------      methods end      -------------------------
-
         // -------------------------      watchs start      -------------------------
         // 监听封面的更新及时切换封面
         @Watch('$store.state.player.singData.coverImg', {deep: false})
@@ -198,10 +190,6 @@
             image.src = newValue;
         }
         // -------------------------      watchs end      -------------------------
-
-
-
-
     }
 
 </script>
@@ -233,7 +221,6 @@
             height: 0;
             left: 260px;
             top: 175px;
-
             .saucer-cover-img{
                 background-color: #303133;
                 display: inline-block;
@@ -273,13 +260,21 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        z-index: -1;
+        z-index: -2;
         overflow: hidden;
+        .gray-mark{
+            position: absolute;
+            width: 100vh;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.4);
+            z-index: -1;
+        }
         #background-canvas{
             position: relative;
             left: calc(-50vh + 50vw);
             width: 100vh;
             height: 100vh;
+            z-index: -2;
         }
     }
     .interactive-buttons{
