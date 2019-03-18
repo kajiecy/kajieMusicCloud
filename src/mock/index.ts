@@ -14,7 +14,7 @@ export default {
         const mock = new MockAdapter(axios);
         const mockTools = new MockTools(mock);
         mockTools.doPost(store.state['remote'].getSingInfo, ({id}) => {
-            if(id===1){
+            if(1===parseInt(id)){
                 return MockTools.resultData({singInfo: singData.singInfo});
             }else {
                 return MockTools.resultData({},'无法找到此歌曲');

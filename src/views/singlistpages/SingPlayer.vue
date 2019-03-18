@@ -131,7 +131,7 @@
 
             });
             // 判断传入的id 与 store 中的 播放歌曲是否一致
-            console.log('判断传入的id 与 store 中的 播放歌曲是否一致',this.$store.getters.getSingData.id)
+            console.log('判断传入的id 与 store 中的 播放歌曲是否一致',this.$route.query['id'])
             if(this.$route.query['id']===this.$store.getters.getSingData.id){
                 // 如果当前为暂停状态 继续播放
                 if(!this.$store.getters.getPlayingState){
@@ -144,14 +144,10 @@
                 }).then(result=>{
                     // console.log(result);
                     this.$store.commit('setSingData',result.singInfo);
-                    // this.$store.getters.getPlayerEntity.addEventListener('canplay', (event)=>{
-                    //
-                    // });
                     setTimeout(()=>{
                         // 播放歌曲
-                        console.log('播放歌曲111');
                         this.$store.commit('touchPassButtonEvent');
-                    },1000);
+                    });
                 })
             }
 

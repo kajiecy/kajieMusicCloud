@@ -1,4 +1,4 @@
-import {playingMode} from '@/enum/playerEnums.ts';
+import {playingMode,readyStateEnum} from '@/enum/playerEnums.ts';
 import commonUtils from '@/util/CommonUtil.ts';
 
 const player = {
@@ -80,28 +80,25 @@ const player = {
         // 播放器控件加载好后调用次函数将 控件对象存储到内存中并添加相应的监听
         setPlayerEntity(state: any,playerEntity: HTMLMediaElement){
             state.playerEntity = playerEntity;
-            playerEntity.addEventListener('canplay', (event)=>{
-                console.log("canplay")
-                state.playStatus.sumTimeNum = playerEntity.duration;
-            });
-            playerEntity.addEventListener('canplaythrough', (event)=>{
-                console.log("canplaythrough")
+            // playerEntity.addEventListener('canplay', (event)=>{
+            //     // console.log("canplay")
+            //     state.playStatus.sumTimeNum = playerEntity.duration;
+            // });
+            playerEntity.addEventListener('canplaythrough', ()=>{
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
         },
 
         setSingData(state: any,singData: any){
             state.singData = singData;
-            console.log('改变了',state.playerEntity.src);
             state.playerEntity.src = singData.songSrc;
-
             // 从歌词数据中 加载歌词内容
             ajaxGetHTML(state.singData.lrcSrc).then((result)=>{
                 state.lrcContent = result;
-            }).catch((error)=>{
+            }).catch(()=>{
                 // console.error(error);
                 state.lrcContent = [{timeStr:'00:00',timeNum:0,lrcLine:'歌词资源加载失败'}];
-            })
+            });
         },
         // 控制 喜欢的点击操作
         changeLoveStatus(state: any){
@@ -109,13 +106,10 @@ const player = {
         },
         // 播放暂停按钮的处理逻辑 获取audio控件 判断其状态执行 播放或暂停操作
         touchPassButtonEvent(state: any){
-            console.log(state.playerEntity.src)
-            if(state.playerEntity.src){
-                state.playingState = !state.playingState;
-                if(state.playerEntity.paused===true){
-                    state.playerEntity.play();
-                    watchPlayingState(true,state.playerEntity,state);
-                }else {
+            if(state.playerEntity.readyState===readyStateEnum.HAVE_ENOUGH_DATA){
+                if(!!state.playerEntity.paused){
+                    state.playerEntity.play().then(()=>watchPlayingState(true,state.playerEntity,state));
+                } else {
                     state.playerEntity.pause();
                     watchPlayingState(false,state.playerEntity,state);
                 }
@@ -136,7 +130,15 @@ const player = {
         }
     },
 };
+
+/**
+ *
+ * @param newValue 监听器的开启状态
+ * @param playerEntity audio标签的实体
+ * @param state store.palyer.state
+ */
 function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
+    state.playingState = newValue;
     // 如果状态变为 true 启动一个 循环器 轮询播放状态
     if(newValue===true){
         state.playerWatcher = window.setInterval(()=>{
@@ -149,28 +151,33 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
             state.playStatus.ended = playerEntity.ended;
             // 根据播放时间，移动进度条
             const rate = parseFloat((state.playStatus.nowTimeNum/state.playStatus.sumTimeNum).toFixed(3));
-            const el = <any>document.querySelector('.process-point');
-            const limitLine = <any>document.querySelector('.process-line-out');
-            const completeLine = <any>document.querySelector('.complete-line');
-            const l = rate*(limitLine.offsetWidth-el.offsetWidth);
-            completeLine.style.right = `calc( 100% - ${l}px)`;
-            el.style.left = `${l}px`;
+            const el = <HTMLElement>document.querySelector('.process-point');
+            const limitLine = <HTMLElement>document.querySelector('.process-line-out');
+            const completeLine = <HTMLElement>document.querySelector('.complete-line');
+            if(limitLine&&el){
+                const l = rate*(limitLine.offsetWidth-el.offsetWidth);
+                completeLine.style.right = `calc( 100% - ${l}px)`;
+                el.style.left = `${l}px`;
+            }
         },1000);
     }else {
         window.clearInterval(state.playerWatcher);
     }
 }
 
-/* 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径   */
+/**
+ * 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径
+ * @param webURL 歌词的网络地址
+ */
 function ajaxGetHTML(webURL) {
     return new Promise((resolve: any,reject: any)=>{
         const url = webURL;
         let xmlhttp;
         try {
-            xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            xmlhttp = new ActiveXObject('Msxml2.XMLHTTP');
         } catch(e) {
             try {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
             } catch(e) {}
         }
         if (!xmlhttp) xmlhttp = new XMLHttpRequest();
@@ -182,10 +189,10 @@ function ajaxGetHTML(webURL) {
                     let result = lrcReg.exec(s);
                     const lrcFormat = [];
                     while(result){
-                        let lineFormat = {timeStr:'',timeNum:0,lrcLine:''};
+                        const lineFormat = {timeStr:'',timeNum:0,lrcLine:''};
                         lineFormat.timeStr = result[1];
                         lineFormat.lrcLine = result[5];
-                        lineFormat.timeNum = parseFloat(parseInt(result[2])*60+parseInt(result[3])+'.'+result[4]);
+                        lineFormat.timeNum = parseFloat(parseInt(result[2],10)*60+parseInt(result[3],10)+'.'+result[4]);
                         lrcFormat.push(lineFormat);
                         result = lrcReg.exec(s);
                     }
@@ -195,7 +202,7 @@ function ajaxGetHTML(webURL) {
                 }
             }
         };
-        xmlhttp.open("GET", url, true);
+        xmlhttp.open('GET', url, true);
         xmlhttp.send(null);
     });
 }
