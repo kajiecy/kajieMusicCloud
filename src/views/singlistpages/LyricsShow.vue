@@ -14,7 +14,6 @@
                 <!--<div class="swiper-slide">-->
                     <!--<span class="lyrics-line">333</span>-->
                 <!--</div>-->
-
             </div>
         </div>
         <div class="flag-line-body dis_table" :class="flagLineStatue===true?'show-flag-line':'hidden-flag-line'">
@@ -33,7 +32,7 @@
 </template>
 
 <script  lang="ts">
-    import { Component, Prop, Vue ,Model,Watch,Inject}from 'vue-property-decorator';
+    import { Component, Prop,Vue ,Model,Watch,Inject}from 'vue-property-decorator';
     import Swiper from 'swiper';
 
     @Component({
@@ -92,8 +91,6 @@
                 this.loadSwiperComponent();
             })
         }
-
-
     }
 </script>
 

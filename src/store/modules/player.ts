@@ -34,28 +34,34 @@ const player = {
         },
         playerEntity:null,
         // 歌词内容
-        lrcContent:[],
+        lrcContent:[
+            // {
+            // timeStr:'' 时间的格式化,
+            // timeNum:0 时间戳,
+            // lrcLine:''一行歌词的内容
+            // }
+        ],
     },
     getters: {
-        getSingData(state: any){
+        getSingData(state: any): any{
             return state.singData;
         },
-        getPlayingState(state: any){
+        getPlayingState(state: any): any{
             return state.playingState;
         },
-        getNowMode(state: any){
+        getNowMode(state: any): any{
             return state.nowMode;
         },
-        getPlayingMode(state: any){
+        getPlayingMode(state: any): any{
             return state.playingMode;
         },
-        getPlayerWatcher(state: any){
+        getPlayerWatcher(state: any): any{
             return state.playerWatcher;
         },
-        getPlayStatus(state: any){
+        getPlayStatus(state: any): any{
             return state.playStatus;
         },
-        getPlayingModeIcon(state: any){
+        getPlayingModeIcon(state: any): string{
             return state.playingMode[state.nowMode]!==null?state.playingMode[state.nowMode].icon:'';
         },
         getNowPlayTime:(state) => ({needFormat=false}) => {
@@ -78,7 +84,7 @@ const player = {
     },
     mutations: {
         // 播放器控件加载好后调用次函数将 控件对象存储到内存中并添加相应的监听
-        setPlayerEntity(state: any,playerEntity: HTMLMediaElement){
+        setPlayerEntity(state: any,playerEntity: HTMLMediaElement): void{
             state.playerEntity = playerEntity;
             // playerEntity.addEventListener('canplay', (event)=>{
             //     // console.log("canplay")
@@ -88,8 +94,8 @@ const player = {
                 state.playStatus.sumTimeNum = playerEntity.duration;
             });
         },
-
-        setSingData(state: any,singData: any){
+        // 给当前播放歌曲的详细信息赋值
+        setSingData(state: any,singData: any): void{
             state.singData = singData;
             state.playerEntity.src = singData.songSrc;
             // 从歌词数据中 加载歌词内容
@@ -101,11 +107,11 @@ const player = {
             });
         },
         // 控制 喜欢的点击操作
-        changeLoveStatus(state: any){
+        changeLoveStatus(state: any): void{
             state.singData.userLove = !state.singData.userLove;
         },
         // 播放暂停按钮的处理逻辑 获取audio控件 判断其状态执行 播放或暂停操作
-        touchPassButtonEvent(state: any){
+        touchPassButtonEvent(state: any): void{
             if(state.playerEntity.readyState===readyStateEnum.HAVE_ENOUGH_DATA){
                 if(!!state.playerEntity.paused){
                     state.playerEntity.play().then(()=>watchPlayingState(true,state.playerEntity,state));
@@ -116,16 +122,25 @@ const player = {
             }
         },
         // 改变歌曲的播放模式
-        changePlayMode(state: any){
+        changePlayMode(state: any): void{
             if(++state.nowMode>=state.playingMode.length){
                 state.nowMode = 0;
             }
         },
-        setCurrentTime(state: any,rate: number){
+        /**
+         * 设置当前播放时间
+         * @param state 固有参数
+         * @param rate 播放的百分比
+         */
+        setCurrentTime(state: any,rate: number): void{
             const currentTime = state.playStatus.sumTimeNum * rate;
             state.playStatus.nowTimeNum = _.round(currentTime,2);
         },
-        changePlayTime(state: any){
+        /**
+         * 改变播放空间的播放时间
+         * @param state 固有参数
+         */
+        changePlayTime(state: any): void{
             state.playerEntity.currentTime = state.playStatus.nowTimeNum;
         }
     },
@@ -137,7 +152,7 @@ const player = {
  * @param playerEntity audio标签的实体
  * @param state store.palyer.state
  */
-function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
+function watchPlayingState(newValue: boolean,playerEntity: any,state: any): void{
     state.playingState = newValue;
     // 如果状态变为 true 启动一个 循环器 轮询播放状态
     if(newValue===true){
@@ -159,6 +174,9 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
                 completeLine.style.right = `calc( 100% - ${l}px)`;
                 el.style.left = `${l}px`;
             }
+            // 根据播放时间 设置当前歌词列表的详细信息
+
+
         },1000);
     }else {
         window.clearInterval(state.playerWatcher);
@@ -169,7 +187,7 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any){
  * 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径
  * @param webURL 歌词的网络地址
  */
-function ajaxGetHTML(webURL) {
+function ajaxGetHTML(webURL): Promise<object[]>{
     return new Promise((resolve: any,reject: any)=>{
         const url = webURL;
         let xmlhttp;
