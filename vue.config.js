@@ -28,7 +28,7 @@ module.exports = {
     transpileDependencies: [/* string or regex */],
 
     // 是否为生产环境构建生成 source map？
-    productionSourceMap: undefined,
+    productionSourceMap: false,
 
     // 调整内部的 webpack 配置。
     // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/webpack.md
