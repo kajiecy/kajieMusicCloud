@@ -3,7 +3,7 @@ import * as StackBlur from '@/assets/js/stackblur/stackblur-es.js';
 
 const app = {
     state: {
-        playerStatus:true,
+        // playerStatus:true,
         headerInformation:{
             headerStatus: false,// 头部搜索框的展开收起状态
             inputRecommend:'你瞒我瞒 - 陈伯宇',// 用户搜索框的placeHolder内容,
@@ -29,9 +29,9 @@ const app = {
         },
     },
     getters:{
-        getPlayerStatus(state: any){
-            return state.playerStatus;
-        },
+        // getPlayerStatus(state: any){
+        //     return state.playerStatus;
+        // },
         getInputRecommend(state: any){
             return state.headerInformation.inputRecommend;
         },
@@ -52,9 +52,7 @@ const app = {
         }
     },
     mutations: {
-        setPlayerStatus(state: any,playStatus: boolean){
-            state.playerStatus = playStatus;
-        },
+
         setInputRecommend(state: any,inputRecommend: string){
             state.headerInformation.inputRecommend = inputRecommend;
         },

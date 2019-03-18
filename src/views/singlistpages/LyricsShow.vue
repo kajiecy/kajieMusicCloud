@@ -5,15 +5,6 @@
                 <div v-for="(item,index) in $store.state.player.lrcContent" class="swiper-slide">
                     <span class="lyrics-line">{{item.lrcLine}}</span>
                 </div>
-                <!--<div class="swiper-slide">-->
-                    <!--<span class="lyrics-line">111</span>-->
-                <!--</div>-->
-                <!--<div class="swiper-slide">-->
-                    <!--<span class="lyrics-line">222</span>-->
-                <!--</div>-->
-                <!--<div class="swiper-slide">-->
-                    <!--<span class="lyrics-line">333</span>-->
-                <!--</div>-->
             </div>
         </div>
         <div class="flag-line-body dis_table" :class="flagLineStatue===true?'show-flag-line':'hidden-flag-line'">
@@ -32,7 +23,7 @@
 </template>
 
 <script  lang="ts">
-    import { Component, Prop,Vue ,Model,Watch,Inject}from 'vue-property-decorator';
+    import { Component, Prop, Vue, Model, Watch, Inject}from 'vue-property-decorator';
     import Swiper from 'swiper';
 
     @Component({
@@ -42,7 +33,7 @@
     })
     export default class LyricsShow extends Vue{
         swiperMain:any = null;
-        flagLineStatue:boolean = true;
+        flagLineStatue:boolean = false;
         lrcData:any[] = [];
         lrcArriveInfo = {
             timeStr:'',// 时间的格式化,
@@ -115,7 +106,6 @@
         }
         @Watch('$store.state.player.playStatus.lrcArriveIndex', {deep: false})
         watchLrcArriveIndex(newValue:any){
-            // console.log('watchLrcArriveIndex',newValue);
             if(!this.flagLineStatue){
                 this.swiperMain.slideTo(newValue, 1000, false);//切换到第一个slide，速度为1秒
             }

@@ -37,11 +37,11 @@
                     <i class="iconfont icon-fenxiang1"></i>
                 </template>
                 <template v-else>
-                    <div class="right-icon textcenter" @click="playIconClick()">
-                        <div class="dummydiv dummy1" :class='$store.getters.getPlayerStatus?"dummy1-play":""'></div>
-                        <div class="dummydiv dummy2" :class='$store.getters.getPlayerStatus?"dummy2-play":""'></div>
-                        <div class="dummydiv dummy3" :class='$store.getters.getPlayerStatus?"dummy3-play":""'></div>
-                        <div class="dummydiv dummy4" :class='$store.getters.getPlayerStatus?"dummy4-play":""'></div>
+                    <div v-if="!_.isEmpty($store.state.player.songList)" class="right-icon textcenter" @click="playIconClick()">
+                        <div class="dummydiv dummy1" :class='$store.getters.getPlayingState?"dummy1-play":""'></div>
+                        <div class="dummydiv dummy2" :class='$store.getters.getPlayingState?"dummy2-play":""'></div>
+                        <div class="dummydiv dummy3" :class='$store.getters.getPlayingState?"dummy3-play":""'></div>
+                        <div class="dummydiv dummy4" :class='$store.getters.getPlayingState?"dummy4-play":""'></div>
                     </div>
                 </template>
 
@@ -114,7 +114,8 @@
             // this.$router.push({'name':nvalue});
         }
         playIconClick(){
-            this.$store.commit('setPlayerStatus',!this.$store.getters.getPlayerStatus);
+            // this.$store.commit('setPlayerStatus',!this.$store.getters.getPlayerStatus);
+
         }
         searchMusic(){
             this.$store.commit('setHeaderStatus',true)

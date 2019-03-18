@@ -42,6 +42,8 @@ const player = {
             // lrcLine:''一行歌词的内容
             // }
         ],
+        // 歌曲的播放列表
+        songList:[],
     },
     getters: {
         getSingData(state: any): any{
@@ -172,24 +174,14 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any): void
             state.playStatus.sumTimeNum = playerEntity.duration	;
             // 当前歌曲是否结束
             state.playStatus.ended = playerEntity.ended;
+
+            if(!!state.playStatus.ended){
+                watchPlayingState(false,state.playerEntity,state);
+            }
             // 根据播放时间，移动进度条
             changeProgress(state);
             // 根据播放时间 设置当前歌词列表的详细信息
-            // let arriveIndex = 0;
-            state.playStatus.lrcArriveIndex = 0;
-            state.lrcContent.map(({timeStr,timeNum,lrcLine}, index,array)=>{
-                if(index<array.length-1){
-                    if(playerEntity.currentTime >= timeNum && playerEntity.currentTime < array[index+1].timeNum){
-                        state.playStatus.lrcArriveIndex = index;
-                    }
-                }else {
-                    // console.log()
-                    if(playerEntity.currentTime >= timeNum){
-                        state.playStatus.lrcArriveIndex = index;
-                    }
-                }
-            });
-            // console.log(state.playStatus.lrcArriveIndex,state.lrcContent[state.playStatus.lrcArriveIndex].lrcLine);
+            changeLrcArriveIndex(state,playerEntity);
         },1000);
     }else {
         window.clearInterval(state.playerWatcher);
@@ -208,7 +200,21 @@ function changeProgress(state: any): void{
         el.style.left = `${l}px`;
     }
 }
-
+// 根据播放时间 设置当前歌词列表的详细信息
+function changeLrcArriveIndex(state: any,playerEntity: any): void{
+    state.playStatus.lrcArriveIndex = 0;
+    state.lrcContent.map(({timeStr,timeNum,lrcLine}, index,array)=>{
+        if(index<array.length-1){
+            if(playerEntity.currentTime >= timeNum && playerEntity.currentTime < array[index+1].timeNum){
+                state.playStatus.lrcArriveIndex = index;
+            }
+        }else {
+            if(playerEntity.currentTime >= timeNum){
+                state.playStatus.lrcArriveIndex = index;
+            }
+        }
+    });
+}
 /**
  * 输出歌词信息   webURL 是 歌词存放的路径 或者歌词下载的路径
  * @param webURL 歌词的网络地址
