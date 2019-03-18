@@ -31,6 +31,7 @@ const player = {
             nowTimeNum:0,
             sumTimeNum:0,
             ended:false,
+            lrcArriveIndex:0,// 歌词所在下标
         },
         playerEntity:null,
         // 歌词内容
@@ -137,11 +138,17 @@ const player = {
             state.playStatus.nowTimeNum = _.round(currentTime,2);
         },
         /**
-         * 改变播放空间的播放时间
+         * 改变播放空间的播放时间 立刻刷新进度条控件
          * @param state 固有参数
+         * @param nowTimeNum 当前播放时间
          */
-        changePlayTime(state: any): void{
+        changePlayTime(state: any,nowTimeNum?: number): void{
+            if(nowTimeNum){
+                state.playStatus.nowTimeNum = nowTimeNum;
+            }
             state.playerEntity.currentTime = state.playStatus.nowTimeNum;
+            // watchPlayingState(false,state.playerEntity,state);
+            changeProgress(state);
         }
     },
 };
@@ -156,6 +163,7 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any): void
     state.playingState = newValue;
     // 如果状态变为 true 启动一个 循环器 轮询播放状态
     if(newValue===true){
+        // console.log('',state.lrcContent);
         state.playerWatcher = window.setInterval(()=>{
             // console.log('播放时长',playerEntity.currentTime);
             // 当前播放时长
@@ -165,21 +173,39 @@ function watchPlayingState(newValue: boolean,playerEntity: any,state: any): void
             // 当前歌曲是否结束
             state.playStatus.ended = playerEntity.ended;
             // 根据播放时间，移动进度条
-            const rate = parseFloat((state.playStatus.nowTimeNum/state.playStatus.sumTimeNum).toFixed(3));
-            const el = <HTMLElement>document.querySelector('.process-point');
-            const limitLine = <HTMLElement>document.querySelector('.process-line-out');
-            const completeLine = <HTMLElement>document.querySelector('.complete-line');
-            if(limitLine&&el){
-                const l = rate*(limitLine.offsetWidth-el.offsetWidth);
-                completeLine.style.right = `calc( 100% - ${l}px)`;
-                el.style.left = `${l}px`;
-            }
+            changeProgress(state);
             // 根据播放时间 设置当前歌词列表的详细信息
-
-
+            // let arriveIndex = 0;
+            state.playStatus.lrcArriveIndex = 0;
+            state.lrcContent.map(({timeStr,timeNum,lrcLine}, index,array)=>{
+                if(index<array.length-1){
+                    if(playerEntity.currentTime >= timeNum && playerEntity.currentTime < array[index+1].timeNum){
+                        state.playStatus.lrcArriveIndex = index;
+                    }
+                }else {
+                    // console.log()
+                    if(playerEntity.currentTime >= timeNum){
+                        state.playStatus.lrcArriveIndex = index;
+                    }
+                }
+            });
+            // console.log(state.playStatus.lrcArriveIndex,state.lrcContent[state.playStatus.lrcArriveIndex].lrcLine);
         },1000);
     }else {
         window.clearInterval(state.playerWatcher);
+    }
+}
+
+function changeProgress(state: any): void{
+    // 根据播放时间，移动进度条
+    const rate = parseFloat((state.playStatus.nowTimeNum/state.playStatus.sumTimeNum).toFixed(3));
+    const el = <HTMLElement>document.querySelector('.process-point');
+    const limitLine = <HTMLElement>document.querySelector('.process-line-out');
+    const completeLine = <HTMLElement>document.querySelector('.complete-line');
+    if(limitLine&&el){
+        const l = rate*(limitLine.offsetWidth-el.offsetWidth);
+        completeLine.style.right = `calc( 100% - ${l}px)`;
+        el.style.left = `${l}px`;
     }
 }
 

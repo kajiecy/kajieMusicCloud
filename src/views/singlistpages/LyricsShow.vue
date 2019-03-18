@@ -17,14 +17,14 @@
             </div>
         </div>
         <div class="flag-line-body dis_table" :class="flagLineStatue===true?'show-flag-line':'hidden-flag-line'">
-            <div class="dis_table_cell play-icon-cell">
+            <div class="dis_table_cell play-icon-cell" @click.stop="redirectsProgress()">
                 <div class="play-icon"></div>
             </div>
             <div class="dis_table_cell flag-line-cell">
                 <div class="flag-line"></div>
             </div>
             <div class="dis_table_cell flag-line-time-cell">
-                <div class="flag-line-time">05:39</div>
+                <div class="flag-line-time">{{lrcArriveInfo.timeStr}}</div>
             </div>
         </div>
     </div>
@@ -42,8 +42,14 @@
     })
     export default class LyricsShow extends Vue{
         swiperMain:any = null;
-        flagLineStatue:boolean = false;
-        lrcData:Object[] = [];
+        flagLineStatue:boolean = true;
+        lrcData:any[] = [];
+        lrcArriveInfo = {
+            timeStr:'',// 时间的格式化,
+            timeNum:0, // 时间戳,
+            lrcLine:'',// 一行歌词的内容
+        };
+
         mounted() {
             this.lrcData = this.$store.state.player.lrcContent;
             this.$nextTick(()=>{
@@ -69,27 +75,50 @@
                 freeModeMomentumVelocityRatio:0.2,
 
                 on: {
-                    touchStart: function(){
-                        console.log('touchStart事件触发了;');
+                    // slide 改变时间 取得歌词对应时间
+                    slideChange: function () {
+                        // console.log(this.activeIndex);
+                        _vm.lrcArriveInfo.timeStr = _vm.lrcData[this.activeIndex].timeStr.split('.')[0];
+                        _vm.lrcArriveInfo.timeNum = _vm.lrcData[this.activeIndex].timeNum;
+                        _vm.lrcArriveInfo.lrcLine = _vm.lrcData[this.activeIndex].lrcLine;
+                    },
+                    touchStart: function(event: any){
+                        // console.log('touchStart事件触发了;',event);
                         _vm.flagLineStatue = true;
                     },
-                    slideChangeTransitionEnd: function(){
-                        console.log('slideChangeTransitionEnd事件触发了;');
+                    // slideChangeTransitionEnd: function(){
+                    //     console.log('slideChangeTransitionEnd事件触发了;');
+                    //     setTimeout(function () {
+                    //         _vm.flagLineStatue = false;
+                    //     },1000);
+                    // },
+                    touchEnd: function(){
+                        // console.log('touchEnd事件触发了;');
                         setTimeout(function () {
                             _vm.flagLineStatue = false;
-                        },500);
-
+                        },2500);
                     },
                 },
             });
         }
+        redirectsProgress(){
+            // 将播放器的播放进度移动到相应位置
+            this.$store.commit('changePlayTime',this.lrcArriveInfo.timeNum);
+        }
         @Watch('$store.state.player.lrcContent', {deep: false})
-        watchLrcContent(newValue:any,oldValue:any){
-            console.log('watchLrcContent',newValue);
+        watchLrcContent(newValue:any){
+            // console.log('watchLrcContent',newValue);
             this.lrcData = newValue;
             this.$nextTick(()=>{
                 this.loadSwiperComponent();
             })
+        }
+        @Watch('$store.state.player.playStatus.lrcArriveIndex', {deep: false})
+        watchLrcArriveIndex(newValue:any){
+            // console.log('watchLrcArriveIndex',newValue);
+            if(!this.flagLineStatue){
+                this.swiperMain.slideTo(newValue, 1000, false);//切换到第一个slide，速度为1秒
+            }
         }
     }
 </script>
@@ -118,7 +147,10 @@
         top: -735px;
         width: 100%;
         transition: all 750ms;
+        z-index: 3;
+        .play-icon-cell{
 
+        }
         .play-icon{
             width:0;
             height:0;
@@ -139,6 +171,7 @@
         }
         .flag-line-time-cell{
             width: 130px;
+
             .flag-line-time{
 
                 position: relative;
