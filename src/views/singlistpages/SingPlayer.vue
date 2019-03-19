@@ -31,6 +31,7 @@
             </div>
             <!--底部按钮组div-->
             <div class="fixed bottom0 control-center">
+                <!--第一行 喜欢、下载、云、收藏、评论、更多按钮-->
                 <div class="interactive-buttons dis_flax">
                     <div class="interactive-button dis_flax_child textcenter"><i  @click="$store.commit('changeLoveStatus')" class="iconfont " :class="$store.getters.getSingData.userLove?'icon-xin1':'icon-xin'"></i></div>
                     <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-plus-download"></i></div>
@@ -39,8 +40,11 @@
                     <div class="interactive-button dis_flax_child textcenter"><i class="iconfont icon-diandiandianshu"></i></div>
                 </div>
 
+                <!--第二行 歌曲的进度条-->
                 <div class="process-div wd90 dis_table">
+                    <!--显示当前播放时间-->
                     <div class="dis_table_cell wd10">{{$store.getters.getNowPlayTime({needFormat:true})}}</div>
+                    <!--条状进度条-->
                     <div class="dis_table_cell center-cell">
                         <div class="process-line-out">
                             <div class="process-line">
@@ -53,15 +57,19 @@
                             </div>
                         </div>
                     </div>
+                    <!--显示歌曲总时间-->
                     <div class="dis_table_cell wd10">{{$store.getters.getSumTimeNum({needFormat:true})}}</div>
                 </div>
 
-
+                <!--第三行 播放器的控制按钮-->
                 <div class="control-buttons dis_flax">
+                    <!--播放模式 随机/单曲/循环-->
                     <div class="control-button dis_flax_child textcenter">
                         <i @click="$store.commit('changePlayMode')" class="iconfont icon-play-model" :class="$store.getters.getPlayingModeIcon"></i>
                     </div>
+                    <!--上一首-->
                     <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-shangyishou"></i></div>
+                    <!--播放/暂停-->
                     <div class="control-button dis_flax_child textcenter">
                         <div class="pass-pause-div" @click="$store.commit('touchPassButtonEvent')">
                             <div :class="$store.getters.getPlayingState===true?'pass-div':'pause-div'">
@@ -70,7 +78,9 @@
                             </div>
                         </div>
                     </div>
+                    <!--下一首-->
                     <div class="control-button dis_flax_child textcenter" @click="nextSong()"><i class="iconfont icon-shangyishou rotate180"></i></div>
+                    <!--唤起播放列表弹框-->
                     <div class="control-button dis_flax_child textcenter" @click="operatePopup(true)"><i class="iconfont icon-bofangliebiao"></i></div>
                 </div>
             </div>
@@ -83,11 +93,13 @@
             <canvas id="background-canvas" :style="''"></canvas>
         </div>
         <img id="canvas-default" style="display: none" :src="defaultBackgroundImg" >
+        <!--歌单显示 下方弹出的 popup框-->
         <mt-popup
                 v-model="popupVisible"
                 popup-transition="popup-fade"
                 position="bottom">
             <div class="popup-body">
+                <!--heard start-->
                 <div class="popup-header">
                     <div class="dis_table wd100">
                         <div class="dis_table_cell wd90 textleft">
@@ -99,17 +111,21 @@
                         <div class="dis_table_cell textcenter"><i class="iconfont icon-lajixiang"></i></div>
                     </div>
                 </div>
+                <!--heard end-->
+                <!--content start-->
                 <div class="popup-inner">
                     <kajie-scroll class="popup-scroll">
 
                     </kajie-scroll>
                 </div>
+                <!--content end-->
+                <!--footer start-->
                 <div class="popup-footer textcenter" @click="operatePopup(false)">
                     <span>
                         关闭
                     </span>
                 </div>
-
+                <!--footer end-->
             </div>
         </mt-popup>
     </div>
@@ -144,14 +160,16 @@
         backgroundImgBase64:string="";
         // 背景的模糊比例
         blurRate:number = 40;
-        //页面中心 标识页面显示 歌词合适封面
+        // 页面中心 标识页面显示 歌词合适封面
         centerShow:number = playerCenterShowMode.disc;
+        // 歌曲播放界面的显示模式
         playerCenterShowMode:typeof playerCenterShowMode = playerCenterShowMode;
-
-        popupVisible:boolean = true;
+        // 播放列表的弹窗状态标识
+        popupVisible:boolean = false;
 
         // -------------------------      mounted start      -------------------------
         mounted() {
+            // 处理背景 根据歌曲 cover 背景进行高斯模糊 如果当前没有背景图片 则对默认图片进行高斯模糊
             this.$nextTick(()=>{
                 if(this.$store.state.player.singData.coverImg){
                     this.watchCoverImg(this.$store.state.player.singData.coverImg);
@@ -184,12 +202,10 @@
         }
         // -------------------------      mounted end      -------------------------
         // -------------------------      methods start      -------------------------
-        changeSong(activeType){
-            let myPlayer = <HTMLMediaElement>this.$refs.myPlayer;
-            // console.log("总时长",myPlayer.duration);
-            // console.log("播放时长",myPlayer.currentTime);
-        }
-
+        /**
+         * 操作播放列表的空间的打开状态
+         * @param popupVisible true:打开,false:关闭
+         */
         operatePopup(popupVisible){
             this.popupVisible = popupVisible;
         }

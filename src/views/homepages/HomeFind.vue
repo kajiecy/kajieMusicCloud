@@ -1,6 +1,8 @@
+<!--发现页面-->
 <template>
     <div class="home-main-view ">
         <div class="swiper-header-tab-out">
+            <!--发现页面的 tab 标签动画实现-->
             <div class="swiper-header-tab wd80 marginAuto">
                 <div v-for="(item,index) in siderList" :key="index" @click="changeSider(index,$event)" class="swiper-header-tab-item textcenter">
                     {{item.name}}
@@ -14,13 +16,16 @@
         </div>
         <div class="swiper-container swiper-main">
             <div class="swiper-wrapper wrapper-main">
+                <!--发现页面两个标签的内弄显示 个性推荐(home-find-recommend)/主播电台(home-find-station)-->
                 <div class="swiper-slide">
                     <div class="swiper-slide-content">
+                        <!--个性推荐-->
                         <home-find-recommend></home-find-recommend>
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="swiper-slide-content">
+                        <!--主播电台-->
                         <home-find-station></home-find-station>
                     </div>
                 </div>

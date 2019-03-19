@@ -1,6 +1,7 @@
 <template>
     <div class="div-parent">
         <!--<div ></div>-->
+        <!--整个app 的 header start-->
         <kajie-header ref="kajieHeader">
             <div slot="left"  @click="leftOperation($route.meta.icon)">
                 <i class="iconfont left-icon" :class="$route.meta.icon"></i>
@@ -29,7 +30,7 @@
                     {{$route.meta.title}}
                 </div>
             </template>
-
+            <!--右侧播放状态的显示-->
             <div slot="right">
                 <!--<i class="iconfont icon-yinle" style="font-size: 20px"></i>-->
                 <!--<img class="right-img" src="http://p8kfci878.bkt.clouddn.com/right-home.png"> -->
@@ -47,12 +48,15 @@
 
             </div>
         </kajie-header>
+        <!--整个app 的 header end-->
 
 
-
+        <!--app的body router-view start-->
         <div class="wrapper" :class="!$route.meta.footShow?'wrapper-no-foot':''">
             <router-view/>
         </div>
+        <!--app的body router-view end-->
+        <!--app的foot start-->
         <kajie-tabbar class="home-tabbar" v-if="$route.meta.footShow"  v-model="selected">
             <kajie-tabbar-item class="home-tabbar" id="find" @click="changeHomeSelect('find')">
                 <i class="iconfont iconfont-tabbar icon-wangyiyunyinlezizhi-copy"></i>
@@ -75,6 +79,9 @@
                 账号
             </kajie-tabbar-item>
         </kajie-tabbar>
+        <!--app的foot end-->
+
+        <!--此处因为使用的index插件此div控制插件的index叠加计算，在样式上无实际用途-->
         <div class="zIndexControl1"></div>
     </div>
 </template>
@@ -102,7 +109,9 @@
         }
     })
     export default class Home extends Vue{
+        //footer 选中标识
         selected:string | undefined = 'find';
+
         mounted() {
             this.selected = this.$route.name;
         }
@@ -113,27 +122,32 @@
             // this.$store.commit("setHeaderStatus",false);
             // this.$router.push({'name':nvalue});
         }
+        // 播放状态的点击按钮
         playIconClick(){
             // this.$store.commit('setPlayerStatus',!this.$store.getters.getPlayerStatus);
-
         }
+        // 首页查询音乐input框的状态
         searchMusic(){
             this.$store.commit('setHeaderStatus',true)
         }
+        // footer 切换页面的方法
         changeHomeSelect(selectValue:any){
             this.$router.push({'name':selectValue});
         }
+        // 返回上级
         leftOperation(routeIcon:any){
             if(routeIcon==='icon-zuo'){
                 this.$router.go(-1);
             }
         }
+
         get parentClass(){
             if(this.$store.getters.getBodyBackImg!==''){
                 return "url("+this.$store.getters.getBodyBackImg+")";
             }
             return '';
         }
+
         beforeRouteUpdate (to:any, from:any, next:any) {
             // this.selected = to.name;
             next();

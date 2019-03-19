@@ -1,5 +1,6 @@
 <template>
     <div class="lyrics-body">
+        <!--显示歌词-->
         <div class="swiper-container swiper-main">
             <div class="swiper-wrapper wrapper-main">
                 <div v-for="(item,index) in $store.state.player.lrcContent" class="swiper-slide">
@@ -7,17 +8,22 @@
                 </div>
             </div>
         </div>
+        <!--用户对歌词进行拖动时显示当前歌词 对应的时间线 start-->
         <div class="flag-line-body dis_table" :class="flagLineStatue===true?'show-flag-line':'hidden-flag-line'">
+            <!--转跳到此句 按钮-->
             <div class="dis_table_cell play-icon-cell" @click.stop="redirectsProgress()">
                 <div class="play-icon"></div>
             </div>
+            <!--标识线-->
             <div class="dis_table_cell flag-line-cell">
                 <div class="flag-line"></div>
             </div>
+            <!--当前句对应的时间-->
             <div class="dis_table_cell flag-line-time-cell">
                 <div class="flag-line-time">{{lrcArriveInfo.timeStr}}</div>
             </div>
         </div>
+        <!--用户对歌词进行拖动时显示当前歌词 对应的时间线 end-->
     </div>
 
 </template>
@@ -32,10 +38,10 @@
         }
     })
     export default class LyricsShow extends Vue{
-        swiperMain:any = null;
-        flagLineStatue:boolean = false;
-        lrcData:any[] = [];
-        lrcArriveInfo = {
+        swiperMain:any = null;// 歌词展示使用 swiper 组件
+        flagLineStatue:boolean = false;// 标识时间线是否显示状态
+        lrcData:any[] = [];// 处理后的歌词数据
+        lrcArriveInfo = { // 当前到达的歌词信息
             timeStr:'',// 时间的格式化,
             timeNum:0, // 时间戳,
             lrcLine:'',// 一行歌词的内容
@@ -47,7 +53,7 @@
                 this.loadSwiperComponent();
             })
         }
-
+        // 加载swiper
         loadSwiperComponent(){
             let _vm = this;
             _vm.swiperMain = new Swiper('.swiper-main', {
@@ -73,16 +79,12 @@
                         _vm.lrcArriveInfo.timeNum = _vm.lrcData[this.activeIndex].timeNum;
                         _vm.lrcArriveInfo.lrcLine = _vm.lrcData[this.activeIndex].lrcLine;
                     },
+                    //用户开始对歌词界面交互及显示 时间线
                     touchStart: function(event: any){
                         // console.log('touchStart事件触发了;',event);
                         _vm.flagLineStatue = true;
                     },
-                    // slideChangeTransitionEnd: function(){
-                    //     console.log('slideChangeTransitionEnd事件触发了;');
-                    //     setTimeout(function () {
-                    //         _vm.flagLineStatue = false;
-                    //     },1000);
-                    // },
+                    //用户停止对歌词界面交互后2.5吟唱时间线
                     touchEnd: function(){
                         // console.log('touchEnd事件触发了;');
                         setTimeout(function () {
@@ -92,10 +94,11 @@
                 },
             });
         }
+        // 将播放器的播放进度移动到相应位置
         redirectsProgress(){
-            // 将播放器的播放进度移动到相应位置
             this.$store.commit('changePlayTime',this.lrcArriveInfo.timeNum);
         }
+        // 监听歌词内容随时重新渲染
         @Watch('$store.state.player.lrcContent', {deep: false})
         watchLrcContent(newValue:any){
             // console.log('watchLrcContent',newValue);
@@ -104,6 +107,7 @@
                 this.loadSwiperComponent();
             })
         }
+        // 监听播放行的状态 随时切换
         @Watch('$store.state.player.playStatus.lrcArriveIndex', {deep: false})
         watchLrcArriveIndex(newValue:any){
             if(!this.flagLineStatue){
