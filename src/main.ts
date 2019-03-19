@@ -1,6 +1,7 @@
 import 'swiper/dist/css/swiper.css';
 // @ts-ignore
 import Mint from 'mint-ui';
+
 // @ts-ignore
 import * as lodash from 'lodash';
 import '@/assets/css/my-mint.scss';

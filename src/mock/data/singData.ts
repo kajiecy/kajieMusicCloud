@@ -40,7 +40,7 @@ export const songListDetail = [
         ownerImg: 'http://qiniu.kajie88.com/28913648.jpg',
         collectCount: 36,
         singListArray: [
-            {id: '1',name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',hasMv: true,isSq: true,},
+            {id: '1',name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',hasMv: true,isSq: true},
             {id: '2',name: '不谓侠（Cover 萧忆情Alex）',singerName: 'CRITTY',specialName: '不谓侠（Cover 萧忆情Alex）',hasMv: true,isSq: true},
             {id: '3',name: '蜜蜂（Cover 万玲琳）',singerName: 'Darren',specialName: '蜜蜂（Cover 万玲琳）',hasMv: true,isSq: true},
             {id: '4',name: '南',singerName: 'Jam',specialName: '南',hasMv: true,isSq: true},
@@ -91,7 +91,7 @@ export const songListDetail = [
             {id: '3',name: '蜜蜂（Cover 万玲琳）',singerName: 'Darren',specialName: '蜜蜂（Cover 万玲琳）',hasMv: true,isSq: true},
             {id: '30',name: '笑看风云',singerName: '郑少秋',specialName: '笑看风云',hasMv: true,isSq: true},
             {id: '19',name: '猫的眼睛Cat Eye',singerName: 'Tired',specialName: '猫的眼睛Cat Eye',hasMv: true,isSq: true},
-            {id: '1',name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',hasMv: true,isSq: true,},
+            {id: '1',name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',hasMv: true,isSq: true},
             {id: '21',name: '明天会更好',singerName: '群星',specialName: '明天会更好',hasMv: true,isSq: true},
             {id: '28',name: '天使（Cover 五月天）',singerName: '杨博然',specialName: '天使（Cover 五月天）',hasMv: true,isSq: true},
             {id: '20',name: '牧马城市',singerName: '米唐悠悠',specialName: '牧马城市',hasMv: true,isSq: true},
@@ -114,7 +114,7 @@ export const songListDetail = [
             {id: '10',name: '三万英尺',singerName: '迪克牛仔',specialName: '三万英尺',hasMv: true,isSq: true},
             {id: '26',name: '空白格（Cover 蔡健雅）',singerName: '许一鸣',specialName: '空白格（Cover 蔡健雅）',hasMv: true,isSq: true},
             {id: '13',name: '老男孩 - live',singerName: '筷子兄弟',specialName: '老男孩 - live',hasMv: true,isSq: true},
-            {id: '1',name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',hasMv: true,isSq: true,},
+            {id: '1',name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',hasMv: true,isSq: true},
         ]
     },
     {id: '5',
@@ -155,7 +155,7 @@ export const songListDetail = [
             {id: '19',name: '猫的眼睛Cat Eye',singerName: 'Tired',specialName: '猫的眼睛Cat Eye',hasMv: true,isSq: true},
             {id: '15',name: '原来你也在这里',singerName: '浪客秦昊',specialName: '原来你也在这里',hasMv: true,isSq: true},
             {id: '25',name: '虎口脱险（Cover 老狼）',singerName: '许一鸣',specialName: '虎口脱险（Cover 老狼）',hasMv: true,isSq: true},
-            {id: '1',name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',hasMv: true,isSq: true,},
+            {id: '1',name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',hasMv: true,isSq: true},
             {id: '8',name: '八号风球(第26届金曲奖26首串烧)',singerName: '陈奕迅',specialName: '八号风球(第26届金曲奖26首串烧)',hasMv: true,isSq: true},
             {id: '22',name: '一万次悲伤',singerName: '逃跑计划',specialName: '一万次悲伤',hasMv: true,isSq: true},
             {id: '28',name: '天使（Cover 五月天）',singerName: '杨博然',specialName: '天使（Cover 五月天）',hasMv: true,isSq: true},
@@ -166,17 +166,11 @@ export const songListDetail = [
 export const singInfoDetail = [
     {
         id: '1',
-        name: '夜访吸血鬼（Cover 五月天）',
-        singerName: '1022女声',// 歌手名
-        specialName: '夜访吸血鬼（Cover 五月天）',// 专辑名
+        name: '夜访吸血鬼（Cover 五月天）',singerName: '1022女声',specialName: '夜访吸血鬼（Cover 五月天）',
         coverImg: 'http://qiniu.kajie88.com/1022女声 - 夜访吸血鬼（Cover 五月天）.png',
         songSrc:'http://qiniu.kajie88.com/1022女声 - 夜访吸血鬼（Cover 五月天）.mp3',
         lrcSrc:'http://qiniu.kajie88.com/1022女声 - 夜访吸血鬼（Cover 五月天）.lrc',
-        hasMv: true,
-        isSq: true,
-
-        userLove:false,
-    },
+        hasMv: true,isSq: true,userLove:false},
     {id: '2',
         name: '不谓侠（Cover 萧忆情Alex）',singerName: 'CRITTY',specialName: '不谓侠（Cover 萧忆情Alex）',
         coverImg: 'http://qiniu.kajie88.com/CRITTY - 不谓侠（Cover 萧忆情Alex）.png',

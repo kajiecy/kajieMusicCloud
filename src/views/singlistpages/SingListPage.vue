@@ -120,7 +120,7 @@
             </div>
         </div>
         <img id="canvas-copy" :src="singListData.coverImgBase64">
-        <div class="gray-mark" :style="{ 'transform': transform }"></div>
+        <div class="gray-mark" id="gray-mark" :style="{ 'transform': transform }"></div>
         <canvas id="background-canvas" :style="{ 'transform': transform }"></canvas>
     </div>
 
@@ -188,9 +188,11 @@
         watchTopStatus(newValue: any, oldValue: any) {
             if (oldValue === "drop" && newValue === "loading") {
                 (<HTMLElement>document.querySelector("#background-canvas")).style.transition = "all 0.3s";
+                (<HTMLElement>document.querySelector("#gray-mark")).style.transition = "all 0.3s";
             }
             setTimeout(function () {
                 (<HTMLElement>document.querySelector("#background-canvas")).style.transition = "";
+                (<HTMLElement>document.querySelector("#gray-mark")).style.transition = "";
             }, 220);
         }
 

@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="control-button dis_flax_child textcenter" @click="nextSong()"><i class="iconfont icon-shangyishou rotate180"></i></div>
-                    <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-bofangliebiao"></i></div>
+                    <div class="control-button dis_flax_child textcenter" @click="operatePopup(true)"><i class="iconfont icon-bofangliebiao"></i></div>
                 </div>
             </div>
         <!--</kajie-scroll>-->
@@ -83,6 +83,35 @@
             <canvas id="background-canvas" :style="''"></canvas>
         </div>
         <img id="canvas-default" style="display: none" :src="defaultBackgroundImg" >
+        <mt-popup
+                v-model="popupVisible"
+                popup-transition="popup-fade"
+                position="bottom">
+            <div class="popup-body">
+                <div class="popup-header">
+                    <div class="dis_table wd100">
+                        <div class="dis_table_cell wd90 textleft">
+                            <span>
+                                <i class="iconfont icon-suiji"></i>
+                                随机播放(384)
+                            </span>
+                        </div>
+                        <div class="dis_table_cell textcenter"><i class="iconfont icon-lajixiang"></i></div>
+                    </div>
+                </div>
+                <div class="popup-inner">
+                    <kajie-scroll class="popup-scroll">
+
+                    </kajie-scroll>
+                </div>
+                <div class="popup-footer textcenter" @click="operatePopup(false)">
+                    <span>
+                        关闭
+                    </span>
+                </div>
+
+            </div>
+        </mt-popup>
     </div>
 
 </template>
@@ -98,6 +127,7 @@
 
     import {playerCenterShowMode,activeSongType} from '@/enum/playerEnums.ts';
     import LyricsShow from '@/views/singlistpages/LyricsShow.vue';
+
     @Component({
         components:{
             LyricsShow:LyricsShow
@@ -117,6 +147,9 @@
         //页面中心 标识页面显示 歌词合适封面
         centerShow:number = playerCenterShowMode.disc;
         playerCenterShowMode:typeof playerCenterShowMode = playerCenterShowMode;
+
+        popupVisible:boolean = true;
+
         // -------------------------      mounted start      -------------------------
         mounted() {
             this.$nextTick(()=>{
@@ -156,6 +189,11 @@
             // console.log("总时长",myPlayer.duration);
             // console.log("播放时长",myPlayer.currentTime);
         }
+
+        operatePopup(popupVisible){
+            this.popupVisible = popupVisible;
+        }
+
         //点击封面 或者 歌词 循环切换
         coverEvent(){
             if(this.centerShow === this.playerCenterShowMode.disc){
@@ -335,7 +373,6 @@
                 height: 0px;
                 width: calc( 100% - 45px );
                 .process-point{
-
                     position: relative;
                     top: -27px;
                     width: 45px;
@@ -345,8 +382,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
-                    left: 0%;
+                    left: 0;
                     .process-point-inner{
 
                         position: relative;
@@ -424,6 +460,67 @@
     .pole-animal{
         animation:poleAnimal 2s linear infinite;
     }
+
+    .mint-popup{
+        border-top-right-radius: 40px;
+        border-top-left-radius: 40px;
+        opacity: 0.97;
+        background-color: rgba(215,215,215,1);
+
+    }
+    .popup-body{
+        height: 65vh;
+        width: 100vw;
+        border-top-right-radius: 40px;
+        border-top-left-radius: 40px;
+        overflow: hidden;
+
+
+
+        display: flex;
+        flex-direction: column;
+        .popup-header{
+            /*width: 100vw;*/
+            /*height: 40px;*/
+            padding: 0 20px;
+            flex: 0 0 120px;
+            border-bottom: 1px solid #C1C1C1;
+
+            .dis_table{
+                height: 120px;
+            }
+            .dis_table_cell{
+                font-size: 44px;
+            }
+            .iconfont{
+                vertical-align: middle;
+                font-size: 65px;
+                color: #919191;
+            }
+            .icon-lajixiang{
+                font-size: 50px;
+            }
+        }
+        .popup-inner{
+            /*width: 100vw;*/
+            flex: 1 0 calc( 65vh - 130px - 120px );
+            overflow: scroll;
+        }
+        .popup-footer{
+            /*width: 100vw;*/
+            /*height: 40px;/*/
+            flex: 0 0 130px;
+            border-top: 1px solid #C1C1C1;
+            span{
+                font-size: 44px;
+                display: inline-block;
+                padding: 30px 20px 20px 20px;
+            }
+        }
+    }
+
+
+
     @keyframes coverAnimal{
         from {/* Rotate div */
             transform:rotate(0deg);
