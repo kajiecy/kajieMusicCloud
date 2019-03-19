@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div id="example"></div>
-            <div class="recommend-list">
+            <div class="recommend-list" v-if="recommendSongList.length>0">
                 <div class="recommend-title">
                     推荐歌单
                     <i class="iconfont icon-you"></i>
@@ -84,8 +84,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="recommend-list">
+            <div class="recommend-list" v-if="newSongList.length>0">
                 <div class="recommend-title">
                     最新歌单
                     <i class="iconfont icon-you"></i>
