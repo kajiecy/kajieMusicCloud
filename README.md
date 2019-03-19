@@ -1,9 +1,9 @@
 # kajie-music-cloud（卡杰云音乐） # 
-> 在开发的过程中高仿一个网易云音乐
+> 一个高仿网易云音乐
 
 ## 前言 ##
 本软件是仿照网易云音乐IOS版进行copy,在编写的过程中尽量还原APP效果。
-此项目诞生的目的仅为了VueJS手机端的架构及特性。（说白了就是自己拿来练手的BB一大堆。。。）
+
 
 [[在线预览]](http://music.kajie88.com)
 
@@ -13,7 +13,8 @@
 + [X] Header右下角标识 播放状态 的动画图标的展示。[[✍详细文档]](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/cssAnimation.md)
 + [X] 发现页面搜索框的逻辑/过渡动画的处理。
 + [X] 歌单详情页面Header背景为模糊的专辑封面，并需要在界面滚动式跟随变body不变换。
-+ [X] audio控件控制及动态
++ [X] 动态操作及控制audio控件
++ [X] 解析并渲染出歌词页面,使歌词界面和播放的歌曲联动。
 ## 技术栈 ##
  1. Vue.js 2.0 全家桶
  2. axios
