@@ -124,6 +124,7 @@
         }
         // 播放状态的点击按钮
         playIconClick(){
+            this.$router.push({name:'singPlayer',query:{id:this.$store.getters.getSingData.id}})
             // this.$store.commit('setPlayerStatus',!this.$store.getters.getPlayerStatus);
         }
         // 首页查询音乐input框的状态

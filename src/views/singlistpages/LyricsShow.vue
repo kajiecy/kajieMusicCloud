@@ -1,7 +1,7 @@
 <template>
     <div class="lyrics-body">
         <!--显示歌词-->
-        <div class="swiper-container swiper-main">
+        <div class="swiper-container swiper-main" id="swiper-lrc">
             <div class="swiper-wrapper wrapper-main">
                 <div v-for="(item,index) in $store.state.player.lrcContent" class="swiper-slide">
                     <span class="lyrics-line">{{item.lrcLine}}</span>
@@ -56,7 +56,7 @@
         // 加载swiper
         loadSwiperComponent(){
             let _vm = this;
-            _vm.swiperMain = new Swiper('.swiper-main', {
+            _vm.swiperMain = new Swiper('#swiper-lrc', {
                 resistanceRatio : 0,//滑动到尽头时禁止在滑动
                 iOSEdgeSwipeDetection : true,
                 watchSlidesProgress : true,

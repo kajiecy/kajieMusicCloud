@@ -115,7 +115,21 @@
                 <!--content start-->
                 <div class="popup-inner">
                     <kajie-scroll class="popup-scroll">
+                        <template v-for="(item,index) in $store.getters.getSongList">
 
+                            <div class="inner-table-row">
+                                <div class="dis_table wd100">
+                                    <div class="dis_table_cell wd90 textleft " @click="changSongPlay(item,index)" :class="index === $store.getters.getSongListIndex?'redFont':''">
+                                        <div class="text_clamp1">
+                                            <i v-if="index === $store.getters.getSongListIndex" class="iconfont icon-laba"></i>
+                                            {{item.name}}-{{item.singerName}}
+                                        </div>
+                                    </div>
+                                    <div class="dis_table_cell textcenter"><i class="iconfont icon-guanbi1"></i></div>
+                                </div>
+                            </div>
+
+                        </template>
                     </kajie-scroll>
                 </div>
                 <!--content end-->
@@ -185,18 +199,21 @@
                 // 如果当前为暂停状态 继续播放
                 if(!this.$store.getters.getPlayingState){
                     //播放歌曲
-                    this.$store.commit('touchPassButtonEvent')
+                    setTimeout(()=>{
+                        this.$store.commit('touchPassButtonEvent')
+                    },500);
                 }
             }else {
+                // 请求歌曲信息
                 this.$post(this.$store.state.remote.getSingInfo,{
                     id:this.$route.query['id']
                 }).then(result=>{
                     // console.log(result);
                     this.$store.commit('setSingData',result.singInfo);
                     setTimeout(()=>{
-                        // 播放歌曲
                         this.$store.commit('touchPassButtonEvent');
-                    });
+                    },500)
+                    // 播放歌曲
                 })
             }
         }
@@ -217,6 +234,27 @@
             }else if(this.centerShow === this.playerCenterShowMode.lyrics){
                 this.centerShow = this.playerCenterShowMode.disc;
             }
+        }
+        changSongPlay(item: any,index: number){
+            //先暂停当前歌曲
+            // 播放歌曲
+            this.$store.commit('touchPassButtonEvent',false);
+            this.$store.commit('setSongListIndex',index);
+            setTimeout(()=>{
+                // 请求歌曲信息
+                this.$post(this.$store.state.remote.getSingInfo,{
+                    id:item.id
+                }).then(result=>{
+                    // console.log(result);
+                    this.$store.commit('setSingData',result.singInfo);
+                    // 播放歌曲
+                    this.$store.commit('touchPassButtonEvent');
+
+                    setTimeout(()=>{
+                        this.$store.commit('touchPassButtonEvent',true);
+                    },500);
+                })
+            },500)
         }
         // -------------------------      methods end      -------------------------
         // -------------------------      watchs start      -------------------------
@@ -414,6 +452,7 @@
             &.center-cell{
                 padding: 10px;
             }
+
         }
 
     }
@@ -495,6 +534,22 @@
 
         display: flex;
         flex-direction: column;
+
+        .dis_table{
+            height: 120px;
+        }
+        .dis_table_cell{
+            font-size: 44px;
+        }
+        .iconfont{
+            vertical-align: middle;
+            font-size: 65px;
+            color: #919191;
+        }
+        .icon-lajixiang{
+            font-size: 50px;
+        }
+
         .popup-header{
             /*width: 100vw;*/
             /*height: 40px;*/
@@ -502,25 +557,31 @@
             flex: 0 0 120px;
             border-bottom: 1px solid #C1C1C1;
 
-            .dis_table{
-                height: 120px;
-            }
-            .dis_table_cell{
-                font-size: 44px;
-            }
-            .iconfont{
-                vertical-align: middle;
-                font-size: 65px;
-                color: #919191;
-            }
-            .icon-lajixiang{
-                font-size: 50px;
-            }
+
         }
         .popup-inner{
             /*width: 100vw;*/
             flex: 1 0 calc( 65vh - 130px - 120px );
             overflow: scroll;
+
+            .inner-table-row{
+                padding: 0 20px 0 30px;
+                border-bottom:1px solid #CfCfCf;
+                .icon-laba{
+                    font-size: 45px;
+                    font-weight: bold;
+                    vertical-align: middle;
+                    position: relative;
+                    top: -5px;
+                    color: #D33A30;
+                    display: inline-block;
+                    margin-right: 10px;
+                }
+            }
+
+            .icon-guanbi1{
+                font-size: 40px;
+            }
         }
         .popup-footer{
             /*width: 100vw;*/
@@ -532,6 +593,9 @@
                 display: inline-block;
                 padding: 30px 20px 20px 20px;
             }
+        }
+        .redFont{
+            color: #D93F37;
         }
     }
 

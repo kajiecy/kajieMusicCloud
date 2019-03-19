@@ -86,7 +86,7 @@
                 <div class="singlist-content dis_table wd100">
                     <!--歌单中歌曲信息展示 start-->
                     <div v-for="(item,index) in singListData.singListArray" :key="index" class="dis_table_row"
-                         @click="pushToPlayer(item.id)">
+                         @click="pushToPlayer(item,index)">
                         <div class="dis_table_cell wd12">{{index+1}}</div>
                         <div class="dis_table_cell">
                             <div class="singlist-content-singname text_clamp1">
@@ -240,8 +240,19 @@
             // }, 1500);
         }
         // 转跳到播放器组件
-        pushToPlayer(singId: any) {
-            this.$router.push({name: "singPlayer", query: {id: singId}});
+        pushToPlayer(item: any,index: number) {
+
+            // 跳转前先将歌单中的歌曲添加到播放列表。
+            // 如果播放列表中没有歌曲 将歌单中的全部歌曲 添加到播放列表中 并添加当前播放歌曲所在下标
+            //
+            if(this._.isEmpty(this.$store.getters.getSongList)){
+                this.$store.commit('setSongList',this.singListData.singListArray);
+                this.$store.commit('setSongListIndex',index);
+            }else {
+                this.$store.commit('addSongList4Index',{songObj:item});
+                // this.$store.commit('setSongListIndex',index);
+            }
+            this.$router.push({name: "singPlayer", query: {id: item.id}});
         }
         // 计算模糊的背景需要形变的量
         get transform() {
@@ -293,9 +304,6 @@
 
     .singlist-header-out {
         height: 820px;
-    }
-
-    .singlist-header {
     }
 
     .singlist-header-fixed {
