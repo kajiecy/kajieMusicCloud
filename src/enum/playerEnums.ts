@@ -7,9 +7,9 @@ export enum activeSongType {
 }
 // 下一首时的循环策略
 export let playingMode = [
-    {modeName:'one',icon:'icon-danquxunhuan'},
-    {modeName:'cycle',icon:'icon-xunhuanbofang'},
-    {modeName:'random',icon:'icon-suiji'},
+    {modeName:'one',icon:'icon-danquxunhuan',describe:'单曲循环'},
+    {modeName:'cycle',icon:'icon-xunhuanbofang',describe:'循环播放'},
+    {modeName:'random',icon:'icon-suiji',describe:'随机播放'},
 ]
 // 播放器就绪状态枚举
 export enum readyStateEnum {

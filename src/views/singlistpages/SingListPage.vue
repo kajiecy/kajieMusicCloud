@@ -247,10 +247,8 @@
             //
             if(this._.isEmpty(this.$store.getters.getSongList)){
                 this.$store.commit('setSongList',this.singListData.singListArray);
-                this.$store.commit('setSongListIndex',index);
             }else {
                 this.$store.commit('addSongList4Index',{songObj:item});
-                // this.$store.commit('setSongListIndex',index);
             }
             this.$router.push({name: "singPlayer", query: {id: item.id}});
         }

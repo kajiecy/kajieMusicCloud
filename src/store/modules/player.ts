@@ -1,6 +1,7 @@
 import * as playerEnums from '@/enum/playerEnums.ts';
 import commonUtils from '@/util/CommonUtil.ts';
-
+import {post} from '@/util/http.ts';
+import remoteState from './remote';
 
 const player = {
     state: {
@@ -69,6 +70,9 @@ const player = {
         getPlayStatus(state: any): any {
             return state.playStatus;
         },
+        getPlayingModeObj(state: any): string {
+            return state.playingMode[state.nowMode] !== null ? state.playingMode[state.nowMode] : {};
+        },
         getPlayingModeIcon(state: any): string {
             return state.playingMode[state.nowMode] !== null ? state.playingMode[state.nowMode].icon : '';
         },
@@ -92,11 +96,45 @@ const player = {
         getSongList(state: any) {
             return state.songList;
         },
-        getSongListIndex(state: any) {
-            return state.songListIndex;
-        },
+
         getHistoryList(state: any) {
             return state.historyList;
+        },
+
+        getSongStep: (state) => (activeType) =>{
+            let resultIndex = state.historyListIndex;
+            if(activeType === playerEnums.activeSongType.next){
+                // 如果小于0说明在历史记录里播放 可以调整下标
+                if(state.historyListIndex<0){
+
+                }
+            }else if(activeType === playerEnums.activeSongType.previous){
+                // 播放上一曲的时候逻辑简单 判断不越界
+                if(state.historyList.length>=(state.historyListIndex*-1)+1){
+                    // 不越界可执行出上一首操作
+                    // 暂停播放器
+                    player.mutations.touchPassButtonEvent(state,{playState:false,isNew:false});
+                    state.historyListIndex = state.historyListIndex-1;
+
+                    console.log('historyListIndex',state.historyList.length);
+                    console.log('Index',state.historyList.length+state.historyListIndex-1);
+                    console.log('',state.historyList[state.historyList.length+state.historyListIndex-1]);
+                    setTimeout(()=>{
+                        post(remoteState.state.getSingInfo,{
+                            id:state.historyList[state.historyList.length+state.historyListIndex-1]
+                        }).then((result: any)=>{
+                            console.log(result.singInfo);
+                            player.mutations.setSingData(state,result.singInfo);
+                            // 播放歌曲
+                            setTimeout(()=>{
+                                player.mutations.touchPassButtonEvent(state,{playState:true,isNew:true});
+                            },500);
+                        });
+                    },500);
+
+                }
+
+            }
         }
     },
     mutations: {
@@ -187,27 +225,10 @@ const player = {
                 if (value.id === songObj.id) repeatIndex = index;
                 return value.id === songObj.id;
             });
-            if (state.songListIndex < state.songList.length && !hasSong) {
-                state.songList.splice(state.songListIndex + 1, 0, songObj);
-                state.songListIndex = state.songListIndex + 1;
-            } else if (hasSong) {
-                state.songListIndex = repeatIndex;
+            if(!hasSong){
+                state.songList.push(songObj);
             }
         },
-        setSongListIndex(state: any, songListIndex: number) {
-            state.songListIndex = songListIndex;
-        },
-        switchSong(state: any, {activeType}){
-            let resultIndex = state.historyListIndex;
-            if(activeType === playerEnums.activeSongType.next){
-                // 如果小于0说明在历史记录里播放 可以调整下标
-                if(state.historyListIndex<0){
-
-                }
-            }else if(activeType === playerEnums.activeSongType.previous){
-
-            }
-        }
     },
 };
 

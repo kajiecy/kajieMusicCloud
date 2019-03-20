@@ -68,7 +68,7 @@
                         <i @click="$store.commit('changePlayMode')" class="iconfont icon-play-model" :class="$store.getters.getPlayingModeIcon"></i>
                     </div>
                     <!--上一首-->
-                    <div class="control-button dis_flax_child textcenter"><i class="iconfont icon-shangyishou"></i></div>
+                    <div class="control-button dis_flax_child textcenter" @click="$store.getters.getSongStep(activeSongType.previous)"><i class="iconfont icon-shangyishou"></i></div>
                     <!--播放/暂停-->
                     <div class="control-button dis_flax_child textcenter">
                         <div class="pass-pause-div" @click="$store.commit('touchPassButtonEvent')">
@@ -104,8 +104,8 @@
                     <div class="dis_table wd100">
                         <div class="dis_table_cell wd90 textleft">
                             <span>
-                                <i class="iconfont icon-suiji"></i>
-                                随机播放(384){{$store.getters.getHistoryList}}
+                                <i @click="$store.commit('changePlayMode')" class="iconfont" :class="$store.getters.getPlayingModeIcon"></i>
+                                {{$store.getters.getPlayingModeObj.describe}}({{$store.getters.getSongList.length}}){{$store.getters.getHistoryList}}
                             </span>
                         </div>
                         <div class="dis_table_cell textcenter"><i class="iconfont icon-lajixiang"></i></div>
@@ -119,9 +119,9 @@
 
                             <div class="inner-table-row">
                                 <div class="dis_table wd100">
-                                    <div class="dis_table_cell wd90 textleft " @click="changSongPlay(item,index)" :class="index === $store.getters.getSongListIndex?'redFont':''">
+                                    <div class="dis_table_cell wd90 textleft " @click="changSongPlay(item,index)" :class="item.id === $store.getters.getSingData.id?'redFont':''">
                                         <div class="text_clamp1">
-                                            <i v-if="index === $store.getters.getSongListIndex" class="iconfont icon-laba"></i>
+                                            <i v-if="item.id === $store.getters.getSingData.id" class="iconfont icon-laba"></i>
                                             {{item.name}}-{{item.singerName}}
                                         </div>
                                     </div>
@@ -181,6 +181,7 @@
         playerCenterShowMode:typeof playerCenterShowMode = playerCenterShowMode;
         // 播放列表的弹窗状态标识
         popupVisible:boolean = false;
+        activeSongType=activeSongType;
 
         // -------------------------      mounted start      -------------------------
         mounted() {
@@ -236,11 +237,10 @@
             }
         }
         changSongPlay(item: any,index: number){
-            if(index !== this.$store.getters.getSongListIndex){
+            if(item.id !== this.$store.getters.getSingData.id){
                 //先暂停当前歌曲
                 // 播放歌曲
                 this.$store.commit('touchPassButtonEvent',{playState:false});
-                this.$store.commit('setSongListIndex',index);
                 setTimeout(()=>{
                     // 请求歌曲信息
                     this.$post(this.$store.state.remote.getSingInfo,{
@@ -248,7 +248,6 @@
                     }).then(result=>{
                         this.$store.commit('setSingData',result.singInfo);
                         // 播放歌曲
-                        this.$store.commit('touchPassButtonEvent');
                         setTimeout(()=>{
                             this.$store.commit('touchPassButtonEvent',{playState:true,isNew:true});
                         },500);
