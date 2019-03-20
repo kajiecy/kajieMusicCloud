@@ -1,4 +1,4 @@
-import {playingMode, readyStateEnum} from '@/enum/playerEnums.ts';
+import * as playerEnums from '@/enum/playerEnums.ts';
 import commonUtils from '@/util/CommonUtil.ts';
 
 
@@ -24,7 +24,7 @@ const player = {
         // 当前的播放模式
         nowMode: 0,
         // 三种播放模式 单曲循环 列表循环 随机播放
-        playingMode,
+        playingMode:playerEnums.playingMode,
         // 播放器的监听器
         playerWatcher: null,
         // 歌曲的播放状态
@@ -46,6 +46,9 @@ const player = {
         // 歌曲的播放列表
         songList: [],
         songListIndex: null,
+        // 歌曲的历史播放记录
+        historyList:[],
+        historyListIndex:0,
     },
     getters: {
         getSingData(state: any): any {
@@ -91,6 +94,9 @@ const player = {
         },
         getSongListIndex(state: any) {
             return state.songListIndex;
+        },
+        getHistoryList(state: any) {
+            return state.historyList;
         }
     },
     mutations: {
@@ -121,23 +127,24 @@ const player = {
         changeLoveStatus(state: any): void {
             state.singData.userLove = !state.singData.userLove;
         },
-        // 播放暂停按钮的处理逻辑 获取audio控件 判断其状态执行 播放或暂停操作
-        touchPassButtonEvent(state: any, playState?: boolean): void {
-            if (state.playerEntity.readyState === readyStateEnum.HAVE_ENOUGH_DATA) {
-                if (playState) {
-                    if (!!playState) {
-                        state.playerEntity.play().then(() => watchPlayingState(true, state.playerEntity, state));
-                    } else {
-                        state.playerEntity.pause();
-                        watchPlayingState(false, state.playerEntity, state);
+        /**
+         * 播放暂停按钮的处理逻辑 获取audio控件 判断其状态执行 播放或暂停操作
+         * @param state 内置对象
+         * @param option
+         *           |- playState 设置下步操作的播放器状态 true:播放 false:暂停 不设置根据 播放器自身状态切换
+         *           |- isNew = null 标识此次播放歌曲是否是首次播放 （首次播放需要处理历史歌单逻辑）
+         */
+        touchPassButtonEvent(state: any, option={playState:null,isNew:null}): void {
+            if (state.playerEntity.readyState === playerEnums.readyStateEnum.HAVE_ENOUGH_DATA) {
+                if ((option && option.playState && !!option.playState) || !!state.playerEntity.paused) {
+                    // 播放时 判断如果是 新载入的歌曲 向历史播放列表中加入 当前歌曲id
+                    if(!!option.isNew){
+                        setHistoryList(state);
                     }
-                } else {
-                    if (!!state.playerEntity.paused) {
-                        state.playerEntity.play().then(() => watchPlayingState(true, state.playerEntity, state));
-                    } else {
-                        state.playerEntity.pause();
-                        watchPlayingState(false, state.playerEntity, state);
-                    }
+                    state.playerEntity.play().then(() => watchPlayingState(true, state.playerEntity, state));
+                } else if((option && option.playState && !option.playState) || !state.playerEntity.paused){
+                    state.playerEntity.pause();
+                    watchPlayingState(false, state.playerEntity, state);
                 }
             }
 
@@ -189,9 +196,29 @@ const player = {
         },
         setSongListIndex(state: any, songListIndex: number) {
             state.songListIndex = songListIndex;
+        },
+        switchSong(state: any, {activeType}){
+            let resultIndex = state.historyListIndex;
+            if(activeType === playerEnums.activeSongType.next){
+                // 如果小于0说明在历史记录里播放 可以调整下标
+                if(state.historyListIndex<0){
+
+                }
+            }else if(activeType === playerEnums.activeSongType.previous){
+
+            }
         }
     },
 };
+
+// 向历史记录中添加一个历史播放信息 并将历史歌单播放的下标归零（标识当前正在播放最新的歌曲）
+function setHistoryList(state: any) {
+    // 历史歌单的添加类似 操作栈 index后面的歌曲一律覆盖或丢弃
+    const realIndex = state.historyList.length+state.historyListIndex;
+    state.historyList.splice(realIndex,state.historyList.length-realIndex+1,state.singData.id)
+    state.historyListIndex = 0;
+}
+
 
 /**
  *

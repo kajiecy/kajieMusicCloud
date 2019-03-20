@@ -105,7 +105,7 @@
                         <div class="dis_table_cell wd90 textleft">
                             <span>
                                 <i class="iconfont icon-suiji"></i>
-                                随机播放(384)
+                                随机播放(384){{$store.getters.getHistoryList}}
                             </span>
                         </div>
                         <div class="dis_table_cell textcenter"><i class="iconfont icon-lajixiang"></i></div>
@@ -125,10 +125,11 @@
                                             {{item.name}}-{{item.singerName}}
                                         </div>
                                     </div>
-                                    <div class="dis_table_cell textcenter"><i class="iconfont icon-guanbi1"></i></div>
+                                    <div class="dis_table_cell textcenter">
+                                        <i class="iconfont icon-guanbi1"></i>
+                                    </div>
                                 </div>
                             </div>
-
                         </template>
                     </kajie-scroll>
                 </div>
@@ -208,12 +209,11 @@
                 this.$post(this.$store.state.remote.getSingInfo,{
                     id:this.$route.query['id']
                 }).then(result=>{
-                    // console.log(result);
                     this.$store.commit('setSingData',result.singInfo);
                     setTimeout(()=>{
-                        this.$store.commit('touchPassButtonEvent');
+                        // 播放歌曲
+                        this.$store.commit('touchPassButtonEvent',{isNew:true});
                     },500)
-                    // 播放歌曲
                 })
             }
         }
@@ -236,25 +236,25 @@
             }
         }
         changSongPlay(item: any,index: number){
-            //先暂停当前歌曲
-            // 播放歌曲
-            this.$store.commit('touchPassButtonEvent',false);
-            this.$store.commit('setSongListIndex',index);
-            setTimeout(()=>{
-                // 请求歌曲信息
-                this.$post(this.$store.state.remote.getSingInfo,{
-                    id:item.id
-                }).then(result=>{
-                    // console.log(result);
-                    this.$store.commit('setSingData',result.singInfo);
-                    // 播放歌曲
-                    this.$store.commit('touchPassButtonEvent');
-
-                    setTimeout(()=>{
-                        this.$store.commit('touchPassButtonEvent',true);
-                    },500);
-                })
-            },500)
+            if(index !== this.$store.getters.getSongListIndex){
+                //先暂停当前歌曲
+                // 播放歌曲
+                this.$store.commit('touchPassButtonEvent',{playState:false});
+                this.$store.commit('setSongListIndex',index);
+                setTimeout(()=>{
+                    // 请求歌曲信息
+                    this.$post(this.$store.state.remote.getSingInfo,{
+                        id:item.id
+                    }).then(result=>{
+                        this.$store.commit('setSingData',result.singInfo);
+                        // 播放歌曲
+                        this.$store.commit('touchPassButtonEvent');
+                        setTimeout(()=>{
+                            this.$store.commit('touchPassButtonEvent',{playState:true,isNew:true});
+                        },500);
+                    })
+                },500)
+            }
         }
         // -------------------------      methods end      -------------------------
         // -------------------------      watchs start      -------------------------

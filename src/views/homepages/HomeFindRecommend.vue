@@ -73,8 +73,7 @@
                 </div>
                 <div class="recommend-body">
                     <div class="recommend-body-item" v-for="(item,key) in recommendSongList" :key="key" @click="push2SingList(item.id)">
-                        <div class="recommend-p">
-                        </div>
+                        <div class="recommend-p"></div>
                         <div class="recommend-body-item-coverimg">
                             <img :src="item.coverImg" width="100%" height="100%">
                         </div>
