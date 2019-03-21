@@ -35,8 +35,25 @@ npm run serve
 npm run build
 ```
 
-## 笔记 ##
+## 展示 ##
+[自制Tabs菜单的过渡动画](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/tabSwitch.md)
 
+
+![image](http://qiniu.kajie88.com/tabsStwitch.gif) <br>
+
+
+---------------------
+[标识 播放状态 的动画图标的展示。](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/cssAnimation.md)
+
+![image](http://qiniu.kajie88.com/tabsStwitch2.gif) <br>
+
+
+### 音乐播放器控件效果展示
+
+![image](http://qiniu.kajie88.com/playerDemo1.gif) <br>
+
+
+![image](http://qiniu.kajie88.com/playerDemo2.gif) <br>
 
 ## 参考文档 ##
 
