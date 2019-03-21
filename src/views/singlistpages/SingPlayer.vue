@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <!--下一首-->
-                    <div class="control-button dis_flax_child textcenter" @click="nextSong()"><i class="iconfont icon-shangyishou rotate180"></i></div>
+                    <div class="control-button dis_flax_child textcenter" @click="$store.getters.getSongStep(activeSongType.next)"><i class="iconfont icon-shangyishou rotate180"></i></div>
                     <!--唤起播放列表弹框-->
                     <div class="control-button dis_flax_child textcenter" @click="operatePopup(true)"><i class="iconfont icon-bofangliebiao"></i></div>
                 </div>
@@ -202,8 +202,8 @@
                 if(!this.$store.getters.getPlayingState){
                     //播放歌曲
                     setTimeout(()=>{
-                        this.$store.commit('touchPassButtonEvent')
-                    },500);
+                        this.$store.commit('touchPassButtonEvent',{isNew:false})
+                    },600);
                 }
             }else {
                 // 请求歌曲信息
@@ -214,7 +214,7 @@
                     setTimeout(()=>{
                         // 播放歌曲
                         this.$store.commit('touchPassButtonEvent',{isNew:true});
-                    },500)
+                    },600)
                 })
             }
         }
@@ -250,9 +250,9 @@
                         // 播放歌曲
                         setTimeout(()=>{
                             this.$store.commit('touchPassButtonEvent',{playState:true,isNew:true});
-                        },500);
+                        },600);
                     })
-                },500)
+                },600)
             }
         }
         // -------------------------      methods end      -------------------------

@@ -102,36 +102,59 @@ const player = {
         },
 
         getSongStep: (state) => (activeType) =>{
-            let resultIndex = state.historyListIndex;
+            const request = (songId?) => {
+                // 暂停播放器
+                player.mutations.touchPassButtonEvent(state,{playState:false,isNew:false});
+                setTimeout(() => {
+                    post(remoteState.state.getSingInfo,{
+                        id:songId?songId:state.historyList[state.historyList.length+state.historyListIndex-1]
+                    }).then((result: any)=>{
+                        // console.log(result.singInfo);
+                        player.mutations.setSingData(state,result.singInfo);
+                        // 播放歌曲
+                        setTimeout(()=>{
+                            player.mutations.touchPassButtonEvent(state,{playState:true,isNew:!!songId});
+                        },600);
+                    });
+                },600);
+            };
             if(activeType === playerEnums.activeSongType.next){
-                // 如果小于0说明在历史记录里播放 可以调整下标
+                // 如果小于0说明在历史记录里播放 可以调整下标播放 历史记录里的歌曲
                 if(state.historyListIndex<0){
+                    state.historyListIndex = state.historyListIndex+1;
+                    request();
+                }else {
+
+                    let nowPlayIndex = 0;
+                    // 根据id找到 当前播放歌曲在歌单中的下标
+                    const hasSong = state.songList.some((value, index) => {
+                        if (value.id === state.singData.id) nowPlayIndex = index;
+                        return value.id === state.singData.id;
+                    });
+                    if(hasSong){
+                        // 如果没有进人历史播放模式 先判断当前用户的 播放模式
+                        if(playerEnums.playingMode[2].modeName === playerEnums.playingMode[state.nowMode].modeName){
+                            request(state.songList[_.random(0,state.songList.length-1)].id);
+                        }else {
+                            if(++nowPlayIndex>=state.songList.length){
+                                nowPlayIndex = 0;
+                            }
+                            request(state.songList[nowPlayIndex].id);
+                        }
+                    }else {
+                        // 没有找到歌曲的异常处理，一般不会出现此情况
+                        // todo 没有找到歌曲的异常处理，一般不会出现此情况
+                        console.log('没有找到歌曲的异常处理，一般不会出现此情况');
+                    }
+
 
                 }
             }else if(activeType === playerEnums.activeSongType.previous){
                 // 播放上一曲的时候逻辑简单 判断不越界
-                if(state.historyList.length>=(state.historyListIndex*-1)+1){
+                if(state.historyList.length>(state.historyListIndex*-1)+1){
                     // 不越界可执行出上一首操作
-                    // 暂停播放器
-                    player.mutations.touchPassButtonEvent(state,{playState:false,isNew:false});
                     state.historyListIndex = state.historyListIndex-1;
-
-                    console.log('historyListIndex',state.historyList.length);
-                    console.log('Index',state.historyList.length+state.historyListIndex-1);
-                    console.log('',state.historyList[state.historyList.length+state.historyListIndex-1]);
-                    setTimeout(()=>{
-                        post(remoteState.state.getSingInfo,{
-                            id:state.historyList[state.historyList.length+state.historyListIndex-1]
-                        }).then((result: any)=>{
-                            console.log(result.singInfo);
-                            player.mutations.setSingData(state,result.singInfo);
-                            // 播放歌曲
-                            setTimeout(()=>{
-                                player.mutations.touchPassButtonEvent(state,{playState:true,isNew:true});
-                            },500);
-                        });
-                    },500);
-
+                    request();
                 }
 
             }
