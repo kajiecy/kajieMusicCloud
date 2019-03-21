@@ -119,36 +119,7 @@ const player = {
                 },600);
             };
             if(activeType === playerEnums.activeSongType.next){
-                // 如果小于0说明在历史记录里播放 可以调整下标播放 历史记录里的歌曲
-                if(state.historyListIndex<0){
-                    state.historyListIndex = state.historyListIndex+1;
-                    request();
-                }else {
-
-                    let nowPlayIndex = 0;
-                    // 根据id找到 当前播放歌曲在歌单中的下标
-                    const hasSong = state.songList.some((value, index) => {
-                        if (value.id === state.singData.id) nowPlayIndex = index;
-                        return value.id === state.singData.id;
-                    });
-                    if(hasSong){
-                        // 如果没有进人历史播放模式 先判断当前用户的 播放模式
-                        if(playerEnums.playingMode[2].modeName === playerEnums.playingMode[state.nowMode].modeName){
-                            request(state.songList[_.random(0,state.songList.length-1)].id);
-                        }else {
-                            if(++nowPlayIndex>=state.songList.length){
-                                nowPlayIndex = 0;
-                            }
-                            request(state.songList[nowPlayIndex].id);
-                        }
-                    }else {
-                        // 没有找到歌曲的异常处理，一般不会出现此情况
-                        // todo 没有找到歌曲的异常处理，一般不会出现此情况
-                        console.log('没有找到歌曲的异常处理，一般不会出现此情况');
-                    }
-
-
-                }
+                changPlayNextSong(state,true);
             }else if(activeType === playerEnums.activeSongType.previous){
                 // 播放上一曲的时候逻辑简单 判断不越界
                 if(state.historyList.length>(state.historyListIndex*-1)+1){
@@ -255,6 +226,57 @@ const player = {
     },
 };
 
+function changPlayNextSong(state: any,isUserTrigger: boolean){
+    const request = (songId?) => {
+        // 暂停播放器
+        player.mutations.touchPassButtonEvent(state,{playState:false,isNew:false});
+        setTimeout(() => {
+            post(remoteState.state.getSingInfo,{
+                id:songId?songId:state.historyList[state.historyList.length+state.historyListIndex-1]
+            }).then((result: any)=>{
+                // console.log(result.singInfo);
+                player.mutations.setSingData(state,result.singInfo);
+                // 播放歌曲
+                setTimeout(()=>{
+                    player.mutations.touchPassButtonEvent(state,{playState:true,isNew:!!songId});
+                },600);
+            });
+        },600);
+    };
+    // 如果小于0说明在历史记录里播放 可以调整下标播放 历史记录里的歌曲
+    if(state.historyListIndex<0){
+        state.historyListIndex = state.historyListIndex+1;
+        request();
+    }else {
+
+        let nowPlayIndex = 0;
+        // 根据id找到 当前播放歌曲在歌单中的下标
+        const hasSong = state.songList.some((value, index) => {
+            if (value.id === state.singData.id) nowPlayIndex = index;
+            return value.id === state.singData.id;
+        });
+        if(hasSong){
+            if(playerEnums.playingMode[2].modeName === playerEnums.playingMode[state.nowMode].modeName){
+                // 随机播放逻辑
+                request(state.songList[_.random(0,state.songList.length-1)].id);
+            }else {
+                if(isUserTrigger||playerEnums.playingMode[1].modeName === playerEnums.playingMode[state.nowMode].modeName){
+                    // 循环播放逻辑
+                    if(++nowPlayIndex>=state.songList.length){
+                        nowPlayIndex = 0;
+                    }
+                }
+                // 单曲循环播放
+                request(state.songList[nowPlayIndex].id);
+            }
+        }else {
+            // 没有找到歌曲的异常处理，一般不会出现此情况
+            // todo 没有找到歌曲的异常处理，一般不会出现此情况
+            console.log('没有找到歌曲的异常处理，一般不会出现此情况');
+        }
+    }
+}
+
 // 向历史记录中添加一个历史播放信息 并将历史歌单播放的下标归零（标识当前正在播放最新的歌曲）
 function setHistoryList(state: any) {
     // 历史歌单的添加类似 操作栈 index后面的歌曲一律覆盖或丢弃
@@ -283,9 +305,10 @@ function watchPlayingState(newValue: boolean, playerEntity: any, state: any): vo
             state.playStatus.sumTimeNum = playerEntity.duration;
             // 当前歌曲是否结束
             state.playStatus.ended = playerEntity.ended;
-
             if (!!state.playStatus.ended) {
+                // 检测到播放结束 先关闭播放器
                 watchPlayingState(false, state.playerEntity, state);
+                changPlayNextSong(state,false);
             }
             // 根据播放时间，移动进度条
             changeProgress(state);

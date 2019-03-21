@@ -105,7 +105,7 @@
                         <div class="dis_table_cell wd90 textleft">
                             <span>
                                 <i @click="$store.commit('changePlayMode')" class="iconfont" :class="$store.getters.getPlayingModeIcon"></i>
-                                {{$store.getters.getPlayingModeObj.describe}}({{$store.getters.getSongList.length}}){{$store.getters.getHistoryList}}
+                                {{$store.getters.getPlayingModeObj.describe}}({{$store.getters.getSongList.length}})
                             </span>
                         </div>
                         <div class="dis_table_cell textcenter"><i class="iconfont icon-lajixiang"></i></div>
@@ -116,7 +116,6 @@
                 <div class="popup-inner">
                     <kajie-scroll class="popup-scroll">
                         <template v-for="(item,index) in $store.getters.getSongList">
-
                             <div class="inner-table-row">
                                 <div class="dis_table wd100">
                                     <div class="dis_table_cell wd90 textleft " @click="changSongPlay(item,index)" :class="item.id === $store.getters.getSingData.id?'redFont':''">
