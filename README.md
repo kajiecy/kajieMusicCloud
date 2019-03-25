@@ -47,15 +47,19 @@ npm run build
 [标识 播放状态 的动画图标的展示。](https://github.com/kajiecy/kajieMusicCloud/blob/master/document/cssAnimation.md)
 
 ![image](http://qiniu.kajie88.com/tabsStwitch2.gif) <br>
+http://qiniu.kajie88.com/tabsStwitch2.gif
 
 
 ### 音乐播放器控件效果展示
 
 ![image](http://qiniu.kajie88.com/playerDemo1.gif) <br>
+http://qiniu.kajie88.com/playerDemo1.gif
 
 
 
 ![image](http://qiniu.kajie88.com/playerDemo2.gif) <br>
+http://qiniu.kajie88.com/playerDemo2.gif
+
 
 ## 参考文档 ##
 
