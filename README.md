@@ -54,6 +54,7 @@ npm run build
 ![image](http://qiniu.kajie88.com/playerDemo1.gif) <br>
 
 
+
 ![image](http://qiniu.kajie88.com/playerDemo2.gif) <br>
 
 ## 参考文档 ##
